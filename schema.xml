@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="style.xml"?>
+
+<sensors project="Ibis" date="Tue Jun 28 12:09:23 CEST 2005"> 
+<onoff>
+<sensor id="build_ok" name="Build Ok" cmd="ant -f /home1/codmon/ibis/build.xml" scope="ibis/src" complete="true" returnValue="0">
+<test name="Time" value="76" unit="s"/>
+</sensor>
+<sensor id="appsbuild_ok" name="Apps Ok" cmd="../bin/ant -f ../apps/build.xml" scope="../apps" complete="true" returnValue="0">
+<test name="Time" value="18" unit="s"/>
+</sensor>
+</onoff>
+<graph>
+<sensor id="nocom" name="Nocom benchs" cmd="ant ..." scope="ibis/src"/ complete="true" returnValue="0">
+<test name="Throughput" value="76000" unit="Bytes/s"/>
+</graph>
+</sensors>
