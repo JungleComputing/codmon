@@ -1,9 +1,10 @@
-/* $Id: StoreArrayOutputStream.java,v 1.3 2007/06/05 12:54:02 ceriel Exp $ */
+/* $Id: StoreArrayOutputStream.java 13680 2011-10-04 14:01:10Z ceriel $ */
 
 
 import ibis.io.DataOutputStream;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 final class StoreArrayOutputStream extends DataOutputStream {
 
@@ -114,5 +115,9 @@ final class StoreArrayOutputStream extends DataOutputStream {
 
     public void resetBytesWritten() {
         buf.resetBytesWritten();
+    }
+
+    public void writeByteBuffer(ByteBuffer arg0) throws IOException {
+        buf.writeByteBuffer(arg0);
     }
 }

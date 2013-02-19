@@ -1,9 +1,10 @@
-/* $Id: NullArrayOutputStream.java,v 1.3 2007/06/05 12:54:02 ceriel Exp $ */
+/* $Id: NullArrayOutputStream.java 13680 2011-10-04 14:01:10Z ceriel $ */
 
 
 import ibis.io.DataOutputStream;
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
 
 final class NullArrayOutputStream extends DataOutputStream {
 
@@ -118,5 +119,9 @@ final class NullArrayOutputStream extends DataOutputStream {
 
     public final long bytesWritten() {
         return len;
+    }
+
+    public void writeByteBuffer(ByteBuffer b) throws IOException {
+        len += b.limit() - b.position();
     }
 }
