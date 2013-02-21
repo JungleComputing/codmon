@@ -1,10 +1,12 @@
 #! /bin/sh
+DIR=`pwd`
 echo run-ibis "$@"
 while :
 do
 	case $1 in
 	-c)
 	    arg="$arg -c $2"
+	    DIR=$2
 	    shift
 	    shift
 	    ;;
@@ -27,14 +29,14 @@ CLASSPATH=""
 add_to_libclasspath () {
     JARFILES=`cd "$1" && ls *.jar 2>/dev/null`
     for i in ${JARFILES} ; do
-        if [ -z "$LIBCLASSPATH" ] ; then
+        if [ -z "$CLASSPATH" ] ; then
             CLASSPATH="$1/$i"
         else
-            CLASSPATH="$LIBCLASSPATH:$1/$i"
+            CLASSPATH="$CLASSPATH:$1/$i"
         fi
     done
 }
 
-add_to_libclasspath lib
+add_to_libclasspath $DIR/lib
 
 prun $arg PATH="$PATH" CLASSPATH="$CLASSPATH" -v -1 ibis-prun $nbnodes -server "$@"

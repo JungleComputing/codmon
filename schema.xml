@@ -3,7 +3,7 @@
 
 <sensors project="Ibis" date="Tue Jun 28 12:09:23 CEST 2005"> 
 <onoff>
-<sensor id="build_ok" name="Build Ok" cmd="ant -f /home1/codmon/ibis/build.xml" scope="ibis/src" complete="true" returnValue="0">
+    <sensor id="build_ok" name="Build Ok" cmd="ant -f CODMON_HOME/ibis/build.xml" scope="ibis/src" complete="true" returnValue="0">
 <test name="Time" value="76" unit="s"/>
 </sensor>
 <sensor id="appsbuild_ok" name="Apps Ok" cmd="../bin/ant -f ../apps/build.xml" scope="../apps" complete="true" returnValue="0">

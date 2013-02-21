@@ -3,190 +3,190 @@
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:output 
-  method="html"
-  encoding="ISO-8859-1"
-  doctype-public="-//W3C//DTD HTML 4.01//EN"
-  doctype-system="http://www.w3.org/TR/html4/strict.dtd"
-  indent="yes" />
+    <xsl:output 
+	method="html"
+	encoding="ISO-8859-1"
+	doctype-public="-//W3C//DTD HTML 4.01//EN"
+	doctype-system="http://www.w3.org/TR/html4/strict.dtd"
+	indent="yes" />
 
-<xsl:template match="/">
-
-
-  <html>
-<title>Ibis Shot, All In 1</title>
-  <body link="#000000" alink="#000000" vlink="#000000"><font size="-1">
-
-    <h1>Ibis Shot, <font color="grey">All In 1</font>: <xsl:value-of select="document('shot-tcp.xml')/sensors/@date"/></h1>
-<a href="../doc/user">User doc</a> | <a href="../doc/quickstart">QuickStart guide</a><br/>
-<table border="0" width="75%"><tr><td width="50%">
-<table border="1" width="100%"><tr bgcolor="#f0f0f0">
-<td align="center">
-<b>Today</b>
-</td>
-<td align="center">
-<b>Day -1</b>
-</td>
-<td align="center">
-<b>Day -2</b>
-</td>
-<td align="center">
-<b>Day -3</b>
-</td>
-</tr><tr>
-<td>
-<ul>
-<li><a href="../dday/shot-basics.xml">Basics</a></li>
-<li><a href="../dday/shot-tcp.xml">TCP</a></li>
-<li><a href="../dday/allin1.xml">All In 1</a></li>
-</ul>
-</td>
-<td>
-<ul>
-<li><a href="../day1/shot-basics.xml">Basics</a></li>
-<li><a href="../day1/shot-tcp.xml">TCP</a></li>
-<li><a href="../day1/allin1.xml">All In 1</a></li>
-</ul>
-</td>
-<td>
-<ul>
-<li><a href="../day2/shot-basics.xml">Basics</a></li>
-<li><a href="../day2/shot-tcp.xml">TCP</a></li>
-<li><a href="../day2/allin1.xml">All In 1</a></li>
-</ul>
-</td>
-<td>
-<ul>
-<li><a href="../day3/shot-basics.xml">Basics</a></li>
-<li><a href="../day3/shot-tcp.xml">TCP</a></li>
-<li><a href="../day3/allin1.xml">All In 1</a></li>
-</ul>
-</td>
-</tr></table>
-</td>
-<td width="10%">
-<a href="../libs/cod.png"><img border="0" src="../libs/cod.png" width="100%"/></a>
-</td>
-<td>
-<table border="1"><tr bgcolor="#f0f0f0">
-<th align="center">Test</th><th align="center">Result</th></tr>
-
-<xsl:for-each select="document('shot-basics.xml')/sensors/onoff/sensor" >
-<xsl:choose>
-
-<xsl:when test="@id = 'part'">
-<tr><td colspan="2" align="center"><font size="+1"><xsl:value-of select="@name" /></font></td></tr>
-</xsl:when>
-
-<xsl:when test="@id = 'separator'">
-<tr><td colspan="2" align="center"><xsl:value-of select="@name" /></td></tr>
-</xsl:when>
-
-<xsl:otherwise>
-<tr><td><xsl:value-of select="@name" /></td>
-<xsl:call-template name="item">
-<xsl:with-param name="node" select="." />
-<xsl:with-param name="file">basics</xsl:with-param>
-</xsl:call-template>
-</tr>
-</xsl:otherwise>
-</xsl:choose>
-</xsl:for-each>
-</table>
-</td></tr>
-</table>
-
-<br/><br/>
-
-<table border="1"><tr bgcolor="#f0f0f0">
-<th align="center">Test</th><th align="center">TCP</th></tr>
-
-<xsl:call-template name="tab">
-<xsl:with-param name="nodes1" select="document('shot-tcp.xml')/sensors/onoff/*" />
-</xsl:call-template>
-
-</table>
-
-  </font></body>
-  </html>
-</xsl:template>
+    <xsl:template match="/">
 
 
+	<html>
+	    <title>Ibis Shot, All In 1</title>
+	    <body link="#000000" alink="#000000" vlink="#000000"><font size="-1">
 
-<xsl:template name="tab">
-   <xsl:param name="nodes1" />
+		    <h1>Ibis Shot, <font color="grey">All In 1</font>: <xsl:value-of select="document('shot-tcp.xml')/sensors/@date"/></h1>
+		    <a href="../doc/user">User doc</a> | <a href="../doc/quickstart">QuickStart guide</a><br/>
+		    <table border="0" width="75%"><tr><td width="50%">
+				<table border="1" width="100%"><tr bgcolor="#f0f0f0">
+					<td align="center">
+					    <b>Today</b>
+					</td>
+					<td align="center">
+					    <b>Day -1</b>
+					</td>
+					<td align="center">
+					    <b>Day -2</b>
+					</td>
+					<td align="center">
+					    <b>Day -3</b>
+					</td>
+					</tr><tr>
+					<td>
+					    <ul>
+						<li><a href="../dday/shot-basics.xml">Basics</a></li>
+						<li><a href="../dday/shot-tcp.xml">TCP</a></li>
+						<li><a href="../dday/allin1.xml">All In 1</a></li>
+					    </ul>
+					</td>
+					<td>
+					    <ul>
+						<li><a href="../day1/shot-basics.xml">Basics</a></li>
+						<li><a href="../day1/shot-tcp.xml">TCP</a></li>
+						<li><a href="../day1/allin1.xml">All In 1</a></li>
+					    </ul>
+					</td>
+					<td>
+					    <ul>
+						<li><a href="../day2/shot-basics.xml">Basics</a></li>
+						<li><a href="../day2/shot-tcp.xml">TCP</a></li>
+						<li><a href="../day2/allin1.xml">All In 1</a></li>
+					    </ul>
+					</td>
+					<td>
+					    <ul>
+						<li><a href="../day3/shot-basics.xml">Basics</a></li>
+						<li><a href="../day3/shot-tcp.xml">TCP</a></li>
+						<li><a href="../day3/allin1.xml">All In 1</a></li>
+					    </ul>
+					</td>
+				</tr></table>
+			    </td>
+			    <td width="10%">
+				<a href="../libs/cod.png"><img border="0" src="../libs/cod.png" width="100%"/></a>
+			    </td>
+			    <td>
+				<table border="1"><tr bgcolor="#f0f0f0">
+					<th align="center">Test</th><th align="center">Result</th></tr>
 
-   <xsl:choose>
-      <!-- Is $nodes1 empty? -->
-      <xsl:when test="count($nodes1)=0" />
+				    <xsl:for-each select="document('shot-basics.xml')/sensors/onoff/sensor" >
+					<xsl:choose>
 
-      <xsl:otherwise>
+					    <xsl:when test="@id = 'part'">
+						<tr><td colspan="2" align="center"><font size="+1"><xsl:value-of select="@name" /></font></td></tr>
+					    </xsl:when>
 
+					    <xsl:when test="@id = 'separator'">
+						<tr><td colspan="2" align="center"><xsl:value-of select="@name" /></td></tr>
+					    </xsl:when>
 
-       <xsl:variable name="first1" select="$nodes1[1]" />
-         <xsl:variable name="rest1" select="$nodes1[position()!=1]" />
+					    <xsl:otherwise>
+						<tr><td><xsl:value-of select="@name" /></td>
+						    <xsl:call-template name="item">
+							<xsl:with-param name="node" select="." />
+							<xsl:with-param name="file">basics</xsl:with-param>
+						    </xsl:call-template>
+						</tr>
+					    </xsl:otherwise>
+					</xsl:choose>
+				    </xsl:for-each>
+				</table>
+			</td></tr>
+		    </table>
 
-<xsl:choose>
+		    <br/><br/>
 
-<xsl:when test="$first1/@id = 'part'">
-<tr><td colspan="2" align="center"><font size="+1"><xsl:value-of select="$first1/@name" /></font></td></tr>
-<xsl:call-template name="tab">
-<xsl:with-param name="nodes1" select="$rest1" />
-</xsl:call-template>
-</xsl:when>
+		    <table border="1"><tr bgcolor="#f0f0f0">
+			    <th align="center">Test</th><th align="center">TCP</th></tr>
 
-<xsl:when test="$first1/@id = 'separator'">
-<tr><td colspan="2" align="center"><xsl:value-of select="$first1/@name" /></td></tr>
-<xsl:call-template name="tab">
-<xsl:with-param name="nodes1" select="$rest1" />
-</xsl:call-template>
-</xsl:when>
+			<xsl:call-template name="tab">
+			    <xsl:with-param name="nodes1" select="document('shot-tcp.xml')/sensors/onoff/*" />
+			</xsl:call-template>
 
+		    </table>
 
-<xsl:otherwise>
-<tr><td><xsl:value-of select="$first1/@name"/></td>
+	    </font></body>
+	</html>
+    </xsl:template>
 
 
 
-<xsl:call-template name="item">
-<xsl:with-param name="node" select="$first1" />
-<xsl:with-param name="file">tcp</xsl:with-param>
-</xsl:call-template>
+    <xsl:template name="tab">
+	<xsl:param name="nodes1" />
 
-</tr>
+	<xsl:choose>
+	    <!-- Is $nodes1 empty? -->
+	    <xsl:when test="count($nodes1)=0" />
 
-<xsl:call-template name="tab">
-<xsl:with-param name="nodes1" select="$rest1" />
-</xsl:call-template>
-</xsl:otherwise>
-</xsl:choose>
-</xsl:otherwise>
-</xsl:choose>
-
-<!--
-<xsl:for-each select="$nodes1" >
-<xsl:value-of select="@name"/>
-</xsl:for-each>
--->
-</xsl:template>
+	    <xsl:otherwise>
 
 
-<xsl:template name="item">
- <xsl:param name="node"/>
- <xsl:param name="file"/>
+		<xsl:variable name="first1" select="$nodes1[1]" />
+		<xsl:variable name="rest1" select="$nodes1[position()!=1]" />
+
+		<xsl:choose>
+
+		    <xsl:when test="$first1/@id = 'part'">
+			<tr><td colspan="2" align="center"><font size="+1"><xsl:value-of select="$first1/@name" /></font></td></tr>
+			<xsl:call-template name="tab">
+			    <xsl:with-param name="nodes1" select="$rest1" />
+			</xsl:call-template>
+		    </xsl:when>
+
+		    <xsl:when test="$first1/@id = 'separator'">
+			<tr><td colspan="2" align="center"><xsl:value-of select="$first1/@name" /></td></tr>
+			<xsl:call-template name="tab">
+			    <xsl:with-param name="nodes1" select="$rest1" />
+			</xsl:call-template>
+		    </xsl:when>
 
 
-<xsl:choose>
-<xsl:when test="$node/@enabled = 'false'">
-<td bgcolor="orange" align="center" >Disabled</td>
-</xsl:when>
-<xsl:when test="$node/@returnValue = 0">
-<td bgcolor="green" align="center">OK</td>
-</xsl:when>
-<xsl:otherwise>
-<td bgcolor="red" align="center"><a href="{concat('shot-',$file,'.xml#',$node/@id)}">Failed</a></td>
-</xsl:otherwise>
-</xsl:choose>
+		    <xsl:otherwise>
+			<tr><td><xsl:value-of select="$first1/@name"/></td>
 
-</xsl:template>
+
+
+			    <xsl:call-template name="item">
+				<xsl:with-param name="node" select="$first1" />
+				<xsl:with-param name="file">tcp</xsl:with-param>
+			    </xsl:call-template>
+
+			</tr>
+
+			<xsl:call-template name="tab">
+			    <xsl:with-param name="nodes1" select="$rest1" />
+			</xsl:call-template>
+		    </xsl:otherwise>
+		</xsl:choose>
+	    </xsl:otherwise>
+	</xsl:choose>
+
+	<!--
+	<xsl:for-each select="$nodes1" >
+	    <xsl:value-of select="@name"/>
+	</xsl:for-each>
+	-->
+    </xsl:template>
+
+
+    <xsl:template name="item">
+	<xsl:param name="node"/>
+	<xsl:param name="file"/>
+
+
+	<xsl:choose>
+	    <xsl:when test="$node/@enabled = 'false'">
+		<td bgcolor="orange" align="center" >Disabled</td>
+	    </xsl:when>
+	    <xsl:when test="$node/@returnValue = 0">
+		<td bgcolor="green" align="center">OK</td>
+	    </xsl:when>
+	    <xsl:otherwise>
+		<td bgcolor="red" align="center"><a href="{concat('shot-',$file,'.xml#',$node/@id)}">Failed</a></td>
+	    </xsl:otherwise>
+	</xsl:choose>
+
+    </xsl:template>
 </xsl:stylesheet>

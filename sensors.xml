@@ -22,23 +22,23 @@
 <sensor id="part" name="Com benchmarks (tp-javagrande02)"/>
 <!-- Ibis serial -->
 
-<sensor id="through-array-ibis-${ibis.implementation}" name="Throughput Bench with Ibis serialization" cmd="/home1/codmon/codmon/wrappers/run-ibis -c /home1/codmon/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=${ibis.implementation} Main -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
+<sensor id="through-array-ibis-${ibis.implementation}" name="Throughput Bench with Ibis serialization" cmd="CODMON_HOME/codmon/wrappers/run-ibis -c CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=${ibis.implementation} Main -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
 
 <!-- Sun serial -->
 
-<sensor id="through-array-sun-${ibis.implementation}" name="Throughput Bench with Sun serialization" cmd="/home1/codmon/codmon/wrappers/run-ibis -c /home1/codmon/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=${ibis.implementation} Main -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
+<sensor id="through-array-sun-${ibis.implementation}" name="Throughput Bench with Sun serialization" cmd="CODMON_HOME/codmon/wrappers/run-ibis -c CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=${ibis.implementation} Main -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
 
 <!-- Upcalls -->
 
-<sensor id="through-array-ibis-${ibis.implementation}-upcalls" name="Throughput Bench with upcalls" cmd="/home1/codmon/codmon/wrappers/run-ibis -c /home1/codmon/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=${ibis.implementation} Main -upcalls -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
+<sensor id="through-array-ibis-${ibis.implementation}-upcalls" name="Throughput Bench with upcalls" cmd="CODMON_HOME/codmon/wrappers/run-ibis -c CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=${ibis.implementation} Main -upcalls -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
 
 <!-- Stream -->
 
-<sensor id="through-array-ibis-${ibis.implementation}-stream" name="Throughput Bench with stream" cmd="/home1/codmon/codmon/wrappers/run-ibis -c /home1/codmon/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=${ibis.implementation} Main -stream -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
+<sensor id="through-array-ibis-${ibis.implementation}-stream" name="Throughput Bench with stream" cmd="CODMON_HOME/codmon/wrappers/run-ibis -c CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=${ibis.implementation} Main -stream -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
 
 <!-- Twoway -->
 
-<sensor id="through-array-ibis-${ibis.implementation}-twoway" name="Throughput Bench with twoway" cmd="/home1/codmon/codmon/wrappers/run-ibis -c /home1/codmon/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=${ibis.implementation} Main -twoway -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
+<sensor id="through-array-ibis-${ibis.implementation}-twoway" name="Throughput Bench with twoway" cmd="CODMON_HOME/codmon/wrappers/run-ibis -c CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=${ibis.implementation} Main -twoway -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
 
 </graph>
 </sensors>

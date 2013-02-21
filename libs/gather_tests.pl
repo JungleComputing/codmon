@@ -15,7 +15,9 @@ open (OUTPUT, "$ARGV[0].xml") or die "You must specify an existing baseConfig !"
 my @source = <OUTPUT>;
 close OUTPUT;
 
-open (IGNOREDIRS, "/home1/codmon/codmon/local/ignoredirs") or die "Couldn't find the ignore file";
+my $codmonhome = $ENV{'CODMON_HOME'};
+
+open (IGNOREDIRS, "$codmonhome/codmon/local/ignoredirs") or die "Couldn't find the ignore file";
 my @ignoredirs = <IGNOREDIRS>;
 close (IGNOREDIRS);
 foreach my $ignored (@ignoredirs) {
@@ -83,7 +85,8 @@ sub loopDir {
 	      $wrapper = `cat $dir/.codmon_wrapper`;
 	  }
 
-	  $location =~ s/\/home1\/codmon\/(.*)\/\.codmon/$1/;
+	  $location =~ m{$codmonhome/(.*)/\.codmon};
+	  $location = $1;
 #	  $location =~ s/\//_/g;
 #	  print $location."\n";
 	  open (FILE, $newdir);

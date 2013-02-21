@@ -2,9 +2,9 @@
 
 # Simple script to checkout the last Ibis version
 
-if [ $PWD != "/home1/codmon" ]
+if [ $PWD != "$CODMON_HOME" ]
     then
-    echo "Must be run in /home1/codmon !"
+    echo "Must be run in $CODMON_HOME !"
     exit 1
 fi
 for i in ibis ibis-rmi ibis-gmi ibis-mpj satin

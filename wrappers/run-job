@@ -8,10 +8,10 @@ CLASSPATH=""
 add_to_libclasspath () {
     JARFILES=`cd "$1" && ls *.jar 2>/dev/null`
     for i in ${JARFILES} ; do
-        if [ -z "$LIBCLASSPATH" ] ; then
+        if [ -z "$CLASSPATH" ] ; then
             CLASSPATH="$1/$i"
         else
-            CLASSPATH="$LIBCLASSPATH:$1/$i"
+            CLASSPATH="$CLASSPATH:$1/$i"
         fi
     done
 }

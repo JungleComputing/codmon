@@ -3,25 +3,25 @@
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
-<xsl:template match="/">
+    <xsl:template match="/">
 
 
-  <html>
-<title>Ibis Shot</title>
-  <body>
+	<html>
+	    <title>Ibis Shot</title>
+	    <body>
 
-    <h1>Ibis Shot : <xsl:value-of select="sensor/@date"/></h1>
-<h3>Detail of <xsl:value-of select="sensor/@name"/></h3>
-<xsl:variable name="pic"><xsl:value-of select="sensor/@id"/></xsl:variable>
-<img><xsl:attribute name="src"><xsl:value-of select="concat($pic,'-S.png')"/></xsl:attribute></img>
+		<h1>Ibis Shot : <xsl:value-of select="sensor/@date"/></h1>
+		<h3>Detail of <xsl:value-of select="sensor/@name"/></h3>
+		<xsl:variable name="pic"><xsl:value-of select="sensor/@id"/></xsl:variable>
+		<img><xsl:attribute name="src"><xsl:value-of select="concat($pic,'-S.png')"/></xsl:attribute></img>
 
-<img><xsl:attribute name="src"><xsl:value-of select="concat($pic,'-L.png')"/></xsl:attribute></img>
-
-
+		<img><xsl:attribute name="src"><xsl:value-of select="concat($pic,'-L.png')"/></xsl:attribute></img>
 
 
-  </body>
-  </html>
-</xsl:template>
+
+
+	    </body>
+	</html>
+    </xsl:template>
 
 </xsl:stylesheet>

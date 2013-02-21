@@ -16,6 +16,8 @@ chomp($class);
 
 $class =~ s/^(.*?\s)*?([0-9a-zA-Z_.]*)(\s.*$|$)/$2/;
 
+my $codmonhome = $ENV{'CODMON_HOME'};
+
 #print $class."\n";
 #exit;
 
@@ -31,7 +33,7 @@ if (!(-e "$dir/$class.out.sample")) {
     $new = 1;
 }
 
-my $cmd = "perl /home1/codmon/codmon/wrappers/outcmp_wrapper.pl $localdir $dir/$class.out.sample /home1/codmon/codmon/wrappers/run-ibis  $nbnodes $runargs"; 
+my $cmd = "perl $codmonhome/codmon/wrappers/outcmp_wrapper.pl $localdir $dir/$class.out.sample $codmonhome/codmon/wrappers/run-ibis  $nbnodes $runargs"; 
 #print $cmd."\n";
 `$cmd`;
 
