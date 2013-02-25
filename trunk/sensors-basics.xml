@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="libs/style.xml"?>
+
+<sensors>
+<onoff>
+<!-- Ibis Build process -->
+<sensor id="part" name="Ibis: build process"/>
+
+<sensor id="update_ok" name="SVN checkout" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME sh codmon/local/cvsup.sh" scope="ibis" scheduled="false" graph="true" fatal="true" />
+
+<sensor id="build_ok" name="Build Ibis" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/ibis ../bin/ant" scope="ibis" scheduled="false" graph="true" fatal="true" />
+
+<sensor id="build_mpj_ok" name="Build Ibis MPJ" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/ibis-mpj ../bin/ant build-external-ipl" scope="ibis" scheduled="false" graph="true" fatal="true" />
+
+<sensor id="build_rmi_ok" name="Build Ibis RMI" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/ibis-rmi ../bin/ant build-external-ipl" scope="ibis" scheduled="false" graph="true" fatal="true" />
+
+<sensor id="build_gmi_ok" name="Build Ibis GMI" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/ibis-gmi ../bin/ant build-external-ipl" scope="ibis" scheduled="false" graph="true" fatal="true" />
+
+<sensor id="build_satin_ok" name="Build Ibis Satin" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/satin ../bin/ant build-external-ipl" scope="ibis" scheduled="false" graph="true" fatal="true" />
+
+<sensor id="build_tests" name="Build test apps" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/ibis-apps ../bin/ant" scope="ibis" scheduled="false" graph="true" fatal="true" />
+
+<sensor id="build_ipl-apps" name="Build IPL apps" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/ipl-apps ../bin/ant" scope="ibis" scheduled="false" graph="true" fatal="true" />
+
+<sensor id="build_nocom_tests" name="Build nocom test app" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/codmon/apps/io/nocom ../../../../bin/ant" scope="ibis" scheduled="false" graph="true" fatal="true" />
+
+<sensor id="build_JavaGrande_tests" name="Build javagrande test app" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 ../../../../bin/ant" scope="ibis" scheduled="false" graph="true" fatal="true" />
+
+</onoff>
+
+<graph>
+<!-- Nocom -->
+<sensor id="part" name="Nocom benchmarks"/>
+<!-- serialization : read - double -->
+<sensor id="separator" name="Serialization : Read"/>
+<sensor id="nocom-ibis-read" name="Nocom Benchmarks with Ibis serialization - Read" cmd="CODMON_HOME/codmon/wrappers/run-ibis -o out1 -c CODMON_HOME/codmon/apps/io/nocom 1 -Xmx64M -Xms64M Main -read -noconv -ibis -double -t 50 -c 1000 -s 2048 1048576" scope="ibis/src" scheduled="true"/>
+<sensor id="nocom-ibis-read-conv" name="Nocom Benchmarks with Ibis serialization and conv - Read" cmd="CODMON_HOME/codmon/wrappers/run-ibis -o out2 -c CODMON_HOME/codmon/apps/io/nocom 1 -Xmx64M -Xms64M Main -read -conv -ibis -double -t 50 -c 1000 -s 2048 1048576" scope="ibis/src" scheduled="true"/>
+<sensor id="nocom-sun-read" name="Nocom Benchmarks with Sun serialization - Read" cmd="CODMON_HOME/codmon/wrappers/run-ibis -o out3 -c CODMON_HOME/codmon/apps/io/nocom 1 -Xmx64M -Xms64M Main -read -sun -conv -double -t 50 -c 1000 -s 2048 1048576" scope="ibis/src" scheduled="true"/>
+<sensor id="nocom-ibisvssun-read" name="Nocom Benchmarks with ibis/sun serialization - Read" cmd="CODMON_HOME/codmon/wrappers/run-ibis -o out4 -c CODMON_HOME/codmon/apps/io/nocom 1 -Xmx64M -Xms64M Main -read -sun -ibis -conv -anyconv -double -t 50 -c 1000 -s 16384 16384" scope="ibis/src" scheduled="true"/>
+
+<!-- serialization : write - double -->
+
+<sensor id="separator" name="Serialization : Write"/>
+<sensor id="nocom-ibis-write" name="Nocom Benchmarks with Ibis serialization - Write" cmd="CODMON_HOME/codmon/wrappers/run-ibis -o out5 -c CODMON_HOME/codmon/apps/io/nocom 1 -Xmx64M -Xms64M Main -write -noconv -ibis -double -t 50 -c 1000 -s 2048 1048576" scope="ibis/src" scheduled="true"/>
+<sensor id="nocom-ibis-write-conv" name="Nocom Benchmarks with Ibis serialization and conv - Write" cmd="CODMON_HOME/codmon/wrappers/run-ibis -o out6 -c CODMON_HOME/codmon/apps/io/nocom 1 -Xmx64M -Xms64M Main -write -conv -ibis -double -t 50 -c 1000 -s 2048 1048576" scope="ibis/src" scheduled="true"/>
+<sensor id="nocom-sun-write" name="Nocom Benchmarks with Sun serialization - Write" cmd="CODMON_HOME/codmon/wrappers/run-ibis -o out7 -c CODMON_HOME/codmon/apps/io/nocom 1 -Xmx64M -Xms64M Main -write -sun -conv -double -t 50 -c 1000 -s 2048 1048576" scope="ibis/src" scheduled="true"/>
+<sensor id="nocom-ibisvssun-write" name="Nocom Benchmarks with ibis/sun serialization - Write" cmd="CODMON_HOME/codmon/wrappers/run-ibis -o out8 -c CODMON_HOME/codmon/apps/io/nocom 1 -Xmx64M -Xms64M Main -write -sun -ibis -conv -anyconv -double -t 50 -c 1000 -s 16384 16384" scope="ibis/src" scheduled="true"/>
+
+
+
+<!-- serialization : tree -->
+
+<sensor id="separator" name="Serialization : Tree"/>
+<sensor id="nocom-tree" name="Nocom Benchmarks with Trees" cmd="CODMON_HOME/codmon/wrappers/run-ibis -o out9 -c CODMON_HOME/codmon/apps/io/nocom 1 -Xmx64M -Xms64M Main -read -write -conv -anyconv -ibis -sun -object DITree -t 50 -c 1000 -s 16384 16384" scope="ibis/src" scheduled="true"/>
+
+</graph>
+</sensors>

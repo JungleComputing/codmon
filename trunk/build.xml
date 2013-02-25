@@ -1,0 +1,42 @@
+<project name="Stats" default="compile" basedir=".">
+    <description>
+        Stats for Ibis
+    </description>
+  <!-- set global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="build" location="build"/>
+
+  <target name="init">
+    <!-- Create the time stamp -->
+    <tstamp/>
+    <!-- Create the build directory structure used by compile -->
+    <mkdir dir="${build}"/>
+  </target>
+
+   <path id="buildfiles">
+        <fileset dir=".">
+            <include name="*/build.xml"/>
+            <exclude name="repmi/build.xml"/>
+        </fileset>
+    </path>
+    <property name="build.files" refid="buildfiles"/>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <javac srcdir="${src}" destdir="${build}" classpath="libs/jrobin-1.4.0.jar:libs/mail.jar:libs/activation.jar" excludes="apps/**" debug="true" />
+    <delete file="${build}/codmon.jar"/>
+    <jar destfile="${build}/codmon.jar" basedir="${build}">
+    <manifest>
+      <attribute name="Main-Class" value="Stats"/>
+      <attribute name="Class-Path" value="../libs/jrobin-1.4.0.jar ../libs/activation.jar ../libs/mail.jar"/>
+    </manifest>
+    </jar>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <!-- Delete the ${build} and ${dist} directory trees -->
+    <delete dir="${build}"/>
+    <delete dir="${dist}"/>
+  </target>
+</project>

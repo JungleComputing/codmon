@@ -1,0 +1,51 @@
+CodMon : Developper documentation
+
+CodMon is a framework aimed at monitoring source code, providing functionnality tests and benchmarks. If any test fails or if there is a severe dropdown in the performance, a "red light" is drown on the output (shot.xml), and a mail is sent to last commiters and heads of the team.
+
+------------------------------------------------------
+Overall process
+
+First, CodMon takes a shot of the actual state, with executing all the sensors. Next, it adds all the graph information to the RRD Database, and it finally triggers eventual alarms.
+-----------------------------------------------------
+
+
+
+1- Shot
+
+The shot is made by executing all the commands in the order they appear, with parallelizing sequent commands which are scheduled downwards. For now, there is no control on how many spawned process can live at the same time, but it should be added shortly. The config xml is completed with the return codes and, if necessary, the STDOUT/STDERR. At the end of this step, a shot.xml is generated, which, transformed by an XSLT stylesheet (libs/style.xml), will be the visible result. The red/green indicators on functionnal tests are set in this step.
+
+
+2- RRD Database
+
+CodMon uses a RRD Database (Round Robin Database), implemented by JRobin 1.4.0. Docs can be found at http://www.jrobin.org/index.html (Java implementation), and http://people.ee.ethz.ch/~oetiker/webtools/rrdtool/doc/index.en.html (Standard implementation). RRD DB are saved in 'codmon/rrd', and can be explored with http://www.jrobin.org/utilities/inspector.html (Inspector is part of the JRobin package). Synthetically, RRD DB are "timestamped" DB, in which you add a sample as a couple (value, time). It then automatically generates averages and graphs.
+In CodMon, we first add all the <test> parts of the generated shot.xml, with creating new RRD DB if necessary. Then, we update the graphs with the new value (if the test was successful; else, we do nothing), and we finally set and trigger the alarm. If it was active, a mail is sent with the state and the last commiters.
+
+
+3- The alarms
+
+Alarms are activated in the following 2 cases :
+	- if a command returned an errorcode != 0
+	- if there is a dropdown in a benchmark
+
+
+
+-------------------------------------------------------
+
+
+Folder hierarchy :
+
+codmon/
+	apps/       -> Ibis frozen benchmarks
+	build/      -> CodMon build directory
+	doc/        -> Docs
+	libs/       -> External libs, xslt stylesheets
+		style.xml       -> HTML stylesheet
+		style_mail.xml  -> HTML mail stylesheet
+		style_plain.xml -> plain text mail stylesheet
+		...
+	local/      -> Ibis specific scripts
+		ignoredirs      -> list of dirs to ignore during gather_tests
+	rrd/        -> RRD DB
+	src/        -> Codmon source
+	tmp/        -> tmp folder, for outfiles from spawned process
+	wrappers/   -> misc wrappers

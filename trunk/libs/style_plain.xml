@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+
+<xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
+    <xsl:output method="text" encoding="UTF-8"/>
+    <xsl:template match="/">
+
+	Ibis shot link: http://fs0.das2.cs.vu.nl/~codmon/<xsl:value-of select="sensor/@link"/>#<xsl:value-of select="sensor/@id"/>
+
+	Ibis Alarm triggered by "<xsl:value-of select="sensor/@name"/>"
+
+	Code : <xsl:value-of select="sensor/@returnValue"/>
+	Output : 
+	----------------------------------------------------------------------
+	<xsl:value-of select="sensor"/>
+	----------------------------------------------------------------------
+
+
+	Last Mods :
+
+	User                   File
+	<xsl:for-each select="sensor/modif">
+	    <xsl:value-of select="@user"/> <xsl:text>    </xsl:text><xsl:value-of select="@file"/>
+	    <xsl:text>
+	    </xsl:text>
+	</xsl:for-each>
+
+    </xsl:template>
+
+</xsl:stylesheet>

@@ -1,0 +1,27 @@
+CodMon : Quick-start guide for IBIS
+
+
+I - Creating tests
+
+There is a shortcut for Ibis functionality tests, which have to be run by
+outcmp_ibis_wrapper.pl (standard wrapper for Ibis functionality tests).
+You can simply create a '.codmon' file in the app directory (the one
+containing 'build.xml'), and add lines as follows:
+
+--------.codmon----------------
+<nbprocess> <args to ibis-prun, relative paths from 'build'>
+2 `cat ../run-args` {net.gm}
+-------------------------------
+
+The {...} is a space-separated list of implementations (net.gm) to ignore for
+this test.
+You can add comments by '#', and disable tests by '//'. Several examples can
+be found in the current ibis-apps tree.
+Don't forget to add these files to the CVS :)
+
+II - Ignoring tests
+
+Sometimes, it may be useful to ignore a whole broken apps folder.
+In this case, simply add the name of the directory to the 'local/ignoredirs'
+file, in the codmon subdirectory.
+Tests in this directory and its subdirectories will simply be ignored.

@@ -1,0 +1,21 @@
+#! /bin/sh
+nbnodes="$1"
+shift
+
+# Jar-files from library.
+CLASSPATH=""
+add_to_libclasspath () {
+    JARFILES=`cd "$1" && ls *.jar 2>/dev/null`
+    for i in ${JARFILES} ; do
+        if [ -z "$CLASSPATH" ] ; then
+            CLASSPATH="$1/$i"
+        else
+            CLASSPATH="$CLASSPATH:$1/$i"
+        fi
+    done
+}
+
+add_to_libclasspath lib
+add_to_libclasspath $CODMON_HOME/ibis-apps/external
+
+prun PATH="$PATH" CLASSPATH="$CLASSPATH" -v -1 ibis-prun COMMAND=$CODMON_HOME/ibis-gmi/scripts/gmi-run $nbnodes -server "$@"
