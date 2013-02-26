@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export JAVA_HOME=/usr/local/sun-java/jdk1.5.0_04
+export JAVA_HOME=/usr/local/sun-java/jdk1.6.0_24
 export IBIS_HOME=$HOME/ibis
 
 . $HOME/.bashrc
@@ -10,7 +10,7 @@ cp day2/*.xml day3
 cp day1/*.xml day2
 cp dday/*.xml day1
 
-cd $HOME/codmon/build
+cd $HOME/codmon/codmon/build
 #echo "Running at" `date` >> cron
 $JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-basics.xml ../dday/shot-basics.xml >cronlog 2>&1
 if [ $? != "0" ]; then
