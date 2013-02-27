@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export JAVA_HOME=/usr/local/sun-java/jdk1.6.0_24
+export JAVA_HOME=/usr/java/jre1.6.0_05
 export IBIS_HOME=$HOME/ibis
 
 . $HOME/.bashrc
@@ -24,7 +24,7 @@ if [ -e "$HOME/ibis-apps" ]; then
     fi
 fi
 
-cd $HOME/codmon/build
+cd $HOME/codmon/codmon/build
 
 $JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-tcp.xml ../dday/shot-tcp.xml >>cronlog 2>&1
 if [ $? != "0" ]; then
