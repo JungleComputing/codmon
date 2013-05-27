@@ -23,7 +23,9 @@
 
   <target name="compile" depends="init"
         description="compile the source " >
-    <javac srcdir="${src}" destdir="${build}" classpath="libs/jrobin-1.4.0.jar:libs/mail.jar:libs/activation.jar" excludes="apps/**" debug="true" />
+    <javac srcdir="${src}" destdir="${build}" classpath="libs/jrobin-1.4.0.jar:libs/mail.jar:libs/activation.jar" excludes="apps/**" debug="true" >
+	<compilerarg line="-Xlint:all -Xmaxwarns 10000"/>
+    </javac>
     <delete file="${build}/codmon.jar"/>
     <jar destfile="${build}/codmon.jar" basedir="${build}">
     <manifest>
