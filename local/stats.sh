@@ -6,12 +6,14 @@ export IBIS_HOME=$HOME/ibis
 . $HOME/.bashrc
 
 cd $HOME/codmon
+
 cp day2/*.xml day3
-cp day1/*.xml day2
+cp day1/*.xml day2	
 cp dday/*.xml day1
 
+echo "Eerste keer staan de files er niet"
 cd $HOME/codmon/codmon/build
-hecho "Running at" `date` >> cron
+echo "Running at" `date` >> cron
 $JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-basics.xml ../dday/shot-basics.xml >cronlog 2>&1
 if [ $? != "0" ]; then
     exit $?
