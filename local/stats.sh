@@ -11,7 +11,7 @@ cp day1/*.xml day2
 cp dday/*.xml day1
 
 cd $HOME/codmon/codmon/build
-#echo "Running at" `date` >> cron
+hecho "Running at" `date` >> cron
 $JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-basics.xml ../dday/shot-basics.xml >cronlog 2>&1
 if [ $? != "0" ]; then
     exit $?
