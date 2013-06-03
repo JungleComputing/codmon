@@ -20,9 +20,9 @@ cat > dday1/allin1.xml <<EOF
 <xml/>
 EOF
 
-cp day2/*.xml day3
-cp day1/*.xml day2
-cp dday/*.xml day1
+cp dday2/*.xml dday3
+cp dday1/*.xml dday2
+cp dday/*.xml dday1
 
 cd $CODMON_HOME/codmon/build
 #echo "Running at" `date` >> cron
