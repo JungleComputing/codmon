@@ -4,7 +4,7 @@
 # Simple wrapper script for build targets.
 #   Prints the <test.../> node on STDOUT, the stderr on STDERR, 
 #   and propagates the exit value
-
+#
 use strict;
 
 my ($dir, @args) = @ARGV;

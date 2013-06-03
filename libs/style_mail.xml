@@ -2,53 +2,53 @@
 
 
 <xsl:stylesheet version="1.0" xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
-<!-- <xsl:output method="html" encoding="UTF-8"/> -->
-<xsl:output 
-  method="html"
-  encoding="UTF-8"
-  doctype-public="-//W3C//DTD HTML 4.01//EN"
-  doctype-system="http://www.w3.org/TR/html4/strict.dtd"
-  indent="yes" />
-<xsl:template match="/">
+    <!-- <xsl:output method="html" encoding="UTF-8"/> -->
+    <xsl:output 
+	method="html"
+	encoding="UTF-8"
+	doctype-public="-//W3C//DTD HTML 4.01//EN"
+	doctype-system="http://www.w3.org/TR/html4/strict.dtd"
+	indent="yes" />
+    <xsl:template match="/">
 
-  <html>
-<title>Ibis Alarm</title>
-  <body link="#000000" alink="#000000" vlink="#000000">
+	<html>
+	    <title>Ibis Alarm</title>
+	    <body link="#000000" alink="#000000" vlink="#000000">
 
-<xsl:variable name="id"><xsl:value-of select="sensor/@id"/></xsl:variable>
-<xsl:variable name="link"><xsl:value-of select="sensor/@link"/></xsl:variable>
-<h3>Ibis Alarm triggered by "<a href="{concat('http://fs0.das2.cs.vu.nl/~codmon/build/',$link,'#',$id)}"><xsl:value-of select="sensor/@link"/>: <xsl:value-of select="sensor/@name"/></a>"</h3>
+		<xsl:variable name="id"><xsl:value-of select="sensor/@id"/></xsl:variable>
+		<xsl:variable name="link"><xsl:value-of select="sensor/@link"/></xsl:variable>
+		<h3>Ibis Alarm triggered by "<a href="{concat('http://fs0.das2.cs.vu.nl/~codmon/build/',$link,'#',$id)}"><xsl:value-of select="sensor/@link"/>: <xsl:value-of select="sensor/@name"/></a>"</h3>
 
 
-<table cellspacing="5">
-<tr><td>Code</td><td><xsl:value-of select="sensor/@returnValue"/></td></tr>
-<tr><td>Output</td><td><xsl:copy-of select="sensor/."/></td></tr>
-<tr><td valign="top">Last Mods</td><td>
+		<table cellspacing="5">
+		    <tr><td>Code</td><td><xsl:value-of select="sensor/@returnValue"/></td></tr>
+		    <tr><td>Output</td><td><xsl:copy-of select="sensor/."/></td></tr>
+		    <tr><td valign="top">Last Mods</td><td>
 
-<table border="1">
-<tr bgcolor="#E5E5E5"><td align="center">User</td><td align="center">File</td></tr>
-<xsl:for-each select="sensor/modif">
-<tr><td><xsl:value-of select="@user"/></td><td><xsl:value-of select="@file"/></td></tr>
-</xsl:for-each></table></td></tr>
-</table>
+			    <table border="1">
+				<tr bgcolor="#E5E5E5"><td align="center">User</td><td align="center">File</td></tr>
+				<xsl:for-each select="sensor/modif">
+				    <tr><td><xsl:value-of select="@user"/></td><td><xsl:value-of select="@file"/></td></tr>
+		    </xsl:for-each></table></td></tr>
+		</table>
 
-<!-- <table cellspacing="5">
-<tr><td>Code</td><td><xsl:value-of select="sensor/@returnValue"/></td></tr>
-<tr><td>Output</td><td><xsl:value-of select="."/></td></tr>
-<tr><td valign="top">Last Mods</td><td>
+		<!-- <table cellspacing="5">
+		    <tr><td>Code</td><td><xsl:value-of select="sensor/@returnValue"/></td></tr>
+		    <tr><td>Output</td><td><xsl:value-of select="."/></td></tr>
+		    <tr><td valign="top">Last Mods</td><td>
 
-<table border="1">
-<tr><td>User</td><td>File</td></tr>
-<xsl:for-each select="sensor/modif">
-<tr><td><xsl:value-of select="@user"/></td><td><xsl:value-of select="@file"/></td></tr>
-</xsl:for-each>
-</table>
+			    <table border="1">
+				<tr><td>User</td><td>File</td></tr>
+				<xsl:for-each select="sensor/modif">
+				    <tr><td><xsl:value-of select="@user"/></td><td><xsl:value-of select="@file"/></td></tr>
+				</xsl:for-each>
+			    </table>
 
-</td></tr>
-</table>
--->
-  </body>
-  </html>
-</xsl:template>
+		    </td></tr>
+		</table>
+		-->
+	    </body>
+	</html>
+    </xsl:template>
 
 </xsl:stylesheet>

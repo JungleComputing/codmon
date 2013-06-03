@@ -1,7 +1,9 @@
-/* $Id: StoreArrayInputStream.java,v 1.3 2007/06/05 12:54:02 ceriel Exp $ */
+/* $Id: StoreArrayInputStream.java 13680 2011-10-04 14:01:10Z ceriel $ */
 
 
 import java.io.IOException;
+import java.nio.ByteBuffer;
+import java.nio.ReadOnlyBufferException;
 
 /**
  * Extends InputStream with read of array of primitives and readSingleInt
@@ -163,6 +165,12 @@ public class StoreArrayInputStream extends ibis.io.DataInputStream {
         return len;
     }
 
+    public void readByteBuffer(ByteBuffer arg0) throws IOException,
+            ReadOnlyBufferException {
+	int len = arg0.limit() - arg0.position();
+	arg0.put(buf.byte_store, byte_count, len);
+	byte_count += len;
+    }
     public long bytesRead() {
         return 0L;
     }

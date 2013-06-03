@@ -110,6 +110,8 @@ my $strcode = "CODE:\n".$code;
 
 my $shot = $strcode."\n".$out."\n".$err;
 
+my $codmonhome = $ENV{'CODMON_HOME'};
+
 open(SHOT, "> shot");
 print SHOT $shot;
 close(SHOT);
@@ -132,7 +134,7 @@ open (FD, $referency);
 my @ref = <FD>;
 close (FD);
 
-open (IGN, "/home1/codmon/codmon/wrappers/ignore");
+open (IGN, "$codmonhome/codmon/wrappers/ignore");
 my @ign = <IGN>;
 close (IGN);
 

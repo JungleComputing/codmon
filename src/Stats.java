@@ -18,7 +18,8 @@ import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 
 class Config {
-    static final String BASE = "/home1/codmon/codmon/";
+    static final String CODMON_HOME = System.getenv("CODMON_HOME");
+    static final String BASE = CODMON_HOME + "/codmon/";
     static final String RRDBASE = BASE+"rrd/";
     static final int RRDSTEP = 86400;
     static final String PROJECT = "Ibis";
@@ -151,6 +152,10 @@ class Shot {
 	    return "";
     }
 
+    private String getAttribute(Element element, String id) {
+        String s = element.getAttribute(id);
+        return s.replaceAll("CODMON_HOME", Config.CODMON_HOME);
+    }
 
     public Shot(String configg) {
 	str = new StringBuffer();
@@ -190,8 +195,8 @@ class Shot {
 		}
 
 
-		String wrapper = element.getAttribute("wrapper");
-		String cmd = element.getAttribute("cmd");
+		String wrapper = getAttribute(element, "wrapper");
+		String cmd = getAttribute(element, "cmd");
 		String scope = element.getAttribute("scope");
 		String graph = element.getAttribute("graph");
 
@@ -249,8 +254,8 @@ class Shot {
 		}
 
 
-		String wrapper = element.getAttribute("wrapper");
-		String cmd = element.getAttribute("cmd");
+		String wrapper = getAttribute(element, "wrapper");
+		String cmd = getAttribute(element, "cmd");
 		String scope = element.getAttribute("scope");
 		String type = element.getAttribute("type");
 
@@ -752,7 +757,7 @@ class Alarm  {
 		String cvsstr = Shot.parseISToString(cvs);
 		*/
 		msg.setContent(content);//"trigger on "+name+"\n"+cvsstr, "text/plain");
-		Transport.send(msg);
+		// Transport.send(msg); --Ceriel: commented out temporarily
 
 		if (element.getAttribute("fatal").equals("true"))
 		    throw (new FatalSensorException());
