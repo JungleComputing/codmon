@@ -2,9 +2,9 @@ stappen plan
 
 laatst bijgewerkt: 09-02-2013
 
-1) Zorgen dat alle ant-files kunnen draaien
-	- uitzoeken hoe dat env.IBIS_HOME gezet moet worden 
-2) Spelen met Codmon en kijken hoe het werkt
+1) Kijken of het nu goed werkt
+2) Mail functionaliteit testen
+3) weer aanzetten.
 
-3) Literatuur induiken -> virtualisatie van testframeworks
 
+4)uitzoeken virtualisatie software ibis
