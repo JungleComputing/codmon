@@ -4,7 +4,9 @@
 <sensors>
 	<onoff>
 		<!-- testAppss Build process -->
-		<sensor id="part" name="TestApps: build process"/>
+		<sensor id="testApps" name="TestApps: build process"/>
+
+		<sensor id="testapps_ok" name="TestApos: execute" cmd="TODO" " scope="returnValue" scheduled="false" graph="false" fatal="true"/>
 
 	</onoff>>
 </sensors>
