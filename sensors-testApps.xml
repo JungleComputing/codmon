@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="libs/style.xml"?>
+
+<sensors>
+	<onoff>
+		<!-- testAppss Build process -->
+		<sensor id="part" name="TestApps: build process"/>
+
+	</onoff>>
+</sensors>

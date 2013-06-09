@@ -1,4 +1,13 @@
+
 #!/bin/bash
+
+EXPECTED_ARGS=1
+
+if [ $# -ne $EXPECTED_ARGS ]
+  then
+    echo "Give the name of the sensor. for example basics"
+    exit
+fi
 
 set -x
 
@@ -27,9 +36,12 @@ cp dday/*.xml dday1
 
 cd $CODMON_HOME/codmon/build
 #echo "Running at" `date` >> cron
-$JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-basics.xml ../dday/shot-basics.xml >cronlog 2>&1
+#$JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-basics.xml ../dday/shot-basics.xml >cronlog 2>&1
+$JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-$1 ../dday/shot-$1.xml >cronlog 2>&1
+
 if [ $? != "0" ]; then
-    exit $?
+	echo "Oops something went wrong"
+	exit $?
 fi
 
 if [ -e "$CODMON_HOME/ibis-apps" ]; then
@@ -39,9 +51,9 @@ if [ -e "$CODMON_HOME/ibis-apps" ]; then
     fi
 fi
 
-cd $CODMON_HOME/codmon/build
+#cd $CODMON_HOME/codmon/build
 
-$JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-tcp.xml ../dday/shot-tcp.xml >>cronlog 2>&1
-if [ $? != "0" ]; then
-    exit $?
-fi
+#$JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-tcp.xml ../dday/shot-tcp.xml >>cronlog 2>&1
+#if [ $? != "0" ]; then
+#    exit $?
+#fi
