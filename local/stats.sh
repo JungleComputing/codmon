@@ -14,6 +14,8 @@ set -x
 export CODMON_HOME=$HOME/codmon
 export JAVA_HOME=/home/ceriel/jdk1.7.0_04
 #export JAVA_HOME=/usr/java/jdk1.7.0_04
+
+#TODO check If this can be made dynamically
 export IPL_HOME=$CODMON_HOME/ibis
 export MPJ_HOME=$CODMON_HOME/ibis-mpj
 export RMI_HOME=$CODMON_HOME/ibis-rmi
@@ -30,14 +32,15 @@ cat > dday1/allin1.xml <<EOF
 <xml/>
 EOF
 
+#TODO Copy only the necesary files
 cp dday2/*.xml dday3
 cp dday1/*.xml dday2
 cp dday/*.xml dday1
 
 cd $CODMON_HOME/codmon/build
-#echo "Running at" `date` >> cron
+echo "Running at" `date` >> cron
 #$JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-basics.xml ../dday/shot-basics.xml >cronlog 2>&1
-$JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-$1 ../dday/shot-$1.xml >cronlog 2>&1
+$JAVA_HOME/bin/java -Djava.awt.headless=true -jar codmon.jar ../sensors-$1.xml ../dday/shot-$1.xml >cronlog 2>&1
 
 if [ $? != "0" ]; then
 	echo "Oops something went wrong"
