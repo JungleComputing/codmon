@@ -12,15 +12,10 @@ do
     then
 	( cd $i && svn update )
     fi
-done > update.out 2>&1
+done > Ibis_update.out 2>&1
 
-rm -rf ibis
-rm -rf ibis-mpj
-rm -rf ibis-rmi
-rm -rf ibis-gmi
-rm -rf satin
-rm -rf ibis-apps
-rm -rf ipl-apps
+shopt -s extglob
+rm -rf !(codmon|*.out)
 
 svn checkout https://gforge.cs.vu.nl/svn/ibis/ipl/trunk ibis
 svn checkout https://gforge.cs.vu.nl/svn/ibis/mpj/trunk ibis-mpj
