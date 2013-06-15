@@ -14,8 +14,14 @@ do
     fi
 done > Ibis_update.out 2>&1
 
-shopt -s extglob
-rm -rf !(codmon|*.out)
+#remove all IbbisApps
+rm -rf ibis
+rm -rf ibis-apps
+rm -rf ibis-gmi
+rm -rf ibis-mpj
+rm -rf ibis-rmi
+rm -rf ipl-apps
+rm -rf satin
 
 svn checkout https://gforge.cs.vu.nl/svn/ibis/ipl/trunk ibis
 svn checkout https://gforge.cs.vu.nl/svn/ibis/mpj/trunk ibis-mpj
