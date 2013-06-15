@@ -14,9 +14,8 @@ do
     fi
 done >testApps_update.out 2>&1
 
-#remove all ecept codmon and the output files
-shopt -s extglob
-rm -rf !(codmon|*.out)
+#remove the old testApps files.
+rm -rf returnValue
 
 #check out the testApps
 svn checkout https://gforge.cs.vu.nl/svn/ibis/codmon/branches/berend/testApps
