@@ -18,4 +18,4 @@ done >testApps_update.out 2>&1
 rm -rf returnValue
 
 #check out the testApps
-svn checkout https://gforge.cs.vu.nl/svn/ibis/codmon/branches/berend/testApps
+svn checkout https://gforge.cs.vu.nl/svn/ibis/codmon/branches/berend/returnValue
