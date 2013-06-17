@@ -1,6 +1,8 @@
 //Just a simple test programm
 //TODO implement a program that just returns a simple value
-//
+
+package returnvalue;
+
 public class ReturnValue {
 	
 	public static void returnValue(int i){
