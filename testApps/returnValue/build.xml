@@ -1,6 +1,7 @@
 <!--Ant file to build the ReturnValue application-->
 <project name="ReturnValue" basedir="." default="main">
-	
+		
+	<property name="src.dir"     value="."/>
 	<property name="build.dir"   value="build"/>
 	<property name="classes.dir" value="${build.dir}/classes"/>
 	<property name="jar.dir"     value="${build.dir}/jar"/>
@@ -29,7 +30,5 @@
             </jar>
         </target>
 
-
-   	<target name="clean-build" depends="clean,jar"/>
-    	<target name="main" depends="clean,run"/>
+    	<target name="main" depends="clean,compile,jar"/>
 </project>
