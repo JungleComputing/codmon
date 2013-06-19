@@ -10,6 +10,6 @@
 		<sensor id="testApps__checkout_ok" name="TestApps: checkout" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME sh codmon/local/testAppsUp.sh"  scope="testApps" scheduled="false" graph="false" fatal="true"/>
 
 		<!--Secoind build the testApss project-->
-		<sensor id="testApps_build_ok" name="TestApps: build" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/returnValue ../bin/ant" scope="testApps" scheduled="false" graph="true" fatal="true"/>
+		<sensor id="testApps_build_ok" name="TestApps: build" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/returnValue ant" scope="testApps" scheduled="false" graph="true" fatal="true"/>
 	</onoff>>
 </sensors>
