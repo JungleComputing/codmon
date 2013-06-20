@@ -26,6 +26,7 @@
 
 <sensor id="build_JavaGrande_tests" name="Build javagrande test app" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 ../../../../bin/ant" scope="ibis" scheduled="false" graph="true" fatal="true" />
 
+
 </onoff>
 
 <graph>

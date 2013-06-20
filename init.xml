@@ -1,0 +1,10 @@
+<!--Initialization file voor codmon. File list the projects ,and if the must run according to cron-->
+
+<projects>
+	<project>
+		<name>testApps</name>
+		<location>https://gforge.cs.vu.nl/svn/ibis/codmon/branches/berend/testApps/returnValue</location>
+		<versionControl>svn</versionControl>
+		<run>true</run>
+	</project>
+</prjects>
