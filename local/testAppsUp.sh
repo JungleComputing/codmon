@@ -1,11 +1,14 @@
 #!/bin/sh
 
-# script to checkout testAppsi
+# script to checkout testApps
+#first check if it's run in the right directory
 if [ $PWD != "$CODMON_HOME" ]
     then
     echo "Must be run in $CODMON_HOME !"
     exit 1
 fi
+
+
 for i in returnValue
 do
     if [ -d $i ]
