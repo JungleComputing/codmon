@@ -6,5 +6,7 @@
 		<location>https://gforge.cs.vu.nl/svn/ibis/codmon/branches/berend/testApps/returnValue</location>
 		<versionControl>svn</versionControl>
 		<run>true</run>
+		<user>bvl300</user>
+		<pwd>maYl1nda</pwd>
 	</project>
 </projects>
