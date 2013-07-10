@@ -19,10 +19,10 @@ public class Checkout{
  	*TODO return current version number
  	*
  	*/ 	
-	private int svnCheckOut(String url) throws SVNException{
-		File dstPath = new File("testBerend");
+	private int svnCheckOut(String url,String projectName,String user, String pwd) throws SVNException{
+		File dstPath = new File("../../testApplications/"+projectName);
 		SVNURL SVNUrl = SVNURL.parseURIEncoded(url);
-		SVNClientManager cm = SVNClientManager.newInstance(null,"bvl300","maYl1nda"); 
+		SVNClientManager cm = SVNClientManager.newInstance(null,user,pwd); 
                 SVNUpdateClient updateClient = cm.getUpdateClient();
 		updateClient.setIgnoreExternals(false);
 		System.out.println(SVNUrl);
@@ -33,15 +33,18 @@ public class Checkout{
 
 
 	private void checkoutProject(Node project) throws SVNException{
-		String url, type;
+		String url, type, projectName,user,pwd;
 		if (project.getNodeType() == Node.ELEMENT_NODE) {
  			Element eElement = (Element) project;
  
 			url = eElement.getElementsByTagName("location").item(0).getTextContent();
 			type = eElement.getElementsByTagName("versionControl").item(0).getTextContent();
- 			
+ 			projectName = eElement.getElementsByTagName("name").item(0).getTextContent();
+			user = eElement.getElementsByTagName("user").item(0).getTextContent();
+                        pwd = eElement.getElementsByTagName("pwd").item(0).getTextContent();
+			
 			if(type.equals("svn")){
-				int rev = svnCheckOut(url);
+				int rev = svnCheckOut(url,projectName,user,pwd);
 			}else if(type.equals("git")){
 				//TODO git check out
 			}else{
