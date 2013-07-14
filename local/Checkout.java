@@ -14,26 +14,35 @@ import org.tmatesoft.svn.core.SVNDepth;
 
 //TODO sort out location of the programm, files and pathnames
 public class Checkout{
-	
-	/**
- 	*TODO return current version number
- 	*
- 	*/ 	
-	private int svnCheckOut(String url,String projectName,String user, String pwd) throws SVNException{
-		File dstPath = new File("../../testApplications/"+projectName);
+	String basePath = "../../testApplications/";
+		
+	private long svnCheckOut(String url,String projectName,String user, String pwd) throws SVNException{
+		File dstPath = new File(basePath+projectName);
 		SVNURL SVNUrl = SVNURL.parseURIEncoded(url);
 		SVNClientManager cm = SVNClientManager.newInstance(null,user,pwd); 
                 SVNUpdateClient updateClient = cm.getUpdateClient();
 		updateClient.setIgnoreExternals(false);
 		System.out.println(SVNUrl);
-		updateClient.doCheckout(SVNUrl, dstPath, SVNRevision.UNDEFINED,SVNRevision.HEAD,SVNDepth.INFINITY,true);	
-	
-		return 1;	
+		return updateClient.doCheckout(SVNUrl, dstPath, SVNRevision.UNDEFINED,SVNRevision.HEAD,SVNDepth.INFINITY,true);		
 	}
 
 
+	private void updateSVNLog(String projectName, Long rev){
+
+
+	}
+
+	private void updateLog(String projectName, long rev, String type){
+		if("svn".equals(type)){
+			updateSVNLog(projectName,rev);
+			
+		}
+	
+	}
+
 	private void checkoutProject(Node project) throws SVNException{
 		String url, type, projectName,user,pwd;
+		long rev= -1;
 		if (project.getNodeType() == Node.ELEMENT_NODE) {
  			Element eElement = (Element) project;
  
@@ -44,12 +53,13 @@ public class Checkout{
                         pwd = eElement.getElementsByTagName("pwd").item(0).getTextContent();
 			
 			if(type.equals("svn")){
-				int rev = svnCheckOut(url,projectName,user,pwd);
+				 rev = svnCheckOut(url,projectName,user,pwd);
 			}else if(type.equals("git")){
 				//TODO git check out
 			}else{
-				//Throw versie betheer error
+		//		throw SVNException("test");
 			}
+			updateLog(projectName,rev,type);
 		}	
 	}
 
