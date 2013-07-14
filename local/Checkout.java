@@ -11,6 +11,10 @@ import org.tmatesoft.svn.core.SVNException;
 import org.tmatesoft.svn.core.SVNURL;
 import org.tmatesoft.svn.core.wc.SVNRevision;
 import org.tmatesoft.svn.core.SVNDepth;
+import java.io.IOException;
+import java.io.Writer;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 
 //TODO sort out location of the programm, files and pathnames
 public class Checkout{
@@ -27,15 +31,23 @@ public class Checkout{
 	}
 
 
-	private void updateSVNLog(String projectName, Long rev){
-
-
+	private void updateSVNLog(String projectName, Long rev, File f)throws IOException{
+		Writer output =  new BufferedWriter(new FileWriter(f, true));
+		output.append(""+rev);
+		output.close();
 	}
 
 	private void updateLog(String projectName, long rev, String type){
-		if("svn".equals(type)){
-			updateSVNLog(projectName,rev);
-			
+		String fileName = projectName +"Log.txt";
+		File f = new File(basePath+"/"+fileName);
+		try{
+			f.createNewFile();
+			if("svn".equals(type)){
+                        	updateSVNLog(projectName,rev,f);
+	                }
+
+		}catch(IOException e){
+			 System.out.println(e.getMessage());
 		}
 	
 	}
