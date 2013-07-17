@@ -4,9 +4,89 @@
 	<project>
 		<name>testApps</name>
 		<location>https://gforge.cs.vu.nl/svn/ibis/codmon/branches/berend/testApps/returnValue</location>
-		<versionControl>svn</versionControl>
+		<versionControl>
+			<type>svn</type>
+			<command>checkout</command>
+		</versionControl>
 		<run>true</run>
 		<user>bvl300</user>
 		<pwd>maYl1nda</pwd>
 	</project>
+	<project>
+		<name>ibis</name>
+		<location>https://gforge.cs.vu.nl/svn/ibis/ipl/trunk ibis</location>
+		<versionControl>
+			<type>svn</type>
+			<command>checkout</command>
+		</versionControl>
+		<run>true</run>
+		<user>bvl300</user>
+		<pwd>maYl1nda</pwd>
+	</project>
+	<project>
+	        <name>ibis-mpj</name>
+	        <location>https://gforge.cs.vu.nl/svn/ibis/mpj/trunk ibis-mpj</location>
+	        <versionControl>
+	        	<type>svn</type>
+	        	<command>checkout</command>
+	        </versionControl>
+	        <run>true</run>
+	        <user>bvl300</user>
+	        <pwd>maYl1nda</pwd>
+	</project>
+	<project>
+	        <name>ibis-rmi</name>
+	        <location>https://gforge.cs.vu.nl/svn/ibis/rmi/trunk ibis-rmi</location>
+	        <versionControl>
+	        	<type>svn</type>
+	        	<command>checkout</command>
+	        </versionControl>
+	        <run>true</run>
+	        <user>bvl300</user>
+	        <pwd>maYl1nda</pwd>
+	</project>
+        <project>
+		<name>ibis-gmi</name>
+		<location>https://gforge.cs.vu.nl/svn/ibis/gmi/trunk ibis-gmi</location>
+		<versionControl>
+			<type>svn</type>
+			<command>checkout</command>
+		</versionControl>
+		<run>true</run>
+		<user>bvl300</user>
+		<pwd>maYl1nda</pwd>
+	</project>
+	<project>
+	        <name>satin</name>
+	        <location>https://gforge.cs.vu.nl/svn/ibis/satin/trunk satin</location>
+	        <versionControl>
+	        	<type>svn</type>
+	        	<command>checkout</command>
+	        </versionControl>
+	        <run>true</run>
+	        <user>bvl300</user>
+	        <pwd>maYl1nda</pwd>
+	 </project>
+	 <project>
+	        <name>ibis-apps</name>
+	        <location>https://gforge.cs.vu.nl/svn/ibis/apps/trunk ibis-apps</location>
+	        <versionControl>
+	 		<type>svn</type>
+	 		<command>export</command>
+	 	</versionControl>
+	        <run>true</run>
+	        <user>bvl300</user>
+	        <pwd>maYl1nda</pwd>
+	  </project>
+	  <project>
+	        <name>ipl-apps</name>
+	        <location>https://gforge.cs.vu.nl/svn/ibis/ipl-apps/trunk ipl-apps</location>
+	        <versionControl>
+	        	<type>svn</type>
+	        	<command>export</command>
+	        </versionControl>
+	        <run>true</run>
+	        <user>bvl300</user>
+	        <pwd>maYl1nda</pwd>
+	  </project>
 </projects>
