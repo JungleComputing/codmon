@@ -9,9 +9,10 @@
 	<property name="main-class"  value="returnvalue.ReturnValue"/>
 
 
-	<!--Remove the build folder-->
+	<!--Remove the classes and jar folders-->
 	<target name="clean">
-        	<delete dir="${build.dir}"/>
+        	<delete dir="${classes.dir}"/>
+        	<delete dir="${jar.dir}"/>
         </target>
 
     	<!--Compile the java code-->
@@ -19,6 +20,12 @@
             <mkdir dir="${classes.dir}"/>
             <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
         </target>
+	
+	
+	<!--Create or update buildnr file-->
+	<target name="buildNr" depends ="compile">
+		<!--TODO-->
+	</target>
 
     	<!--Build the ReturnValue jar-->
 	<target name="jar" depends="compile">
