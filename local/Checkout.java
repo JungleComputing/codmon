@@ -5,23 +5,12 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
-import org.tmatesoft.svn.core.SVNLogEntry;
-import org.tmatesoft.svn.core.SVNLogEntryPath;
-import org.tmatesoft.svn.core.wc.SVNClientManager;
-import org.tmatesoft.svn.core.wc.SVNUpdateClient;
-import org.tmatesoft.svn.core.SVNException;
-import org.tmatesoft.svn.core.SVNURL;
-import org.tmatesoft.svn.core.wc.SVNRevision;
-import org.tmatesoft.svn.core.SVNDepth;
-import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
-import org.tmatesoft.svn.core.io.SVNRepository;
-import org.tmatesoft.svn.core.wc.SVNWCUtil;
-import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
 import java.io.IOException;
 import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.util.*;
+import org.tmatesoft.svn.core.SVNException;
  
 //TODO -Log policy
 //     -Revission nr of application to be testedi
@@ -29,39 +18,7 @@ import java.util.*;
 //     -git
 public class Checkout{
 	private String basePath = "../../testApplications/";
-		
-	/**
- 	*NOTE  code based on: http://wiki.svnkit.com/Printing_Out_Repository_History
- 	*/
-	private void writeInfoEntries(Collection infoEntries,File f,PrintWriter writer){ 
-		 for (Iterator entries = infoEntries.iterator(); entries.hasNext(); ) {
-        		SVNLogEntry logEntry = (SVNLogEntry) entries.next();
-            		writer.println("----------------------------------------------");
-			writer.println ("revision: " + logEntry.getRevision( ) );
-            		writer.println( "author: " + logEntry.getAuthor( ) );
-            		writer.println( "date: " + logEntry.getDate( ) );
-            		writer.println( "log message: " + logEntry.getMessage( ) );
-
-            		if ( logEntry.getChangedPaths( ).size( ) > 0 ) {
-                		writer.println( );
-                		writer.println( "changed paths:" );
-                		Set changedPathsSet = logEntry.getChangedPaths( ).keySet( );
-
-               				for ( Iterator changedPaths = changedPathsSet.iterator( ); changedPaths.hasNext( ); ) {
-                    				SVNLogEntryPath entryPath = ( SVNLogEntryPath ) logEntry.getChangedPaths( ).get( changedPaths.next( ) );
-                    				writer.println( " "
-                            			+ entryPath.getType( )
-                           			+ " "
-                            			+ entryPath.getPath( )
-                            			+ ( ( entryPath.getCopyPath( ) != null ) ? " (from "
-                                    		+ entryPath.getCopyPath( ) + " revision "
-                                    		+ entryPath.getCopyRevision( ) + ")" : "" ) );
-                			}
-            		}
-   		}
-	}
-
-
+	
 
 	/**
  	*@author bvl300
@@ -73,7 +30,7 @@ public class Checkout{
 		PrintWriter writer = new PrintWriter(f);
                 writer.print("");
                 writer.append(""+svnRep.getRev()+"\n\n");
-		writeInfoEntries(repInfo,f,writer);
+		svnRep.writeLog(repInfo,f,writer);
 		writer.close();
 	}
 

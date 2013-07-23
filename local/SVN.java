@@ -2,8 +2,9 @@
  *@author Bvl300
  *Class for creating and manipulating subversionLogs
  */
-import java.io.File;
 import java.util.*;
+import java.io.File;
+import java.io.PrintWriter;
 import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNLogEntryPath;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
@@ -69,6 +70,39 @@ public class SVN{
 
                 return repository.log( new String[] { "" } , null , 0 , -1 , true , true );
 	}
+
+
+	/**
+ 	*@author bvl300
+ 	*Method writes all the svn info formated to the logFile
+ 	* */
+	public void writeLog(Collection logEntries,File f,PrintWriter writer){
+                 for (Iterator entries = logEntries.iterator(); entries.hasNext(); ) {
+                        SVNLogEntry logEntry = (SVNLogEntry) entries.next();
+                        writer.println("----------------------------------------------");
+                        writer.println ("revision: " + logEntry.getRevision( ) );
+                        writer.println( "author: " + logEntry.getAuthor( ) );
+                        writer.println( "date: " + logEntry.getDate( ) );
+                        writer.println( "log message: " + logEntry.getMessage( ) );
+
+                        if ( logEntry.getChangedPaths( ).size( ) > 0 ) {
+                                writer.println( );
+                                writer.println( "changed paths:" );
+                                Set changedPathsSet = logEntry.getChangedPaths( ).keySet( );
+
+                                        for ( Iterator changedPaths = changedPathsSet.iterator( ); changedPaths.hasNext( ); ) {
+                                                SVNLogEntryPath entryPath = ( SVNLogEntryPath ) logEntry.getChangedPaths( ).get( changedPaths.next( ) );
+                                                writer.println( " "
+                                                + entryPath.getType( )
+                                                + " "
+                                                + entryPath.getPath( )
+                                                + ( ( entryPath.getCopyPath( ) != null ) ? " (from "
+                                                + entryPath.getCopyPath( ) + " revision "
+                                                + entryPath.getCopyRevision( ) + ")" : "" ) );
+                                        }
+                        }
+                }
+        }
 
 
 	//---------------------Getters and Setters---------------------/
