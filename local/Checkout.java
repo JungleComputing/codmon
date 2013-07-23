@@ -28,24 +28,13 @@ import java.util.*;
 //     -Refactoring
 //     -git
 public class Checkout{
-	String basePath = "../../testApplications/";
+	private String basePath = "../../testApplications/";
 		
-	private long svnCheckOut(String url,String projectName,String user, String pwd) throws SVNException{
-		File dstPath = new File(basePath+projectName);
-		SVNURL SVNUrl = SVNURL.parseURIEncoded(url);
-		SVNClientManager cm = SVNClientManager.newInstance(null,user,pwd); 
-                SVNUpdateClient updateClient = cm.getUpdateClient();
-		updateClient.setIgnoreExternals(false);
-		System.out.println(SVNUrl);
-		return updateClient.doCheckout(SVNUrl, dstPath, SVNRevision.UNDEFINED,SVNRevision.HEAD,SVNDepth.INFINITY,true);		
-	}
-
-
 	/**
  	*NOTE  code based on: http://wiki.svnkit.com/Printing_Out_Repository_History
  	*/
-	private void writeLog(Collection logEntries,File f,PrintWriter writer){ 
-		 for (Iterator entries = logEntries.iterator(); entries.hasNext(); ) {
+	private void writeInfoEntries(Collection infoEntries,File f,PrintWriter writer){ 
+		 for (Iterator entries = infoEntries.iterator(); entries.hasNext(); ) {
         		SVNLogEntry logEntry = (SVNLogEntry) entries.next();
             		writer.println("----------------------------------------------");
 			writer.println ("revision: " + logEntry.getRevision( ) );
@@ -72,70 +61,87 @@ public class Checkout{
    		}
 	}
 
-	
-	private void getSVNLogInfo(File f, long rev,SVNURL url,String user, String pwd,PrintWriter writer)throws SVNException{
-		SVNRepository repository = SVNRepositoryFactory.create(url);
-		ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(user, pwd);
-                repository.setAuthenticationManager(authManager);
-	
-		Collection logEntries = repository.log( new String[] { "" } , null , 0 , -1 , true , true );
-		writeLog(logEntries,f,writer);
-	}
+
 
 	/**
- 	*Updates the log file only when the  new version number is not equal to the 
-	*version number in the log.
- 	*TODO:Implement better log policy
- 	*/
-	private void updateSVNLog(String projectName, Long rev, File f,SVNURL url,String user, String pwd)throws IOException,SVNException{
-		FileReader fr = new FileReader(f);
-		LineNumberReader ln = new LineNumberReader(fr);
-		String s = ln.readLine();
-             	if(s==null || !s.equals(""+rev)){
-			//First clean the log file
-			PrintWriter writer = new PrintWriter(f);
-			writer.print("");
-			writer.append(""+rev+"\n\n");
-			//add the new log content
-			getSVNLogInfo(f,rev, url,user,pwd,writer);
-			writer.close();
-		}
+ 	*@author bvl300
+ 	*Updates a projects logfile with its current repository information
+ 	*TODO Implement better Log policy
+ 	**/ 
+	private void writeLog(Collection repInfo,File f,SVN svnRep) throws IOException{
+	        //first clean log and writ new revision number
+		PrintWriter writer = new PrintWriter(f);
+                writer.print("");
+                writer.append(""+svnRep.getRev()+"\n\n");
+		writeInfoEntries(repInfo,f,writer);
+		writer.close();
+	}
+
+	
+	/**
+	*@author bvl300
+	*This method updates a log file
+	*TODO check withe instanceof
+	* */ 
+	private void updateLog(SVN svnRep,File f)throws SVNException, IOException{
+		Collection logCollection = null;
+		//if("svn".equals(type)){ 
+                	logCollection = svnRep.getSvnInfo();
+                //}else if("git".equals(type)){
+                        //TODO  
+               // }
+		writeLog(logCollection,f,svnRep);          
 	}
 
 
-	private void updateLog(String projectName, long rev, String  type, SVNURL url,String user, String pwd)throws SVNException{
-		String fileName = projectName +"Log.txt";
+	/**
+ 	*@author bvl300
+	*This method checks if it is necessary to update the logFile and if so
+	*It calls the update method.
+ 	*TODO make suitable for all kind of Logs
+	*TODO dubbke check if it works also when file exists
+ 	* */ 
+	private void checkLog(SVN svnRep)throws SVNException{
+		String fileName = svnRep.getProject() +"Log.txt";
 		File f = new File(basePath+"/"+fileName);
 		try{
 			f.createNewFile();
-			if("svn".equals(type)){
-                        	updateSVNLog(projectName,rev,f,url,user,pwd);
-	                }
-
+			FileReader fr = new FileReader(f);
+                	LineNumberReader ln = new LineNumberReader(fr);
+                	String s = ln.readLine();
+			if(s==null || !s.equals(""+svnRep.getRev())){
+				updateLog(svnRep,f);
+			}
 		}catch(IOException e){
 			 System.out.println(e.getMessage());
 		}
 	}
 
-
+	
+	/**
+ 	*@author bvl300
+ 	*Checks out a specifc project and creates or updates the logfile
+ 	*/ 
 	private void checkoutProject(Node project) throws SVNException{
-		String url, type, projectName,user,pwd;
+		String url, type, projectName,user,pwd,command;
 		long rev= -1;
 		if (project.getNodeType() == Node.ELEMENT_NODE) {
  			Element eElement = (Element) project;
  
 			url = eElement.getElementsByTagName("location").item(0).getTextContent();
-			type = eElement.getElementsByTagName("versionControl").item(0).getTextContent();
+			type = eElement.getElementsByTagName("type").item(0).getTextContent();
+			command = eElement.getElementsByTagName("command").item(0).getTextContent();
  			projectName = eElement.getElementsByTagName("name").item(0).getTextContent();
 			user = eElement.getElementsByTagName("user").item(0).getTextContent();
                         pwd = eElement.getElementsByTagName("pwd").item(0).getTextContent();
-		
-			//transfer url into SVNURL
-			SVNURL SVNUrl = SVNURL.parseURIEncoded(url);
 				
 			if(type.equals("svn")){
-				 rev = svnCheckOut(url,projectName,user,pwd);
-				 updateLog(projectName,rev,type,SVNUrl,user,pwd);
+				SVN svnRep = new SVN(basePath, projectName, user,pwd,url);
+				if("checkout".equals(command)){
+				 	svnRep.checkout();
+				}
+				checkLog(svnRep);
+				//updateLog(projectName,rev,type,SVNUrl,user,pwd);
 
 			}else if(type.equals("git")){
 				//TODO git check out
@@ -146,6 +152,12 @@ public class Checkout{
 	}
 
 
+	/**
+ 	*@author bvl300
+ 	*This method controls the different steps that are needed to checkout the test projects
+	*First it reads the init.xml file, which contains information about the test projects, second
+	*it checks out the projects one by one.
+ 	*/
 	public Checkout () {
 		try{
 			File initFile = new File("init.xml");
@@ -166,7 +178,11 @@ public class Checkout{
     		}
 	}
 
-	
+
+	/**
+ 	*@author bvl300
+	*Main function to check out the test projects
+ 	*/	 	
 	public static void main(String argv[]){
 		new Checkout();
 	}
