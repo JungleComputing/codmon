@@ -14,7 +14,6 @@ import org.tmatesoft.svn.core.SVNException;
  
 //TODO -Log policy
 //     -Revission nr of application to be testedi
-//     -Refactoring
 //     -git
 public class Checkout{
 	private String basePath = "../../testApplications/";
@@ -101,7 +100,7 @@ public class Checkout{
 				//updateLog(projectName,rev,type,SVNUrl,user,pwd);
 
 			}else if(type.equals("git")){
-				//TODO git check out
+				//TODO git clone
 			}else{
 		//		throw SVNException("test");
 			}
