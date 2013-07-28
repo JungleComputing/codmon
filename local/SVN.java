@@ -1,6 +1,6 @@
 /**
  *@author Bvl300
- *Class for creating and manipulating subversionLogs
+ *Class for exucuting operations on SVN-repositories
  */
 import java.util.*;
 import java.io.File;

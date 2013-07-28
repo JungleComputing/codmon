@@ -12,4 +12,14 @@
 		<user>bvl300</user>
 		<pwd>maYl1nda</pwd>
 	</project>
+	<project>
+		<name>returnValue2</name>
+		<location>https://github.com/bgvv1983/ReturnValue2.git</location>
+		<versionControl>
+			<type>git</type>
+			<command>clone</command>
+		</versionControl>
+		<user>bvl300</user>
+		<pwd>maYl1nda</pwd>
+	</project>
 </projects>
