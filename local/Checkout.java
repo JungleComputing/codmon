@@ -100,7 +100,10 @@ public class Checkout{
 				//updateLog(projectName,rev,type,SVNUrl,user,pwd);
 
 			}else if(type.equals("git")){
-				//TODO git clone
+				GitObject gitRep = new GitObject(basePath,projectName,url);
+				if("clone".equals(command)){
+					gitRep.cloneRepo();
+				}
 			}else{
 		//		throw SVNException("test");
 			}
