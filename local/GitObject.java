@@ -3,7 +3,7 @@
  *Class for executing operations on a GIT-repository
  *
  * */
-import org.eclipse.jgit.api.*;
+import java.io.IOException;
 
 public class GitObject{
 	
