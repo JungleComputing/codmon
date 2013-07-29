@@ -28,13 +28,33 @@ public class GitObject{
 
 	/**
  	*@author bvl300
- 	*Clones a git object's git  repository
+ 	*Update a Git repository, when it's not cloned yest it clones the
+	* repository.
  	* */	 
-	public void cloneRepo() throws NoFilepatternException,GitAPIException{
-		Git.cloneRepository()
-		.setURI(url)
-		.setDirectory(new File(basePath))
-           	.call();  
+	public void update() throws NoFilepatternException,GitAPIException{
+		File f = new File(basePath);
+		if(!f.isDirectory()){ 
+			cloneRepo();
+		}else{
+			pullRepo();
+		}
 	}
 
+	
+	/**
+ 	*@author bvl300
+ 	*Clones a Git repository
+ 	* */
+	private void cloneRepo() throws NoFilepatternException,GitAPIException{
+		 Git.cloneRepository()
+                .setURI(url)
+                .setDirectory(new File(basePath))
+                .call();
+	}
+
+	
+	private void pullRepo(){
+
+
+	}
 }

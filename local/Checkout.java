@@ -105,7 +105,7 @@ public class Checkout{
 			}else if(type.equals("git")){
 				GitObject gitRep = new GitObject(basePath,projectName,url);
 				if("clone".equals(command)){
-					gitRep.cloneRepo();
+					gitRep.update();
 				}
 			}else{
 		//		throw SVNException("test");
