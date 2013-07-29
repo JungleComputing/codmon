@@ -11,12 +11,15 @@ import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.util.*;
 import org.tmatesoft.svn.core.SVNException;
+import org.eclipse.jgit.api.errors.NoFilepatternException;
+import org.eclipse.jgit.api.errors.GitAPIException;
  
 //TODO -Log policy
 //     -Revission nr of application to be testedi
 //     -git
 public class Checkout{
-	private String basePath = "../../testApplications/";
+	//private String basePath = "../../testApplications/";
+	private String basePath = "../../";
 	
 
 	/**
@@ -78,7 +81,7 @@ public class Checkout{
  	*@author bvl300
  	*Checks out a specifc project and creates or updates the logfile
  	*/ 
-	private void checkoutProject(Node project) throws SVNException{
+	private void checkoutProject(Node project) throws SVNException, NoFilepatternException,GitAPIException {
 		String url, type, projectName,user,pwd,command;
 		long rev= -1;
 		if (project.getNodeType() == Node.ELEMENT_NODE) {
