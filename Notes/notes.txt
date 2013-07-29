@@ -1,10 +1,2 @@
-stappen plan
 
-laatst bijgewerkt: 09-02-2013
-
-1) Kijken of het nu goed werkt
-2) Mail functionaliteit testen
-3) weer aanzetten.
-
-
-4)uitzoeken virtualisatie software ibis
+codmon/local :map waar de initiele benodigdheden staan(init, checkout programm )

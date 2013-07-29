@@ -2,7 +2,7 @@
 
 <projects>
 	<project>
-		<name>testApps</name>
+		<name>returnValue</name>
 		<location>https://gforge.cs.vu.nl/svn/ibis/codmon/branches/berend/testApps/returnValue</location>
 		<versionControl>
 			<type>svn</type>
