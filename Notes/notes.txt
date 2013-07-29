@@ -1,2 +1,4 @@
-
+home/bvl300  :map waar code voortestApplicaties staat (geheel buiten codmon)
+codmon	     :Hier komen de uitgecheckte applicaties die getest worden te
+staan).
 codmon/local :map waar de initiele benodigdheden staan(init, checkout programm )
