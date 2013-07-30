@@ -11,8 +11,7 @@ import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.util.*;
 import org.tmatesoft.svn.core.SVNException;
-import org.eclipse.jgit.api.errors.NoFilepatternException;
-import org.eclipse.jgit.api.errors.GitAPIException;
+import org.eclipse.jgit.api.errors.*;
  
 //TODO -Log policy
 //     -Revission nr of application to be testedi
@@ -81,7 +80,7 @@ public class Checkout{
  	*@author bvl300
  	*Checks out a specifc project and creates or updates the logfile
  	*/ 
-	private void checkoutProject(Node project) throws SVNException, NoFilepatternException,GitAPIException {
+	private void checkoutProject(Node project) throws SVNException, NoFilepatternException,GitAPIException,WrongRepositoryStateException, InvalidConfigurationException, DetachedHeadException, InvalidRemoteException, CanceledException, RefNotFoundException, NoHeadException,IOException {
 		String url, type, projectName,user,pwd,command;
 		long rev= -1;
 		if (project.getNodeType() == Node.ELEMENT_NODE) {
