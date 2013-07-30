@@ -102,7 +102,7 @@ public class Checkout{
 				//updateLog(projectName,rev,type,SVNUrl,user,pwd);
 
 			}else if(type.equals("git")){
-				GitObject gitRep = new GitObject(basePath,projectName,url);
+				GitObject gitRep = new GitObject(basePath,projectName,url,user,pwd);
 				if("clone".equals(command)){
 					gitRep.update();
 				}
