@@ -14,12 +14,12 @@
 	</project>
 	<project>
 		<name>returnValue2</name>
-		<location>https://github.com/bgvv1983/ReturnValue2.git</location>
+		<location>https://bgvv1983@bitbucket.org/bgvv1983/returnvalue2.git</location>
 		<versionControl>
 			<type>git</type>
 			<command>clone</command>
 		</versionControl>
-		<user>bvl300</user>
+		<user>bgvv1983</user>
 		<pwd>maYl1nda</pwd>
 	</project>
 </projects>
