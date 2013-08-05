@@ -19,7 +19,19 @@
 			<type>git</type>
 			<command>clone</command>
 		</versionControl>
+		<run>true</run>
 		<user>bgvv1983</user>
 		<pwd>maYl1nda</pwd>
 	</project>
+	<project>
+		<name>ibis</name>
+	        <location>https://gforge.cs.vu.nl/svn/ibis/ipl/trunk ibis</location>
+	        <versionControl>
+	       		<type>svn</type>
+	        	<command>checkout</command>
+	        </versionControl>
+	        <run>true</run>
+	        <user>bvl300</user>
+	        <pwd>maYl1nda</pwd>
+        </project>
 </projects>

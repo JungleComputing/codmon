@@ -17,10 +17,13 @@ import org.tmatesoft.svn.core.io.SVNRepositoryFactory;
 import org.tmatesoft.svn.core.io.SVNRepository;
 import org.tmatesoft.svn.core.wc.SVNWCUtil;
 import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
+import org.tmatesoft.svn.core.internal.util.SVNEncodingUtil; 
 
 public class SVN{
 	private String pwd;
-	private SVNURL url;
+	private SVNURL svnUrl;
+	private String url;
+	private String command;
 	private String user;
 	private String project;
 	private String basePath;;
@@ -35,28 +38,33 @@ public class SVN{
 	*@param  url the url of the repository location
   	*@return A SVNLog object 
  	*/
-	public SVN(String basePath, String project, String user,String pwd, String url ) throws SVNException{
+	public SVN(String basePath, String project, String user,String pwd, String url,String command ){
 		this.project = project;
 		this.basePath = basePath;
 		this.user = user;
 		this.pwd = pwd;
-		this.url= SVNURL.parseURIEncoded(url);
+		this.url =url;
+		this.command = command;
 	}
 
-	
-	/**
- 	*Checks out a svn repository 
-	*@author bvl300	
-	*@Return svn revision number
-	*/ 	
-	public void checkout() throws SVNException{
+
+        /**
+        *Checks out a svn repository 
+        *@author bvl300 
+        *@Return svn revision number
+        */
+	public void update()throws SVNException{
 		File dstPath = new File(basePath+project);
-		SVNClientManager cm = SVNClientManager.newInstance(null,user,pwd);
-               	SVNUpdateClient updateClient = cm.getUpdateClient();
+                SVNClientManager cm = SVNClientManager.newInstance(null,user,pwd);
+                SVNUpdateClient updateClient = cm.getUpdateClient();
                 updateClient.setIgnoreExternals(false);
-                rev =  updateClient.doCheckout(url, dstPath, SVNRevision.UNDEFINED,SVNRevision.HEAD,SVNDepth.INFINITY,true);
+                svnUrl = SVNURL.parseURIDecoded(url);
+		if("checkout".equals(command)){
+			rev =  updateClient.doCheckout(svnUrl, dstPath, SVNRevision.UNDEFINED,SVNRevision.HEAD,SVNDepth.INFINITY,true);
+		}else if ("export".equals(command)){
+			rev =  updateClient.doExport(svnUrl, dstPath, SVNRevision.UNDEFINED,SVNRevision.HEAD,"\n",true, SVNDepth.INFINITY);
+		}
 	}
-
 
 	/**
  	*@author bvl300
@@ -64,7 +72,7 @@ public class SVN{
  	*
  	* */	 
 	public Collection getSvnInfo()throws SVNException{
-		SVNRepository repository = SVNRepositoryFactory.create(url);
+		SVNRepository repository = SVNRepositoryFactory.create(svnUrl);
                 ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(user, pwd);
                 repository.setAuthenticationManager(authManager);
 

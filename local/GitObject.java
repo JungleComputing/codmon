@@ -6,6 +6,7 @@
 import java.io.File;
 import java.io.IOException;
 import org.eclipse.jgit.api.CloneCommand;
+import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.api.Git;
@@ -69,7 +70,8 @@ public class GitObject{
 	
 	private void pullRepo() throws  IOException,GitAPIException, WrongRepositoryStateException, InvalidConfigurationException, DetachedHeadException, InvalidRemoteException, CanceledException, RefNotFoundException, NoHeadException{
 		Git  git = new Git(localRepo);
-		git.pull().call();    	
+		PullCommand cmd = git.pull();
+		cmd.call();    	
 	}
                 
 }

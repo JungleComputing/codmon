@@ -94,9 +94,9 @@ public class Checkout{
                         pwd = eElement.getElementsByTagName("pwd").item(0).getTextContent();
 				
 			if(type.equals("svn")){
-				SVN svnRep = new SVN(basePath, projectName, user,pwd,url);
+				SVN svnRep = new SVN(basePath, projectName, user,pwd,url,command);
 				if("checkout".equals(command)){
-				 	svnRep.checkout();
+				 	svnRep.update();
 				}
 				checkLog(svnRep);
 				//updateLog(projectName,rev,type,SVNUrl,user,pwd);
@@ -104,7 +104,7 @@ public class Checkout{
 			}else if(type.equals("git")){
 				GitObject gitRep = new GitObject(basePath,projectName,url,user,pwd);
 				if("clone".equals(command)){
-					gitRep.update();
+				//	gitRep.update();
 				}
 			}else{
 		//		throw SVNException("test");
