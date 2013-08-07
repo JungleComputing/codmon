@@ -58,7 +58,7 @@ public class SVN{
                 SVNClientManager cm = SVNClientManager.newInstance(null,user,pwd);
                 SVNUpdateClient updateClient = cm.getUpdateClient();
                 updateClient.setIgnoreExternals(false);
-                svnUrl = SVNURL.parseURIDecoded(url);
+                svnUrl = SVNURL.parseURIEncoded(url);
 		if("checkout".equals(command)){
 			rev =  updateClient.doCheckout(svnUrl, dstPath, SVNRevision.UNDEFINED,SVNRevision.HEAD,SVNDepth.INFINITY,true);
 		}else if ("export".equals(command)){

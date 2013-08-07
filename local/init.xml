@@ -25,7 +25,7 @@
 	</project>
 	<project>
 		<name>ibis</name>
-	        <location>https://gforge.cs.vu.nl/svn/ibis/ipl/trunk ibis</location>
+	        <location>https://gforge.cs.vu.nl/svn/ibis/ipl/trunk</location>
 	        <versionControl>
 	       		<type>svn</type>
 	        	<command>checkout</command>
