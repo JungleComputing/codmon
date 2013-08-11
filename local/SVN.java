@@ -5,6 +5,7 @@
 import java.util.*;
 import java.io.File;
 import java.io.PrintWriter;
+import java.io.IOException;
 import org.tmatesoft.svn.core.SVNLogEntry;
 import org.tmatesoft.svn.core.SVNLogEntryPath;
 import org.tmatesoft.svn.core.wc.SVNClientManager;
@@ -80,11 +81,42 @@ public class SVN{
 	}
 
 
+
+	 /**
+        *@author bvl300
+        *This method updates a log file
+        * */
+        public void updateLog()throws SVNException, IOException{
+		String fileName = project +"Log.txt";
+                File f = new File(basePath+"/"+fileName);
+		Collection logCollection = null;
+                logCollection = this.getSvnInfo();
+                writeLog(logCollection,f);
+        }
+
+
+
+	/**
+        *@author bvl300
+        *Updates a projects logfile with its current repository information
+        *TODO Implement better Log policy
+        **/
+        private void writeLog(Collection repInfo,File f) throws IOException{
+                //first clean log and writ new revision number
+                PrintWriter writer = new PrintWriter(f);
+                writer.print("");
+                writer.append(""+rev+"\n\n");
+                writeLog(repInfo,f,writer);
+                writer.close();
+        }
+	
+
+
 	/**
  	*@author bvl300
  	*Method writes all the svn info formated to the logFile
  	* */
-	public void writeLog(Collection logEntries,File f,PrintWriter writer){
+	private void writeLog(Collection logEntries,File f,PrintWriter writer){
                  for (Iterator entries = logEntries.iterator(); entries.hasNext(); ) {
                         SVNLogEntry logEntry = (SVNLogEntry) entries.next();
                         writer.println("----------------------------------------------");
