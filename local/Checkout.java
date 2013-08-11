@@ -104,10 +104,10 @@ public class Checkout{
 			}else if(type.equals("git")){
 				GitObject gitRep = new GitObject(basePath,projectName,url,user,pwd);
 				if("clone".equals(command)){
-				//	gitRep.update();
+					gitRep.update();
 				}
 			}else{
-		//		throw SVNException("test");
+				//throw SVNException("Version control system not found");
 			}
 		}	
 	}
