@@ -14,6 +14,8 @@ import org.eclipse.jgit.api.errors.*;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 
+
+
 public class GitObject{
 
 	private String user;
@@ -21,21 +23,21 @@ public class GitObject{
 	private String url;
 	private String project;
 	private String basePath;
-	private Repository localRepo;	
-	private File repositoryFolder;
+	//private Repository localRepo;	
+	//private File repositoryFolder;
 
 	/**
  	*@author bvl300
 	*Constructor creates a new Git object
  	*/ 	
 	public GitObject(String basePath, String project, String url,String user,String pwd) throws IOException , GitAPIException{
-		this.basePath = basePath+project;
+		this.basePath = basePath;
 		this.project = project;
 		this.url = url;
 		this.user =user;
 		this.pwd =pwd;
-		repositoryFolder = new File("basePath");
-		localRepo = new  FileRepositoryBuilder().setGitDir(repositoryFolder).build();
+		//repositoryFolder = new File(this.basePath);
+		//localRepo = new  FileRepositoryBuilder().setGitDir(repositoryFolder).build();
 	}
 
 
@@ -45,7 +47,8 @@ public class GitObject{
 	* repository.
  	* */	 
 	public void update() throws IOException, NoFilepatternException,GitAPIException, WrongRepositoryStateException, InvalidConfigurationException, DetachedHeadException, InvalidRemoteException, CanceledException, RefNotFoundException, NoHeadException{
-		File f = new File(basePath);
+		String path = basePath+project;
+		File f = new File(path);	
 		if(!f.isDirectory()){ 
 			cloneRepo();
 		}else{
@@ -60,17 +63,25 @@ public class GitObject{
  	* */
 	private void cloneRepo() throws NoFilepatternException,GitAPIException{
 		CloneCommand cmd =  Git.cloneRepository();
-		CredentialsProvider cp = new UsernamePasswordCredentialsProvider(user, pwd);;
+		CredentialsProvider cp = new UsernamePasswordCredentialsProvider(user, pwd);
 		cmd.setURI(url);
-                cmd.setDirectory(new File(basePath));
+                cmd.setDirectory(new File(basePath+project));
 		cmd.setCredentialsProvider(cp);
                 cmd.call();
 	}
 
 	
+	/**
+ 	*@author bvl300
+ 	*Updates a git repository by executing the git pull command
+ 	* */ 
 	private void pullRepo() throws  IOException,GitAPIException, WrongRepositoryStateException, InvalidConfigurationException, DetachedHeadException, InvalidRemoteException, CanceledException, RefNotFoundException, NoHeadException{
+		File repositoryFolder = new File(basePath+project+"/.git");
+                Repository localRepo = new  FileRepositoryBuilder().setGitDir(repositoryFolder).build();
 		Git  git = new Git(localRepo);
+		CredentialsProvider cp = new UsernamePasswordCredentialsProvider(user, pwd);
 		PullCommand cmd = git.pull();
+		cmd.setCredentialsProvider(cp);
 		cmd.call();    	
 	}
                 
