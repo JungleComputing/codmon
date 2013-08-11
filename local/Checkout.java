@@ -18,39 +18,7 @@ import org.eclipse.jgit.api.errors.*;
 //     -git
 public class Checkout{
 	//private String basePath = "../../testApplications/";
-	private String basePath = "../../";
-	
-
-	/**
- 	*@author bvl300
- 	*Updates a projects logfile with its current repository information
- 	*TODO Implement better Log policy
- 	**/ 
-	private void writeLog(Collection repInfo,File f,SVN svnRep) throws IOException{
-	        //first clean log and writ new revision number
-		PrintWriter writer = new PrintWriter(f);
-                writer.print("");
-                writer.append(""+svnRep.getRev()+"\n\n");
-		svnRep.writeLog(repInfo,f,writer);
-		writer.close();
-	}
-
-	
-	/**
-	*@author bvl300
-	*This method updates a log file
-	*TODO check withe instanceof
-	* */ 
-	private void updateLog(SVN svnRep,File f)throws SVNException, IOException{
-		Collection logCollection = null;
-		//if("svn".equals(type)){ 
-                	logCollection = svnRep.getSvnInfo();
-                //}else if("git".equals(type)){
-                        //TODO  
-               // }
-		writeLog(logCollection,f,svnRep);          
-	}
-
+	private String basePath = "../../";           
 
 	/**
  	*@author bvl300
@@ -59,19 +27,21 @@ public class Checkout{
  	*TODO make suitable for all kind of Logs
 	*TODO dubbke check if it works also when file exists
  	* */ 
-	private void checkLog(SVN svnRep)throws SVNException{
-		String fileName = svnRep.getProject() +"Log.txt";
+	private boolean checkOldLog(String projectName,long rev)throws SVNException{
+		String fileName = projectName +"Log.txt";
 		File f = new File(basePath+"/"+fileName);
 		try{
 			f.createNewFile();
 			FileReader fr = new FileReader(f);
                 	LineNumberReader ln = new LineNumberReader(fr);
                 	String s = ln.readLine();
-			if(s==null || !s.equals(""+svnRep.getRev())){
-				updateLog(svnRep,f);
+			if(s==null || !s.equals(""+rev)){
+				return true;
 			}
+			return false;
 		}catch(IOException e){
 			 System.out.println(e.getMessage());
+			 return false;
 		}
 	}
 
@@ -95,16 +65,22 @@ public class Checkout{
 				
 			if(type.equals("svn")){
 				SVN svnRep = new SVN(basePath, projectName, user,pwd,url,command);
-				if("checkout".equals(command)){
+				if("checkout".equals(command)||"export".equals(command)){
 				 	svnRep.update();
+				}	
+				rev = svnRep.getRev();
+				if(checkOldLog(projectName,rev)){
+					svnRep.updateLog();
 				}
-				checkLog(svnRep);
 				//updateLog(projectName,rev,type,SVNUrl,user,pwd);
 
 			}else if(type.equals("git")){
 				GitObject gitRep = new GitObject(basePath,projectName,url,user,pwd);
 				if("clone".equals(command)){
 					gitRep.update();
+				}
+				if(checkOldLog(projectName,rev)){
+					//update
 				}
 			}else{
 				//throw SVNException("Version control system not found");
