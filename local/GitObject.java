@@ -13,7 +13,7 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.errors.*;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
-
+import org.eclipse.jgit.revwalk.RevCommit;
 
 
 public class GitObject{
@@ -36,8 +36,6 @@ public class GitObject{
 		this.url = url;
 		this.user =user;
 		this.pwd =pwd;
-		//repositoryFolder = new File(this.basePath);
-		//localRepo = new  FileRepositoryBuilder().setGitDir(repositoryFolder).build();
 	}
 
 
@@ -54,6 +52,22 @@ public class GitObject{
 		}else{
 			pullRepo();
 		}
+	}
+
+
+
+	public void updateLog(){
+		String fileName = project +"Log.txt";
+                File f = new File(basePath+"/"+fileName);
+		Iterable<RevCommit> commits = getCommits();
+
+	}
+
+	
+
+	private Iterable<RevCommit> getCommits(){
+	
+	return null;
 	}
 
 	

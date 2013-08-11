@@ -17,7 +17,6 @@ import org.eclipse.jgit.api.errors.*;
 //     -Revission nr of application to be testedi
 //     -git
 public class Checkout{
-	//private String basePath = "../../testApplications/";
 	private String basePath = "../../";           
 
 	/**
@@ -80,7 +79,7 @@ public class Checkout{
 					gitRep.update();
 				}
 				if(checkOldLog(projectName,rev)){
-					//update
+					gitRep.updateLog();
 				}
 			}else{
 				//throw SVNException("Version control system not found");
