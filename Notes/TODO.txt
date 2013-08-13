@@ -1,0 +1,2 @@
+1) Checkout - log policies
+2) Checkout - interfac maken en toevoegen
