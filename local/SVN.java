@@ -76,8 +76,7 @@ public class SVN{
 		SVNRepository repository = SVNRepositoryFactory.create(svnUrl);
                 ISVNAuthenticationManager authManager = SVNWCUtil.createDefaultAuthenticationManager(user, pwd);
                 repository.setAuthenticationManager(authManager);
-
-                return repository.log( new String[] { "" } , null , 0 , -1 , true , true );
+                return repository.log( new String[] { "" } , null , 0 ,-1 , true , true );
 	}
 
 
