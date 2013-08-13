@@ -1,0 +1,35 @@
+<!--ant file to build the CheckoutApplications application-->
+<project name="CheckoutApplications" basedir="." default="main">
+
+        <property name="src.dir"     value="."/>
+        <property name="classes.dir" value="classes"/>
+        <property name="jar.dir"     value="jar"/>
+
+        <property name="main-class"  value="CheckoutApplications.checkoutApplications"/>
+
+
+        <!--Remove the classes and jar folders-->
+        <target name="clean">
+                <delete dir="${classes.dir}"/>
+                <delete dir="${jar.dir}"/>
+        </target>
+
+        <!--Compile the java code-->
+        <target name="compile">
+            <mkdir dir="${classes.dir}"/>
+            <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+        </target>
+
+        <!--Build the CheckoutApplications jar-->
+        <target name="jar" depends="compile">
+            <mkdir dir="${jar.dir}"/>
+            <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
+                <manifest>
+                        <attribute name="Main-Class" value="${main-class}"/>
+                </manifest>
+            </jar>
+        </target>
+
+        <target name="main" depends="clean,compile,jar"/>
+</project>
+
