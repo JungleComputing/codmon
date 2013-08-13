@@ -3,10 +3,13 @@
  *Class for executing operations on a GIT-repository
  *
  * */
+import java.util.*;
 import java.io.File;
+import java.io.PrintWriter;
 import java.io.IOException;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.PullCommand;
+import org.eclipse.jgit.api.LogCommand;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.api.Git;
@@ -56,20 +59,52 @@ public class GitObject{
 
 
 
-	public void updateLog(){
+
+	/**
+ 	*@author bvl300
+	*Updates the log file from a git project
+	*
+	**/
+	public void updateLog()throws GitAPIException, IOException{
+		Iterator<RevCommit> commits = getCommits().iterator();
+		writeLog(commits);
+	}
+
+	
+
+	/**
+ 	*@author bvl300
+	*Fetches the Git llog
+	**/
+	private Iterable<RevCommit> getCommits()throws GitAPIException,IOException{
+		File repositoryFolder = new File(basePath+project+"/.git");
+                Repository localRepo = new  FileRepositoryBuilder().setGitDir(repositoryFolder).build();
+		Git  git = new Git(localRepo);
+		LogCommand cmd = git.log();
+		return cmd.call();	
+	}
+
+	
+	/**
+	 *@author bvl300
+	 *Writes the Logfile
+	 * */
+	private void writeLog(Iterator<RevCommit> commits)throws IOException{
+		int i =0;
 		String fileName = project +"Log.txt";
                 File f = new File(basePath+"/"+fileName);
-		Iterable<RevCommit> commits = getCommits();
-
+		PrintWriter writer = new PrintWriter(f);
+                writer.print("");
+		while(commits.hasNext() && i<10){
+			writer.println("----------------------------------------------");
+			RevCommit commit = commits.next();
+			writer.println("Author :" + commit.getCommitterIdent().getName());
+			writer.println( "Date: " + commit.getCommitterIdent().getWhen() );
+			writer.print(commit.getFullMessage());
+			i++;
+		}
+		writer.close();
 	}
-
-	
-
-	private Iterable<RevCommit> getCommits(){
-	
-	return null;
-	}
-
 	
 	/**
  	*@author bvl300
