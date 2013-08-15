@@ -17,7 +17,7 @@ import org.eclipse.jgit.api.errors.*;
 //     -Revission nr of application to be testedi
 //     -git
 public class Checkout{
-	private String basePath = "../../../";           
+	private String basePath = "../../../../";           
 
 	/**
  	*@author bvl300
@@ -28,7 +28,7 @@ public class Checkout{
  	* */ 
 	private boolean checkOldLog(String projectName,long rev)throws SVNException{
 		String fileName = projectName +"Log.txt";
-		File f = new File(basePath+"/"+fileName);
+		File f = new File(basePath+"/"+projectName+"/"+fileName);
 		try{
 			f.createNewFile();
 			FileReader fr = new FileReader(f);
@@ -96,7 +96,7 @@ public class Checkout{
  	*/
 	public Checkout () {
 		try{
-			File initFile = new File("init.xml");
+			File initFile = new File("../init.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(initFile);

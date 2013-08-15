@@ -87,7 +87,7 @@ public class SVN{
         * */
         public void updateLog()throws SVNException, IOException{
 		String fileName = project +"Log.txt";
-                File f = new File(basePath+"/"+fileName);
+                File f = new File(basePath+"/"+project+"/"+fileName);
 		Collection logCollection = null;
                 logCollection = this.getSvnInfo();
                 writeLog(logCollection,f);

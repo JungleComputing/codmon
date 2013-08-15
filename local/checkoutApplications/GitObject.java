@@ -91,7 +91,7 @@ public class GitObject{
 	 * */
 	private void writeLog(Iterator<RevCommit> commits)throws IOException{
 		int i =0;
-		String fileName = project +"Log.txt";
+		String fileName = project +"/"+project+"Log.txt";
                 File f = new File(basePath+"/"+fileName);
 		PrintWriter writer = new PrintWriter(f);
                 writer.print("");
