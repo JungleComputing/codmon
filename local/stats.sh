@@ -22,6 +22,7 @@ export RMI_HOME=$CODMON_HOME/ibis-rmi
 export GMI_HOME=$CODMON_HOME/ibis-gmi
 export SATIN_HOME=$CODMON_HOME/satin
 export RETURNVALUE_HOME = $CODMON_HOME/returnValue
+export RETURNVALUE2_HOME = $CODMON_HOME/returnValie2
 
 cd $CODMON_HOME/codmon
 
