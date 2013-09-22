@@ -61,7 +61,7 @@ public class StartUp{
 	
 	private String[] getJars(){
 		String[] jars = new String[1];
-                jars[0] = "codmon.jar";
+                jars[0] = "../build/codmon.jar";
 		return jars;
 	}
 	
@@ -75,6 +75,7 @@ public class StartUp{
 
      		for (String externalJar : jars) {
          		paths.add(new File(externalJar).toURI().toURL());
+			System.out.println(paths.get(0));
      		}
      		
 		URL[] urls = paths.toArray(new URL[paths.size()]);
@@ -88,10 +89,10 @@ public class StartUp{
 	private Method getStartMethod(String[] argv){	
 		Method m = null;
 		Class<?> cl = null;
-		String[] jars = getJars();
+		String[] jars = getJars();;
 		try{
 		        ClassLoader loader = getClassLoader(jars);
-			cl = loader.loadClass(jars[0]);
+			cl = loader.loadClass("Stats");
 			m = cl.getMethod("main", new Class[] { argv.getClass() });
 		}catch(Exception e){
 			System.out.println(e.getMessage());
