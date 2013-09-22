@@ -33,7 +33,7 @@ public class StartUp{
  	*Copies the the data from dday to dday1 etc etc
  	* */
 	private void copyData(File[] directories){
-		for(int i =0;i<directories.length;i++){	
+		for(int i =directories.length-2;i>=0;i--){	
 				move(directories[i],directories[i+1]);					
 		}		
 	}
@@ -45,7 +45,7 @@ public class StartUp{
 	 **/ 
 	private File[] createDdayDirectories(int numberDirs){
 		File[] directories = new File[numberDirs];
-		for(int i=0;i<=directories.length;i++){
+		for(int i=0;i<directories.length;i++){
 			directories[i] = new File("dday"+i);
 			if(!directories[i].exists()){directories[i].mkdir();}
 
