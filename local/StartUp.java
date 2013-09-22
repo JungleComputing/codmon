@@ -85,14 +85,14 @@ public class StartUp{
 	 *@author bvl300
 	 *Loads codmon.jar so I can Use it here
 	 **/
-	private Method getStartMethod(){	
+	private Method getStartMethod(String[] argv){	
 		Method m = null;
 		Class<?> cl = null;
 		String[] jars = getJars();
-
 		try{
 		        ClassLoader loader = getClassLoader(jars);
 			cl = loader.loadClass(jars[0]);
+			m = cl.getMethod("main", new Class[] { argv.getClass() });
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -114,15 +114,15 @@ public class StartUp{
  	*@author bvl300
  	*initilezes the program. creates and copy dday files to the right directories
  	*/ 	 	
-	private Method init(){
+	private Method init(String[] argv){
 		loadProperties();
 		File[] directories = createDdayDirectories(4);
 		copyData(directories);
-		return getStartMethod();
+		return getStartMethod(argv);
 	}
 
 
-	private void run(Method m,String sensor){
+	private void run(Method m){
 		try{
 			//invoke method
 		}catch(Exception e){
@@ -131,9 +131,9 @@ public class StartUp{
 	}
 
 	
-	public StartUp(String sensor){ 
-		Method startMethod = init();
-		run(startMethod,sensor);		
+	public StartUp(String[] argv){ 
+		Method startMethod = init(argv);
+		run(startMethod);		
 	}
 
 
@@ -144,7 +144,7 @@ public class StartUp{
  	* */ 	 
 	public static void main(String argv[]){
 		if(argv.length ==1){
-			new StartUp(argv[0]);
+			new StartUp(argv);
 		}else{
 			System.out.println("Stats expects a sensor as a paramater");
 		}
