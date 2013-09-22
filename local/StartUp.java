@@ -128,9 +128,9 @@ public class StartUp{
 	}
 
 
-	private void run(Method m){
+	private void run(Method m,String[] argv){
 		try{
-			//invoke method
+			m.invoke(null,new Object[]{argv});
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
@@ -139,7 +139,7 @@ public class StartUp{
 	
 	public StartUp(String[] argv){ 
 		Method startMethod = init(argv);
-		run(startMethod);		
+		run(startMethod,argv);		
 	}
 
 
