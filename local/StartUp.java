@@ -46,7 +46,12 @@ public class StartUp{
 	private File[] createDdayDirectories(int numberDirs){
 		File[] directories = new File[numberDirs];
 		for(int i=0;i<directories.length;i++){
-			directories[i] = new File("dday"+i);
+			if(i ==0) {
+				directories[i] = new File("../dday");
+			}
+			else{
+				directories[i] = new File("../dday"+i);
+			}
 			if(!directories[i].exists()){directories[i].mkdir();}
 
 		}	
