@@ -3,8 +3,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.net.MalformedURLException;
 import java.lang.SecurityException;
+import java.lang.reflect.Method;
 import java.net.URLClassLoader;
 import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
 
 /**
  *@author bvl300
@@ -56,6 +59,13 @@ public class StartUp{
 	}
 
 	
+	private String[] getJars(){
+		String[] jars = new String[1];
+                jars[0] = "codmon.jar";
+		return jars;
+	}
+	
+	
 	/**
  	*@author bvl300
 	*Returns Classloader that contains the necessary jars
@@ -75,15 +85,28 @@ public class StartUp{
 	 *@author bvl300
 	 *Loads codmon.jar so I can Use it here
 	 **/
-	private void loadJars(){	
-		String[] jars = new String[1];
-		jars[0] = "codmon.jar";
-		
+	private Method getStartMethod(){	
+		Method m = null;
+		Class<?> cl = null;
+		String[] jars = getJars();
+
 		try{
-			getClassLoader(jars);
+		        ClassLoader loader = getClassLoader(jars);
+			cl = loader.loadClass(jars[0]);
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
+
+		if(!m.isAccessible()){
+			final Method temporary_method = m;
+			AccessController.doPrivileged(new PrivilegedAction<Object>() {
+            			 public Object run() {
+               		  		temporary_method.setAccessible(true);
+                 			return null;
+             			}
+         		});
+		}
+		return m;
 	} 
 
 
@@ -91,22 +114,26 @@ public class StartUp{
  	*@author bvl300
  	*initilezes the program. creates and copy dday files to the right directories
  	*/ 	 	
-	private void init(){
-		loadJars();
+	private Method init(){
 		loadProperties();
 		File[] directories = createDdayDirectories(4);
 		copyData(directories);
+		return getStartMethod();
 	}
 
 
-	private void run(String sensor){
-		//Stats.main();
+	private void run(Method m,String sensor){
+		try{
+			//invoke method
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
 	}
 
 	
 	public StartUp(String sensor){ 
-		init();
-		run(sensor);		
+		Method startMethod = init();
+		run(startMethod,sensor);		
 	}
 
 
