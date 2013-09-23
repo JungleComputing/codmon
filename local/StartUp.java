@@ -129,8 +129,12 @@ public class StartUp{
 
 
 	private void run(Method m,String[] argv){
+		String sensor = argv[0];
+		String[] statsArgs = new String[2];
+		statsArgs[0] = "../sensors-"+sensor+".xml";
+		statsArgs[1] = "../dday/shot-"+sensor+".xml";
 		try{
-			m.invoke(null,new Object[]{argv});
+			m.invoke(null,new Object[]{statsArgs});
 		}catch(Exception e){
 			System.out.println(e.getMessage());
 		}
