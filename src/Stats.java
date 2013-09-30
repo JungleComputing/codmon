@@ -2,6 +2,8 @@ import java.io.File;
 import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import java.io.*;
+import java.util.Properties;
+
 
 // Jrobin stuff
 import org.jrobin.core.*;
@@ -17,13 +19,34 @@ import java.util.*;
 import javax.xml.transform.*;
 import javax.xml.transform.dom.*;
 
+
 class Config {
-    static final String CODMON_HOME = System.getenv("CODMON_HOME");
-    static final String BASE = CODMON_HOME + "/codmon/";
-    static final String RRDBASE = BASE+"rrd/";
-    static final int RRDSTEP = 86400;
-    static final String PROJECT = "Ibis";
-    static final int MAXRUNS = 15;
+	static {
+    		loadProperties();
+	}
+	
+	static  String CODMON_HOME;
+	static  String BASE;
+    	static  String RRDBASE;
+    	static  final int RRDSTEP = 86400;
+    	static  final String PROJECT = "Ibis";
+    	static  final int MAXRUNS = 15;
+
+
+	private static void loadProperties(){
+		Properties prop = new Properties();
+		try {
+               //load a properties file
+               prop.load(new FileInputStream("environment.properties"));
+
+//		prop.load(new FileInputStream("/home/bvl300/codmon/codmon/local/environment.properties"));
+		CODMON_HOME = prop.getProperty("codmon.home"); 
+                BASE = CODMON_HOME + "/codmon/";
+		RRDBASE = BASE+"rrd/";
+    		} catch (IOException ex) {
+    			ex.printStackTrace();
+        	}
+	}
 }
 
 class FatalSensorException extends Exception {}
