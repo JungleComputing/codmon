@@ -1,5 +1,7 @@
 import java.io.File;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.net.MalformedURLException;
 import java.lang.SecurityException;
@@ -40,6 +42,23 @@ public class StartUp{
 
 
 	/**
+ 	*@author bvl300
+ 	*Creates the Files that must be available befor the programm runs
+ 	* */ 
+	private void createBasicFiles(){
+		try{
+			PrintWriter writer = new PrintWriter("../dday1/allin1.xml");
+			writer.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
+			writer.println("<?xml-stylesheet type=\"text/xsl\" href=\"../libs/merge.xml\"?>");
+			writer.println("<xml/>");
+			writer.close();
+		}catch(FileNotFoundException e){
+			System.out.println(e.getMessage());
+		}
+	}
+
+
+	/**
 	 *@author bvl300
 	 *Creates the differs directories where the results are stored.
 	 **/ 
@@ -58,10 +77,6 @@ public class StartUp{
 		return directories;
 	}
 
-
-	private void loadProperties(){
-
-	}
 
 	
 	private String[] getJars(){
@@ -121,8 +136,8 @@ public class StartUp{
  	*initilezes the program. creates and copy dday files to the right directories
  	*/ 	 	
 	private Method init(String[] argv){
-		loadProperties();
 		File[] directories = createDdayDirectories(4);
+		createBasicFiles();
 		copyData(directories);
 		return getStartMethod(argv);
 	}
