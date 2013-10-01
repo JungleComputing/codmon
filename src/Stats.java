@@ -193,7 +193,7 @@ class Shot {
 	    DocumentBuilder builder =
 		DocumentBuilderFactory.newInstance().newDocumentBuilder();
 	    Document doc = builder.parse(config);
-
+	 
 
 	    // Running onoff sensors
 	    NodeList nodes = ((Element) doc.getElementsByTagName("onoff").item(0)).getElementsByTagName("sensor");
@@ -201,13 +201,14 @@ class Shot {
 	    str.append("<onoff>\n");
 
 	    BufferedResults results = new BufferedResults();
-
+	    
 	    for (int i = 0; i < nodes.getLength(); i++) {
 		Element element = (Element) nodes.item(i);
 
 
 		String id = element.getAttribute("id");
 		String name = element.getAttribute("name");
+	
 		if (id.equals("separator")) {
 		    results.append(id, name, null, null, null, null, null, null);
 		    continue;

@@ -55,4 +55,5 @@
 <sensor id="nocom-tree" name="Nocom Benchmarks with Trees" cmd="CODMON_HOME/codmon/wrappers/run-ibis -o out9 -c CODMON_HOME/codmon/apps/io/nocom 1 -Xmx64M -Xms64M Main -read -write -conv -anyconv -ibis -sun -object DITree -t 50 -c 1000 -s 16384 16384" scope="ibis/src" scheduled="true"/>
 
 </graph>
+
 </sensors>
