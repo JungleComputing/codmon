@@ -4,11 +4,13 @@
 <sensors>
 	<onoff>
 		<!-- testAppss Build process -->
-		<sensor id="testApps" name="TestApps: build process"/>
-		
-		<!--First check out the testApps project-->
-		<sensor id="testApps__checkout_ok" name="TestApps: checkout" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME sh codmon/local/testAppsUp.sh"  scope="testApps" scheduled="false" graph="false" fatal="true"/>
+		<sensor id="part" name="TestApps: build process"/>
 	
+	
+		<!--First check out the testApps project-->
+		<!--
+		<sensor id="testApps__checkout_ok" name="TestApps: checkout" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME sh codmon/local/testAppsUp.sh"  scope="testApps" scheduled="false" graph="false" fatal="true"/>
+		-->
 		<!--Second build the testApss project-->
 	<!--	<sensor id="testApps_build_ok" name="TestApps: build" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/returnValue ant" scope="testApps" scheduled="false" graph="true" fatal="true"/>
 	-->
