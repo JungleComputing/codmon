@@ -185,7 +185,7 @@ class Shot {
 	runtime = Runtime.getRuntime();
 	config = new File(configg);
 
-	// Add XML Header
+	// Add XML Header to stringBuffer
 	add_header();
 
 	// Stat work
@@ -199,7 +199,6 @@ class Shot {
 	    NodeList nodes = ((Element) doc.getElementsByTagName("onoff").item(0)).getElementsByTagName("sensor");
 	    total = nodes.getLength();
 	    str.append("<onoff>\n");
-
 	    BufferedResults results = new BufferedResults();
 	    
 	    for (int i = 0; i < nodes.getLength(); i++) {
@@ -236,6 +235,7 @@ class Shot {
 		    finalize_onoff(results);
 		    results = new BufferedResults();
 		}
+
 
 		if (element.getAttribute("scheduled").equals("true"))
 		    init_onoff(id, name, wrapper, cmd, scope, graph, fatal, results);
@@ -320,6 +320,8 @@ class Shot {
  
 	// Add XML Footer
 	add_footer();
+	//used for debugging when calling a programm
+	//System.out.println(str);
     }
 
 	
@@ -1048,7 +1050,6 @@ class RrdInput {
 public class Stats{
 
     public static void main(String[] args) throws FatalSensorException{
-
 	if (args.length != 2) {
 	    System.err.println("Wrong number of arguments. Usage:\njava codmon.jar <config-file> <output-file>");
 	    System.exit(1);
