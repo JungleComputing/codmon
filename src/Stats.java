@@ -26,6 +26,7 @@ class Config {
 	}
 	
 	static  String CODMON_HOME;
+	static  String CODMON_CHECKOUT;
 	static  String BASE;
     	static  String RRDBASE;
     	static  final int RRDSTEP = 86400;
@@ -41,7 +42,8 @@ class Config {
 
 //		prop.load(new FileInputStream("/home/bvl300/codmon/codmon/local/environment.properties"));
 		CODMON_HOME = prop.getProperty("codmon.home"); 
-                BASE = CODMON_HOME + "/codmon/";
+                CODMON_CHECKOUT = prop.getProperty("codmon.checkOut");
+		BASE = CODMON_HOME + "/codmon/";
 		RRDBASE = BASE+"rrd/";
     		} catch (IOException ex) {
     			ex.printStackTrace();
@@ -235,8 +237,8 @@ class Shot {
 		    finalize_onoff(results);
 		    results = new BufferedResults();
 		}
-
-
+	
+	
 		if (element.getAttribute("scheduled").equals("true"))
 		    init_onoff(id, name, wrapper, cmd, scope, graph, fatal, results);
 		else {  /* Unscheduled : finish running jobs, run *this* job, reinit results */
@@ -321,7 +323,7 @@ class Shot {
 	// Add XML Footer
 	add_footer();
 	//used for debugging when calling a programm
-	//System.out.println(str);
+	System.out.println(str);
     }
 
 	
@@ -342,7 +344,8 @@ class Shot {
 	    System.err.println(running+"/"+total+"-Checking: "+name+"..."+((id.equals("separator")||id.equals("part"))?"(Separator)":""));
 	    // long start = Util.getTime();
 	    Process compil;
-	    //System.err.println("--- Running: "+lookup_wrapper(wrapper)+cmd);
+	    System.out.println("--- Running: "+lookup_wrapper(wrapper)+cmd);
+	    //System.out.println("-->>"+cmd);
 	    compil = runtime.exec(lookup_wrapper(wrapper)+cmd);
 
 	    results.append(id, name, scope, null, compil, graph, null, fatal);
