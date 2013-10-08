@@ -120,6 +120,7 @@ public class Checkout{
 	*Main function to check out the test projects
  	*/	 	
 	public static void main(String argv[]){
+		System.out.println("------>BINNEN<--------");
 		new Checkout();
 	}
 
