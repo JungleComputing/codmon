@@ -5,14 +5,15 @@
 	<onoff>
 		<!-- testAppss Build process -->
 		<sensor id="part" name="TestApps: build process"/>
-		
+
+			
 		<!-- build checkout module-->
-		<sensor id="build_ok" name="Build Checkout" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/codmon/local/checkoutApplications ant" scope="checkOut" scheduled="false" graph="true" fatal="true" />
+		<sensor id="build_ok" name="TestApps: Build Checkout" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/codmon/local/checkoutApplications ant" scope="checkOut" scheduled="false" graph="true" fatal="true" />
 
 
-		<!--First check out the  projects-->
-		<!--<sensor id="testApps__checkout_ok" name="TestApps: checkout" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME java codmon/local/checkoutApplications/classes/Checkout"  scope="testApps" scheduled="false" graph="false" fatal="true"/>
-	-->
+		<!-- check out the  projects-->
+		<sensor id="testApps__checkout_ok" name="TestApps: checkout" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/codmon/local/checkoutApplications/classes java Checkout"  scope="testApps" scheduled="false" graph="false" fatal="true"/>
+
 		<!--Second build the testApss project-->
 	<!--	<sensor id="testApps_build_ok" name="TestApps: build" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/returnValue ant" scope="testApps" scheduled="false" graph="true" fatal="true"/>
 	-->
