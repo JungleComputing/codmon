@@ -9,6 +9,7 @@ use strict;
 
 my ($dir, @args) = @ARGV;
 my $cmd = join " ", @args;
+
 $cmd =~ s/&lt;/</g;
 $cmd =~ s/&gt;/>/g;
 
