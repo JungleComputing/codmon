@@ -13,9 +13,13 @@ public class TimeWrapper{
 	public static void main(String argv[]){
 		String dir = argv[0];
 		String cmd = argv[1];
-
+		long startTime,duration;
+		Ant ant = new Ant(); 
 		//TODO goto directory
-		long startTime = System.nanoTime();
+		
+		startTime = System.nanoTime();
+	
+		duration = System.nanoTime-startTime();
 		
 	}
  
