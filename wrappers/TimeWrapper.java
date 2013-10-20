@@ -16,10 +16,12 @@ public class TimeWrapper{
 		long startTime,duration;
 		Ant ant = new Ant(); 
 		//TODO goto directory
-		
-		startTime = System.nanoTime();
+		System.out.println("--->>"+dir);
+		System.out.println("---->>>"+System.getProperty("user.dir"));	
 	
-		duration = System.nanoTime-startTime();
+		startTime = System.nanoTime();
+		ant.run();	
+		duration = System.nanoTime()-startTime;
 		
 	}
  
