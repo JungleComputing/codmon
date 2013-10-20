@@ -19,7 +19,7 @@ public class Ant{
 	}
 
 	public void run(){
-		this.executeTarget(this.getDefaultTarget());
+		this.project.executeTarget(this.project.getDefaultTarget());
 	}
 
 }

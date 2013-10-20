@@ -338,16 +338,33 @@ class Shot {
     }
 
 
+    private String getDirectory(String path){
+	return null;	
+    }
+
+    /**
+     *@author bvl300
+     *Starts a new process in a given directory
+     *TODO commando uitbreidem met te testen software
+     **/
+    private Process startProcess(String cmd) throws IOException {
+	String[] arguments = cmd.split("\\s+");
+	int i = arguments[1].lastIndexOf('/')+1;
+	String wrapper = arguments[1].substring(i);
+        String dir = arguments[1].substring(0,i);
+	final Process pr = new ProcessBuilder(arguments[0],wrapper)
+ 		  .directory(new File(dir)) 
+    		.start();
+	return pr;
+    }
 
     private void init_onoff(String id, String name, String wrapper, String cmd, String scope, String graph, String fatal, BufferedResults results) {
 	try {
 	    System.err.println(running+"/"+total+"-Checking: "+name+"..."+((id.equals("separator")||id.equals("part"))?"(Separator)":""));
 	    // long start = Util.getTime();
-	    Process compil;
-	    System.out.println("--- Running: "+lookup_wrapper(wrapper)+cmd);
-	    //System.out.println("-->>"+cmd);
-	    compil = runtime.exec(lookup_wrapper(wrapper)+cmd);
-
+	    Process compil;	    
+	    //compil = runtime.exec(lookup_wrapper(wrapper)+cmd);
+            compil = startProcess(lookup_wrapper(wrapper)+cmd);
 	    results.append(id, name, scope, null, compil, graph, null, fatal);
 
 	} catch (Exception e) {
