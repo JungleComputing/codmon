@@ -3,7 +3,7 @@ import javax.xml.parsers.*;
 import org.w3c.dom.*;
 import java.io.*;
 import java.util.Properties;
-
+import java.util.ArrayList;
 
 // Jrobin stuff
 import org.jrobin.core.*;
@@ -342,19 +342,30 @@ class Shot {
 	return null;	
     }
 
+
+
     /**
      *@author bvl300
      *Starts a new process in a given directory
      *TODO commando uitbreidem met te testen software
      **/
     private Process startProcess(String cmd) throws IOException {
-	String[] arguments = cmd.split("\\s+");
-	int i = arguments[1].lastIndexOf('/')+1;
-	String wrapper = arguments[1].substring(i);
+	//Need to specify which Arraylist util vs awt 		
+        java.util.List<String> argList= new ArrayList<String>();
+        String[] arguments = cmd.split("\\s+");
+        String call = arguments[0];
+        int i = arguments[1].lastIndexOf('/')+1;
+        String wrapper = arguments[1].substring(i);
         String dir = arguments[1].substring(0,i);
-	final Process pr = new ProcessBuilder(arguments[0],wrapper)
- 		  .directory(new File(dir)) 
-    		.start();
+        argList.add(call);
+        argList.add(wrapper);
+        argList.add(arguments[2]);
+        argList.add(arguments[3]);
+
+
+	final Process pr = new ProcessBuilder(argList)
+ 		 .directory(new File(dir)) 
+    		 .start();
 	return pr;
     }
 
