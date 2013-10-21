@@ -350,8 +350,8 @@ class Shot {
      *TODO commando uitbreidem met te testen software
      **/
     private Process startProcess(String cmd) throws IOException {
-	//Need to specify which Arraylist util vs awt 		
-        java.util.List<String> argList= new ArrayList<String>();
+	//Need to specify which Arraylist util vs awt 	
+	java.util.List<String> argList= new ArrayList<String>();
         String[] arguments = cmd.split("\\s+");
         String call = arguments[0];
         int i = arguments[1].lastIndexOf('/')+1;
@@ -361,8 +361,6 @@ class Shot {
         argList.add(wrapper);
         argList.add(arguments[2]);
         argList.add(arguments[3]);
-
-
 	final Process pr = new ProcessBuilder(argList)
  		 .directory(new File(dir)) 
     		 .start();
