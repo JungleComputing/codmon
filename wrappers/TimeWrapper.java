@@ -13,11 +13,12 @@ public class TimeWrapper{
 	public static void main(String argv[]){
 		String dir = argv[0];
 		String cmd = argv[1];
+		
 		long startTime,duration;
 	 
 		//TODO goto directory
 		System.out.println("--->>"+dir);
-		System.out.println("---->>>"+System.getProperty("user.dir"));	
+		System.out.println("---->>>"+cmd);	
 		
 		Ant ant = new Ant();
 	
