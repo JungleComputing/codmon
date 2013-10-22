@@ -7,7 +7,7 @@
 		<sensor id="part" name="TestApps: build process"/>
 
 		<!-- build checkout module-->
-		<sensor id="build_ok" name="TestApps: Build Checkout" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper CODMON_HOME/codmon/local/checkoutApplications ant" scope="checkOut" scheduled="false" graph="true" fatal="true" />
+		<sensor id="build_ok" name="TestApps: Build Checkout" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant" scope="checkOut" scheduled="false" graph="true" fatal="true" />
 		
 
 
