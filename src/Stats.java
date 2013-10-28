@@ -361,6 +361,8 @@ class Shot {
         argList.add(wrapper);
         argList.add(arguments[2]);
         argList.add(arguments[3]);
+	//The 4th argument is used for a non-default ant target
+        if(arguments.length==5){argList.add(arguments[4]);}
 	final Process pr = new ProcessBuilder(argList)
  		 .directory(new File(dir)) 
     		 .start();

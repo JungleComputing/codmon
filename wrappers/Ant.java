@@ -8,9 +8,11 @@ public class Ant{
 	Project project;
 	ProjectHelper projectHelper;
 	String dir;
+	String target;	
 
-	public Ant(String dir){
+	public Ant(String dir,String target){
 		this.dir= dir;
+		this.target = target;
 		buildFile = new File(dir+"/build.xml");
 		project = new Project();
 		projectHelper = ProjectHelper.getProjectHelper();
@@ -24,7 +26,8 @@ public class Ant{
 	}
 
 	public void run(){
-		this.project.executeTarget(this.project.getDefaultTarget());
+		//this.project.executeTarget(this.project.getDefaultTarget());
+		this.project.executeTarget(target);
 	}
 
 }

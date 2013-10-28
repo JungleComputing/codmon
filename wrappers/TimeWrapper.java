@@ -10,10 +10,16 @@ public class TimeWrapper{
 	public TimeWrapper(String argv[]){
                 String dir = argv[0];
                 String cmd = argv[1];
-
+                String target;
+		if(argv.length==3){
+			target = argv[2];
+		}else{
+			target = "default";
+		}
                 long startTime,duration;
-
-                Ant ant = new Ant(dir);
+		
+		System.out.println("--------------------> "+target);
+                Ant ant = new Ant(dir,target);
                 ant.init();
 
                 startTime = System.nanoTime();
@@ -30,5 +36,3 @@ public class TimeWrapper{
 	}
  
 }
-
-
