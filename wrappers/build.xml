@@ -1,0 +1,21 @@
+<!--ant file to build the CheckoutApplications application-->
+<project name="Build wrappers" basedir="." default="main">
+
+        <property name="src.dir"     value="."/>
+        <property name="classes.dir" value="classes"/>
+
+
+        <!--Remove the classes and jar folders-->
+        <target name="clean">
+                <delete dir="${classes.dir}"/>
+        </target>
+
+        <!--Compile the java code-->
+        <target name="compile">
+            <mkdir dir="${classes.dir}"/>
+            <javac srcdir="${src.dir}" destdir="${classes.dir}"/>
+        </target>
+
+        <target name="main" depends="clean,compile"/>
+</project>
+
