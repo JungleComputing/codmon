@@ -14,7 +14,7 @@ public class TimeWrapper{
 		if(argv.length==3){
 			target = argv[2];
 		}else{
-			target = "default";
+			target = "main";
 		}
                 long startTime,duration;
 		
