@@ -30,6 +30,11 @@
             </jar>
         </target>
 
+	<!--Run the Checkout programm-->
+	<target name="run">
+	
+	</target>
+
         <target name="main" depends="clean,compile,jar"/>
 </project>
 
