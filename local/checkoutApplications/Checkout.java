@@ -96,7 +96,7 @@ public class Checkout{
  	*/
 	public Checkout () {
 		try{
-			File initFile = new File("../init.xml");
+			File initFile = new File("init.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(initFile);
@@ -120,7 +120,7 @@ public class Checkout{
 	*Main function to check out the test projects
  	*/	 	
 	public static void main(String argv[]){
-		System.out.println("------>BINNEN<--------");
+		System.out.println("aaaaaaaaaaaaaaaaaa");
 		new Checkout();
 	}
 

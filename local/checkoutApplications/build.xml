@@ -31,8 +31,14 @@
         </target>
 
 	<!--Run the Checkout programm-->
-	<target name="run">
-	
+	<target name="run" depends="jar">
+		<java fork="false" classname="Checkout">
+			<classpath>
+				<path location="${jar.dir}/CheckoutApplications.jar"/>
+	        	</classpath>
+			<arg value="${arg0}" />
+			<arg value="${arg1}" />
+		</java>	
 	</target>
 
         <target name="main" depends="clean,compile,jar"/>
