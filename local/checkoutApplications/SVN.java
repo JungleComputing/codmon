@@ -55,6 +55,7 @@ public class SVN{
         *@Return svn revision number
         */
 	public void update()throws SVNException{
+		System.out.println(System.getProperty("user.dir"));
 		File dstPath = new File(basePath+project);
                 SVNClientManager cm = SVNClientManager.newInstance(null,user,pwd);
                 SVNUpdateClient updateClient = cm.getUpdateClient();
