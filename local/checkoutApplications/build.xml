@@ -31,8 +31,8 @@
         </target>
 
 	<!--Run the Checkout programm-->
-	<target name="run" depends="jar">
-		<java fork="false" classname="Checkout">
+	<target name="run">
+		<java fork="true" classname="Checkout" output="out.txt">
 			<classpath>
 				<path location="${jar.dir}/CheckoutApplications.jar"/>
 	        	</classpath>

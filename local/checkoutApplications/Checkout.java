@@ -60,8 +60,7 @@ public class Checkout{
 			command = eElement.getElementsByTagName("command").item(0).getTextContent();
  			projectName = eElement.getElementsByTagName("name").item(0).getTextContent();
 			user = eElement.getElementsByTagName("user").item(0).getTextContent();
-                        pwd = eElement.getElementsByTagName("pwd").item(0).getTextContent();
-				
+                        pwd = eElement.getElementsByTagName("pwd").item(0).getTextContent();	
 			if(type.equals("svn")){
 				SVN svnRep = new SVN(basePath, projectName, user,pwd,url,command);
 				if("checkout".equals(command)||"export".equals(command)){
@@ -71,8 +70,6 @@ public class Checkout{
 				if(checkOldLog(projectName,rev)){
 					svnRep.updateLog();
 				}
-				//updateLog(projectName,rev,type,SVNUrl,user,pwd);
-
 			}else if(type.equals("git")){
 				GitObject gitRep = new GitObject(basePath,projectName,url,user,pwd);
 				if("clone".equals(command)){
@@ -96,7 +93,7 @@ public class Checkout{
  	*/
 	public Checkout () {
 		try{
-			File initFile = new File("init.xml");
+			File initFile = new File("../../local/checkoutApplications/init.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			Document doc = dBuilder.parse(initFile);
@@ -120,7 +117,6 @@ public class Checkout{
 	*Main function to check out the test projects
  	*/	 	
 	public static void main(String argv[]){
-		System.out.println("aaaaaaaaaaaaaaaaaa");
 		new Checkout();
 	}
 

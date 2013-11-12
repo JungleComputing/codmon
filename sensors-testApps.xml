@@ -10,7 +10,7 @@
 		<sensor id="build_ok" name="TestApps: Build Checkout" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant" scope="checkOut" scheduled="false" graph="true" fatal="true" />
 		
 	       <!-- check out the  projects-->
-               <sensor id="checkout_ok" name="TestApps: checkout projects" cmd="jave CODMON_HOME/codmon/wrappers/classes/Timewrapper ../../local/checkoutApplications ant run"  scope="testApps" scheduled="false" graph="false" fatal="true"/>
+               <sensor id="checkout_ok" name="TestApps: checkout projects" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant run"  scope="testApps" scheduled="false" graph="false" fatal="true"/>
               
 
 		<!-- check out the  projects-->

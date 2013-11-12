@@ -18,7 +18,6 @@ public class TimeWrapper{
 		}
                 long startTime,duration;
 		
-		System.out.println("--------------------> "+target);
                 Ant ant = new Ant(dir,target);
                 ant.init();
 

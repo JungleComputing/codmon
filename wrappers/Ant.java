@@ -26,7 +26,6 @@ public class Ant{
 	}
 
 	public void run(){
-		//this.project.executeTarget(this.project.getDefaultTarget());
 		this.project.executeTarget(target);
 	}
 
