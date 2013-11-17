@@ -17,7 +17,7 @@ import org.eclipse.jgit.api.errors.*;
 //     -Revission nr of application to be testedi
 //     -git
 public class Checkout{
-	private String basePath = "../../../../";           
+	private String basePath = "../../../";           
 
 	/**
  	*@author bvl300
