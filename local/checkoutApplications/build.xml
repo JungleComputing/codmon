@@ -5,8 +5,10 @@
         <property name="classes.dir" value="classes"/>
         <property name="jar.dir"     value="jar"/>
 
-        <property name="main-class"  value="CheckoutApplications.checkoutApplications"/>
-
+        <!--property name="main-class"  value="CheckoutApplications.checkoutApplications"/>-->
+	<property name="main-class"  value="CheckoutApplications.Checkout"/>
+	 <!-- import environment properties -->
+     	<property environment="env" />
 
         <!--Remove the classes and jar folders-->
         <target name="clean">
@@ -32,13 +34,13 @@
 
 	<!--Run the Checkout programm-->
 	<target name="run">
-		<java fork="true" classname="Checkout" output="out.txt">
-			<classpath>
+		<java  fork="true" classname="Checkout" classpath="${env.CLASSPATH}" output="out.txt">
+	  		<classpath>
 				<path location="${jar.dir}/CheckoutApplications.jar"/>
 	        	</classpath>
 			<arg value="${arg0}" />
 			<arg value="${arg1}" />
-		</java>	
+		</java>
 	</target>
 
         <target name="main" depends="clean,compile,jar"/>
