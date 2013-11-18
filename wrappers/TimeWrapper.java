@@ -1,4 +1,4 @@
-
+import java.text.DecimalFormat;
 /**
  *@author bvl300
  *This wrapper messures the time of the module
@@ -16,14 +16,22 @@ public class TimeWrapper{
 		}else{
 			target = "main";
 		}
-                long startTime,duration;
+                long startTime;
+		double duration;
 		
                 Ant ant = new Ant(dir,target);
                 ant.init();
 
                 startTime = System.nanoTime();
-                ant.run();
-                duration = System.nanoTime()-startTime;
+                try{
+			ant.run();
+		}catch(Exception e){
+			System.out.println(e+"\n<br/>\n");
+		}finally{
+                	duration = (double)((System.nanoTime()-startTime)/1000000000.0);
+			DecimalFormat df = new DecimalFormat("#.##");
+			System.out.println("<test id=\"time\" name=\"Time\" value=\""+df.format(duration)+"\" unit=\"s\"/>\n");
+		}
 	}
 
 
