@@ -24,6 +24,7 @@ my $err = `$cmd 2>&1 1>/dev/null`;
 my $end = time();
 my $length = $end-$start;
 
+
 print "<test id=\"time\" name=\"Time\" value=\"$length\" unit=\"s\"/>\n";
 #check op errors
 if ($?>>8 != 0) {
