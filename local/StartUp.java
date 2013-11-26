@@ -43,9 +43,10 @@ public class StartUp{
 		//Verwijder dday3	
 		deleteDirectory(directories[directories.length-1]);
 		//kopieer de mappen
-		(new File("../dday2")).renameTo(new File("../dday3"));
-        	(new File("../dday1")).renameTo(new File("../dday2"));
-       		(new File("../dday")).renameTo(new File("../dday1"));
+		for(int i = directories.length-2;i>=0;i--){
+			(directories[i]).renameTo(last);
+			last=directories[i];	
+		}
 		//maak dday1 opnieuw aan
 		File dday = new File("../dday");
 		if(!dday.exists()){
