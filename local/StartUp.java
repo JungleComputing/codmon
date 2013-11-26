@@ -35,9 +35,19 @@ public class StartUp{
  	*Copies the the data from dday to dday1 etc etc
  	* */
 	private void copyData(File[] directories){
-		for(int i =directories.length-2;i>=0;i--){	
+		File last = directories[directories.length-1];
+		//Verwijder dday3
+		directories[directories.length-1] = null;
+		//kopieer de mappen
+		(new File("../dday2")).renameTo(new File("../dday3"));
+        	(new File("../dday1")).renameTo(new File("../dday2"));
+       		(new File("../dday")).renameTo(new File("../dday1"));
+		//maak dday1 opnieuw aan
+		File dday = new File("../dday");
+		if(!dday.exists()){dday.mkdir();}
+		/*for(int i =directories.length-2;i>=0;i--){	
 				move(directories[i],directories[i+1]);					
-		}		
+		}*/		
 	}
 
 
@@ -45,7 +55,7 @@ public class StartUp{
  	*@author bvl300
  	*Creates the Files that must be available befor the programm runs
  	* */ 
-	private void createBasicFiles(){
+	/*private void createBasicFiles(){
 		try{
 			PrintWriter writer = new PrintWriter("../dday1/allin1.xml");
 			writer.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
@@ -55,7 +65,7 @@ public class StartUp{
 		}catch(FileNotFoundException e){
 			System.out.println(e.getMessage());
 		}
-	}
+	}*/
 
 
 	/**
@@ -137,7 +147,7 @@ public class StartUp{
  	*/ 	 	
 	private Method init(String[] argv){
 		File[] directories = createDdayDirectories(4);
-		createBasicFiles();
+	//	createBasicFiles();
 		copyData(directories);
 		return getStartMethod(argv);
 	}
