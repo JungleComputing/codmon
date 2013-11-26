@@ -17,18 +17,22 @@ import java.security.PrivilegedAction;
  * */
 public class StartUp{
 
+	
 
-	/**
- 	*@author bvl300
-	*Moves files from source directory  to the  target directory
- 	**/ 	
-	private void move(File source, File target){
-		File[] fileList = source.listFiles();
-		for(int i = 0; i < fileList.length; i++) {
-    			fileList[i].renameTo(new File(target.getName()+"/"+fileList[i].getName())); 
-     		} 
-	}
 
+	private boolean deleteDirectory(File dir) {
+        	File[] files = dir.listFiles();
+        	 if (files != null) {
+            		for (File f : files) {
+                		if (f.isDirectory()) {
+                    			deleteDirectory(f);
+                		} else {
+                    			f.delete();
+               			 }
+             		}
+         	}
+       		return dir.delete();
+     	}
 
 	/**
  	*@author bvl300
@@ -36,36 +40,19 @@ public class StartUp{
  	* */
 	private void copyData(File[] directories){
 		File last = directories[directories.length-1];
-		//Verwijder dday3
-		directories[directories.length-1] = null;
+		//Verwijder dday3	
+		deleteDirectory(directories[directories.length-1]);
 		//kopieer de mappen
 		(new File("../dday2")).renameTo(new File("../dday3"));
         	(new File("../dday1")).renameTo(new File("../dday2"));
        		(new File("../dday")).renameTo(new File("../dday1"));
 		//maak dday1 opnieuw aan
 		File dday = new File("../dday");
-		if(!dday.exists()){dday.mkdir();}
-		/*for(int i =directories.length-2;i>=0;i--){	
-				move(directories[i],directories[i+1]);					
-		}*/		
+		if(!dday.exists()){
+			dday.mkdir();
+		        dday.setWritable(true);
+		}		
 	}
-
-
-	/**
- 	*@author bvl300
- 	*Creates the Files that must be available befor the programm runs
- 	* */ 
-	/*private void createBasicFiles(){
-		try{
-			PrintWriter writer = new PrintWriter("../dday1/allin1.xml");
-			writer.println("<?xml version=\"1.0\" encoding=\"utf-8\"?>");
-			writer.println("<?xml-stylesheet type=\"text/xsl\" href=\"../libs/merge.xml\"?>");
-			writer.println("<xml/>");
-			writer.close();
-		}catch(FileNotFoundException e){
-			System.out.println(e.getMessage());
-		}
-	}*/
 
 
 	/**
@@ -81,7 +68,10 @@ public class StartUp{
 			else{
 				directories[i] = new File("../dday"+i);
 			}
-			if(!directories[i].exists()){directories[i].mkdir();}
+			if(!directories[i].exists()){
+				directories[i].mkdir();
+				directories[i].setWritable(true);
+			}
 
 		}	
 		return directories;
