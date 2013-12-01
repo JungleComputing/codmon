@@ -1,0 +1,18 @@
+<!--ant file to build the Startup application-->
+<project name="StartUp" basedir="." default="main">
+
+        <!--Remove the classes and jar folders-->
+        <target name="clean">
+                <delete file="StartUp.class"/>
+                <delete file="StartUp$1.class"/>
+        </target>
+
+        <!--Compile the java code-->
+        <target name="compile">
+            <javac srcdir="."/>
+        </target>
+
+
+        <target name="main" depends="clean,compile"/>
+</project>
+
