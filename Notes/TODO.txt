@@ -1,2 +1,5 @@
 1) Checkout - log policies
 2) Checkout - interfac maken en toevoegen
+3) Wrapper build aan Codmon ant koppelen o.i.d.
+4) In VM downloaden
+5)
