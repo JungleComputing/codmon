@@ -7,9 +7,16 @@
                 <delete file="StartUp$1.class"/>
         </target>
 
+	<path id="default.classpath">
+	    <fileset dir="../libs">
+		<include name="**/*.jar" />
+	    </fileset>
+	</path>
+
+
         <!--Compile the java code-->
         <target name="compile">
-            <javac srcdir="."/>
+            <javac srcdir="."  classpathref="default.classpath"/>
         </target>
 
 
