@@ -988,7 +988,8 @@ class RrdInput {
 		String testId = normalizeStr(test.getAttribute("id"),20);
 		String testName = test.getAttribute("name");
 		String testValue = test.getAttribute("value");
-
+		//To avoid the following decimal notation. ?,??
+		testValue = testValue.replace(',','.');
 		System.err.println("Updating "+testName+"("+testId+")"+" with "+testValue);
 		
 		//Double doub = new Double(0.0);
@@ -997,7 +998,6 @@ class RrdInput {
 		if (Util.getTime() > time+3*rrdDb.getRrdDef().getStep()/4) time += rrdDb.getRrdDef().getStep();
 		sample.setTime(time);
 		sample.setValue(testId, Double.parseDouble(testValue));
-		
 	    }
 	    sample.update();
 	    
