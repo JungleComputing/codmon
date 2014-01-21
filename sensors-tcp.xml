@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="libs/style.xml"?>
+
+<sensors config="tcp">
+<onoff>
+
+<sensor id="part" name="Ibis: Functional tests"/>
+<!-- Ibis functionalities -->
+
+
+<sensor id="ibis_apps_io_1_tests_conversion_Main" name="ibis-apps/io 1 tests.conversion.Main" wrapper="outcmp_ibis" cmd="/home/bvl300/codmon/ibis-apps/io 1 -Dibis.implementation=tcp tests.conversion.Main" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_gmi_3_leq_Main_1000" name="ibis-apps/gmi 3 leq.Main 1000" wrapper="outcmp_gmi" cmd="/home/bvl300/codmon/ibis-apps/gmi 3 -Dibis.implementation=tcp leq.Main 1000" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_gmi_2_Remote_Main_1000" name="ibis-apps/gmi 2 Remote.Main 1000" wrapper="outcmp_gmi" cmd="/home/bvl300/codmon/ibis-apps/gmi 2 -Dibis.implementation=tcp Remote.Main 1000" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_gmi_2_tsp_Main_src_tsp_table_15_1_bound_3162" name="ibis-apps/gmi 2 tsp.Main src/tsp/table_15.1 -bound 3162" wrapper="outcmp_gmi" cmd="/home/bvl300/codmon/ibis-apps/gmi 2 -Dibis.implementation=tcp tsp.Main src/tsp/table_15.1 -bound 3162" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_raytracer_4_Dsatin_closed_Raytracer_pics_balls2_nff" name="ibis-apps/satin/raytracer 4 -Dsatin.closed Raytracer pics/balls2.nff" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/raytracer 4 -Dibis.implementation=tcp -Dsatin.closed Raytracer pics/balls2.nff" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_cover_4_Dsatin_closed_cat_run_args" name="ibis-apps/satin/cover 4 -Dsatin.closed `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/cover 4 -Dibis.implementation=tcp -Dsatin.closed `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_mtdf_par_flat_tt_repl_sockets_no_abort_2_Xms256m_Xmx800m_Dsatin_closed_Mtdf" name="ibis-apps/satin/mtdf/par_flat_tt_repl_sockets_no_abort 2 -Xms256m -Xmx800m -Dsatin.closed Mtdf " wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/mtdf/par_flat_tt_repl_sockets_no_abort 2 -Dibis.implementation=tcp -Xms256m -Xmx800m -Dsatin.closed Mtdf " scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_mtdf_seq_1_Xms256m_Xmx800m_Dsatin_closed_Main_15" name="ibis-apps/satin/mtdf/seq 1 -Xms256m -Xmx800m -Dsatin.closed Main 15" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/mtdf/seq 1 -Dibis.implementation=tcp -Xms256m -Xmx800m -Dsatin.closed Main 15" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_mtdf_par_prealloc_2_Xms256m_Xmx800m_Dsatin_closed_Mtdf" name="ibis-apps/satin/mtdf/par_prealloc 2 -Xms256m -Xmx800m -Dsatin.closed Mtdf " wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/mtdf/par_prealloc 2 -Dibis.implementation=tcp -Xms256m -Xmx800m -Dsatin.closed Mtdf " scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_mtdf_par_2_Xms256m_Xmx512m_Dsatin_closed_Mtdf" name="ibis-apps/satin/mtdf/par 2 -Xms256m -Xmx512m -Dsatin.closed Mtdf" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/mtdf/par 2 -Dibis.implementation=tcp -Xms256m -Xmx512m -Dsatin.closed Mtdf" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_mtdf_par_flat_tt_repl_2_Xms256m_Xmx800m_Dsatin_closed_Mtdf" name="ibis-apps/satin/mtdf/par_flat_tt_repl 2 -Xms256m -Xmx800m -Dsatin.closed Mtdf" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/mtdf/par_flat_tt_repl 2 -Dibis.implementation=tcp -Xms256m -Xmx800m -Dsatin.closed Mtdf" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_mtdf_par_flat_tt_2_Xms256m_Xmx800m_Dsatin_closed_Mtdf" name="ibis-apps/satin/mtdf/par_flat_tt 2 -Xms256m -Xmx800m -Dsatin.closed Mtdf " wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/mtdf/par_flat_tt 2 -Dibis.implementation=tcp -Xms256m -Xmx800m -Dsatin.closed Mtdf " scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_mtdf_par_flat_tt_repl_sockets_2_Xms256m_Xmx800m_Dsatin_closed_Mtdf" name="ibis-apps/satin/mtdf/par_flat_tt_repl_sockets 2 -Xms256m -Xmx800m -Dsatin.closed Mtdf " wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/mtdf/par_flat_tt_repl_sockets 2 -Dibis.implementation=tcp -Xms256m -Xmx800m -Dsatin.closed Mtdf " scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_mtdf_seq_flat_tt_2_Xms256m_Xmx800m_Dsatin_closed_Mtdf_15" name="ibis-apps/satin/mtdf/seq_flat_tt 2 -Xms256m -Xmx800m -Dsatin.closed Mtdf 15" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/mtdf/seq_flat_tt 2 -Dibis.implementation=tcp -Xms256m -Xmx800m -Dsatin.closed Mtdf 15" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_spawntest_2_Dsatin_closed_cat_run_args" name="ibis-apps/satin/spawntest 2 -Dsatin.closed `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/spawntest 2 -Dibis.implementation=tcp -Dsatin.closed `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_textindex_2_Dsatin_closed_TextIndex_ixfile_corpus" name="ibis-apps/satin/textindex 2 -Dsatin.closed TextIndex ixfile corpus/" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/textindex 2 -Dibis.implementation=tcp -Dsatin.closed TextIndex ixfile corpus/" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_fft_3_Dsatin_closed_cat_run_args" name="ibis-apps/satin/fft 3 -Dsatin.closed `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/fft 3 -Dibis.implementation=tcp -Dsatin.closed `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_adapint_4_Dsatin_closed_cat_run_args" name="ibis-apps/satin/adapint 4 -Dsatin.closed `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/adapint 4 -Dibis.implementation=tcp -Dsatin.closed `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_abort_test_1_AbortTest" name="ibis-apps/satin/abort_test 1 AbortTest" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/abort_test 1 -Dibis.implementation=tcp AbortTest" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_lowlevel_5_Dsatin_closed_Lowlevel_50000" name="ibis-apps/satin/lowlevel 5 -Dsatin.closed Lowlevel 50000" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/lowlevel 5 -Dibis.implementation=tcp -Dsatin.closed Lowlevel 50000" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_tsp_2_Dsatin_closed_cat_run_args" name="ibis-apps/satin/tsp 2 -Dsatin.closed `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/tsp 2 -Dibis.implementation=tcp -Dsatin.closed `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_textcompress_2_Dsatin_closed_Compress_verify_sample1_txt_sample1_xxx" name="ibis-apps/satin/textcompress 2 -Dsatin.closed Compress -verify sample1.txt sample1.xxx" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/textcompress 2 -Dibis.implementation=tcp -Dsatin.closed Compress -verify sample1.txt sample1.xxx" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_nqueens_simple_2_cat_run_args" name="ibis-apps/satin/nqueens/simple 2 `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/nqueens/simple 2 -Dibis.implementation=tcp `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_sat_4_Dsatin_closed_DPLLSolver_examples_benchmark_suite_qg5_10_cnf" name="ibis-apps/satin/sat 4 -Dsatin.closed DPLLSolver examples/benchmark-suite/qg5-10.cnf" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/sat 4 -Dibis.implementation=tcp -Dsatin.closed DPLLSolver examples/benchmark-suite/qg5-10.cnf" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_grammy_3_Dsatin_closed_Compress_verify_sample1_txt_sample1_xxx" name="ibis-apps/satin/grammy 3 -Dsatin.closed Compress -verify sample1.txt sample1.xxx " wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/grammy 3 -Dibis.implementation=tcp -Dsatin.closed Compress -verify sample1.txt sample1.xxx " scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_ida_5_Dsatin_closed_Ida_f_inputs_2_max_68" name="ibis-apps/satin/ida 5 -Dsatin.closed Ida -f inputs/2 -max 68" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/ida 5 -Dibis.implementation=tcp -Dsatin.closed Ida -f inputs/2 -max 68" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_checkers_simple_2_cat_run_args" name="ibis-apps/satin/checkers/simple 2 `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/checkers/simple 2 -Dibis.implementation=tcp `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_two_out_three_2_Dsatin_closed_cat_run_args" name="ibis-apps/satin/two_out_three 2 -Dsatin.closed `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/two_out_three 2 -Dibis.implementation=tcp -Dsatin.closed `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_knapsack_5_Dsatin_closed_cat_run_args" name="ibis-apps/satin/knapsack 5 -Dsatin.closed `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/knapsack 5 -Dibis.implementation=tcp -Dsatin.closed `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_mmult_2_Dsatin_closed_cat_run_args" name="ibis-apps/satin/mmult 2 -Dsatin.closed `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/mmult 2 -Dibis.implementation=tcp -Dsatin.closed `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_primfac_2_Dsatin_closed_PrimFac_667890432" name="ibis-apps/satin/primfac 2 -Dsatin.closed PrimFac 667890432" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/primfac 2 -Dibis.implementation=tcp -Dsatin.closed PrimFac 667890432" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_two_out_three_non_static_2_Dsatin_closed_cat_run_args" name="ibis-apps/satin/two_out_three_non_static 2 -Dsatin.closed `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/two_out_three_non_static 2 -Dibis.implementation=tcp -Dsatin.closed `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_abort_test2_1_AbortTest" name="ibis-apps/satin/abort_test2 1 AbortTest" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/abort_test2 1 -Dibis.implementation=tcp AbortTest" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_noverk_2_Dsatin_closed_cat_run_args" name="ibis-apps/satin/noverk 2 -Dsatin.closed `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/noverk 2 -Dibis.implementation=tcp -Dsatin.closed `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_fib_3_Dsatin_closed_cat_run_args" name="ibis-apps/satin/fib 3 -Dsatin.closed `cat run-args`" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/fib 3 -Dibis.implementation=tcp -Dsatin.closed `cat run-args`" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ibis_apps_satin_nqueens_counting_2_Dsatin_closed_NQueens_10" name="ibis-apps/satin/nqueens_counting 2 -Dsatin.closed NQueens 10" wrapper="outcmp_satin" cmd="/home/bvl300/codmon/ibis-apps/satin/nqueens_counting 2 -Dibis.implementation=tcp -Dsatin.closed NQueens 10" scope="ibis/src" scheduled="true" graph="false"/>
+<sensor id="ipl_apps_2_ibis_ipl_apps_sor_SOR_1024_0" name="ipl-apps 2 ibis.ipl.apps.sor.SOR 1024 0" wrapper="outcmp_ibis" cmd="/home/bvl300/codmon/ipl-apps 2 -Dibis.implementation=tcp ibis.ipl.apps.sor.SOR 1024 0" scope="ibis/src" scheduled="true" graph="false"/>
+
+
+
+<!-- /Ibis functionalities -->
+
+
+</onoff>
+<graph>
+
+
+<!-- Comm -->
+<sensor id="part" name="Com benchmarks (tp-javagrande02)"/>
+<!-- Ibis serial -->
+
+<sensor id="through-array-ibis-tcp" name="Throughput Bench with Ibis serialization" cmd="CODMON_HOME/codmon/wrappers/run-ibis -c CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=tcp Main -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
+
+<!-- Sun serial -->
+
+<sensor id="through-array-sun-tcp" name="Throughput Bench with Sun serialization" cmd="CODMON_HOME/codmon/wrappers/run-ibis -c CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=tcp Main -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
+
+<!-- Upcalls -->
+
+<sensor id="through-array-ibis-tcp-upcalls" name="Throughput Bench with upcalls" cmd="CODMON_HOME/codmon/wrappers/run-ibis -c CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=tcp Main -upcalls -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
+
+<!-- Stream -->
+
+<sensor id="through-array-ibis-tcp-stream" name="Throughput Bench with stream" cmd="CODMON_HOME/codmon/wrappers/run-ibis -c CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=tcp Main -stream -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
+
+<!-- Twoway -->
+
+<sensor id="through-array-ibis-tcp-twoway" name="Throughput Bench with twoway" cmd="CODMON_HOME/codmon/wrappers/run-ibis -c CODMON_HOME/codmon/apps/ibis/tp-JavaGrande02 2 -Xmx64M -Xms64M -Dibis.implementation=tcp Main -twoway -ibis -array -arraysize 2048 615000 -count 100 -retries 10" scope="ibis/src" scheduled="true"/>
+
+</graph>
+</sensors>
