@@ -160,7 +160,7 @@ class Shot {
 
     private static String lookup_wrapper(String name) {
 	if (name.equals("time"))
-	    return ("perl "+Config.BASE+"wrappers/time_wrapper.pl ");
+	    return ("perl "+Config.BASE+"wrappers/timeWrapper.java ");
 	else if (name.equals("outcmp"))
 	    return ("perl "+Config.BASE+"wrappers/outcmp_wrapper.pl ");
 	else if (name.equals("outcmp_ibis"))
