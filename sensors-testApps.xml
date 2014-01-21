@@ -12,7 +12,8 @@
 	    <!-- check out the  projects-->
          <sensor id="checkout_ok" name="TestApps: checkout projects" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant run"  scope="checkOut" scheduled="false" graph="true" fatal="true"/>
  
-		<!-- Build the ibis project-->
+		<!-- Build the ibis project works only on DAS-->
+		<!--
 		<sensor id="build_ok" name="Build Ibis" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../ibis ant" scope="ibis" scheduled="false" graph="true" fatal="true" />	
 		<sensor id="build_mpj_ok" name="Build Ibis MPJ" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../ibis-mpj ant" scope="ibis" scheduled="false" graph="true" fatal="true" />
 		<sensor id="build_rmi_ok" name="Build Ibis RMI" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../ibis-rmi ant" scope="ibis" scheduled="false" graph="true" fatal="true" />
@@ -20,13 +21,13 @@
 		<sensor id="build_satin_ok" name="Build Satin" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../satin ant" scope="ibis" scheduled="false" graph="true" fatal="true" />
 		<sensor id="build_ibis-apps_ok" name="Build Ibis-Apps" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../ibis-apps ant" scope="ibis" scheduled="false" graph="true" fatal="true" />
 		<sensor id="build_ipl-apps_ok" name="Build Ibis IPL-apps" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../ipl-apps ant" scope="ibis" scheduled="false" graph="true" fatal="true" />
-
+		-->
+		
 		<!--Second build the returnvalue project-->
-<!--		<sensor id="build_ok" name="TestApps: build returnValue" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/returnValue ant" scope="testApps" scheduled="false" graph="true" fatal="true"/>
--->
+		<sensor id="build_ok" name="TestApps: build returnValue" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../returnValue ant" scope="testApps" scheduled="false" graph="true" fatal="true"/>
+
 		<!--Second build the returnvalue2 project-->
-   <!--             <sensor id="build_ok" name="TestApps: build returnValue2" cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME/returnValue2 ant" scope="testApps" scheduled="false" graph="true" fatal="true"/>
--->
+		<sensor id="build_ok" name="TestApps: build returnValue2" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../returnValue2 ant" scope="testApps" scheduled="false" graph="true" fatal="true"/>
 		<!--Now it's time to run the programm-->
 	</onoff>
 
