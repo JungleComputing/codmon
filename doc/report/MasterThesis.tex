@@ -5,7 +5,8 @@
 \title{Codmon: A multi-platform modular test environment.}
 \author{Berend van Veenendaal}
 \bibliographystyle{plain}
-
+%hierondre wordt de project naam als variabele gedeclareerd
+\newcommand{\newCommandName}{Codmon}
 \begin{document}
 \maketitle
 
@@ -24,8 +25,11 @@ TODO: Preface,acknowledgements
 \label{sec:Introduction}
 In times when software projects become more and more complex, testing of this software becomes more and more important. Many software
 related problems are caused by lack of testing of the software~\cite{TTCST}. One of the challenges of software engineering is to make
-sure that the software behaves in the same way on different platforms. To run on different platforms the software must be written in a
-platform indpendent language, for example Java~\cite{Java}.
+sure that the software behaves in the same way on different platforms. First, to run on multiple platforms the software must be written in a
+platform independent language, for example Java~\cite{Java}. But even when software is written in such a platform independent language, there 
+are still issues that must be dealt with, before one is able to run and test the software. Think about the configuration of the test environment 
+or finding and installing all the prerequisite libraries etc etc. To solve these and other problems this thesis describes a multi-platform modular
+test environment called \newCommandName{}. \newCommandName{} provides you a ...
 
 \subsection{Problem indication}
 \label{subsec:Problemindication}
@@ -33,7 +37,7 @@ TODO: Describe current situation, including the original Codmon and references t
 
 \subsection{Problem statement}
 \label{subsec:Problemstatement}
-TODO: Describe the proble (refer to other environments/platforms)
+TODO: Describe the problem (refer to other environments/platforms)
 TODO: describe research questions.
 
 \subsection{Thesis outline}
