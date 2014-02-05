@@ -5,8 +5,10 @@
 \title{Codmon: A multi-platform modular test environment.}
 \author{Berend van Veenendaal}
 \bibliographystyle{plain}
-%hierondre wordt de project naam als variabele gedeclareerd
-\newcommand{\newCommandName}{Codmon}
+%hieronder wordt de project naam als variabele gedeclareerd
+\newcommand{\project}{Codmon 2.0}
+\newcommand{\CS}{C\nolinebreak\hspace{-.05em}\raisebox{.6ex}{\bf \#}}
+
 \begin{document}
 \maketitle
 
@@ -29,10 +31,16 @@ sure that the software behaves in the same way on different platforms. First, to
 platform independent language, for example Java~\cite{Java}. But even when software is written in such a platform independent language, there 
 are still issues that must be dealt with, before one is able to run and test the software. Think about the configuration of the test environment 
 or finding and installing all the prerequisite libraries etc etc. To solve these and other problems this thesis describes a multi-platform modular
-test environment called \newCommandName{}. \newCommandName{} provides you a ...
+test environment called \project{}. The \project{} project provides a set of virtual machines, in which Codmon is aleady installed and
+preconfigured.
 
 \subsection{Problem indication}
 \label{subsec:Problemindication}
+TODO: paper references for Hudson and Jenkins
+
+Nowdays there are numerous test frameworks and test evrionments available. For example there is \textit{Junit} for java-unit testing and \textit{csUnit} for \CS{}-unit testing.
+There are also different environments like Hudson, Jenkings which can build a project and run a series of (unit) tests against this project. 
+
 TODO: Describe current situation, including the original Codmon and references to related work
 
 \subsection{Problem statement}
