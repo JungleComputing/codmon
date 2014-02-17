@@ -32,17 +32,14 @@ previous version of the Codmon project. It also describes the structure of the r
 \label{sec:Background}
 In times when software projects become more and more complex, testing of this software becomes more and more important. Many software
 related problems are caused by lack of testing of the software~\cite{TTCST}. One of the challenges of software engineering is to make
-sure that the software behaves in the same way on different platforms. First, to run on multiple platforms the software must be written in a
-platform independent language, for example Java~\cite{Java}. But even when software is written in such a platform independent language, there 
+sure that the software behaves in the same way on different platforms. Even when software is written in such a way that it can run on multiple platforms, there 
 are still issues that must be dealt with, before one is able to run and test the software. Think about the configuration of the test environment 
-or finding and installing all the prerequisite libraries etc etc. To solve these and other problems this thesis describes a multi-platform modular
-test environment called \project{}. The \project{} project provides a set of virtual machines, in which Codmon is aleady installed and
-preconfigured.
+or finding and installing all the prerequisite libraries etc etc. 
 
 \subsection{Problem indication}
 \label{subsec:Problemindication}
 TODO paper references for Hudson, Jenkins, Junit and CsUnit 
-
+TODO Expand problem indication
 
 Now days there are numerous test frameworks and test environments available. For example there is \emph{Junit} for Java-unit testing and \emph{csUnit} for \CS{}-unit testing.
 There are also different environments like Hudson, Jenkins which can build a project and run a series of (unit) tests against this project. All of the frameworks
@@ -54,7 +51,18 @@ to make a connection form Hudson or Jenkins to a remote machine you need to know
 
 \subsection{Problem statement}
 \label{subsec:Problemstatement}
-The test frameworks and test environments described in section \ref{subsec:Problemindication} can be criticized on one or more aspects.
+The test frameworks and test environments described in section \ref{subsec:Problemindication} can be criticized on one or more aspects. What we are looking for is, infact, a combination
+of the positive aspects of the described frameworks and environments, without getting the undesirable aspects for free. So the big question is, is it possible to design a
+multi-platform, modular test environment? If we manage to design such a test environment, is it also possible to design is in such a way that is user friendly and maintainable?
+Whith user friendly we mean that is must be possible to add both new test cases and software under test to the test environment.
+
+
+ This thesis describes a multi-platform modular test environment called \project{}. The \project{} project provides a set of virtual machines,
+in which \project{} is aleady installed and preconfigured.
+
+First, to run on multiple platforms the software must be written in a
+platform independent language, for example Java~\cite{Java}.
+
 
 TODO: Describe the problem (refer to other environments/platforms)
 TODO: describe research questions.
