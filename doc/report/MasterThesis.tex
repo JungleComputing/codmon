@@ -57,8 +57,10 @@ that is user friendly and maintainable? To be able to answer the second question
 With user friendly we mean that is must be possible to add easily both new test cases and software under test to the test environment. In other words a user must be able
 to add both new test cases and software to the test environment without nowing anything about the internal mechanisms of the test environment.\\
 
-\noindent This thesis describes a multi-platform modular test environment called \project{}. The \project{} project provides a set of virtual machines,
-in which \project{} is aleady installed and preconfigured.
+\noindent This thesis describes a multi-platform, user friendly modular test environment called \project{}. The \project{} project provides users with a set of virtual machines,
+in which \project{} is aleady installed and preconfigured. The purpose of the virtual machines is to make it as user friendly as possible. By doing it this way the only things
+a \project{} user has to do ar 1) add their project  to the init.xml file. ant add the tests to a so calles wrapper file. Both of these files will be discussed in more detail in 
+sections \ref{subsec:init} and \ref{subsec:wrapper} .
 
 First, to run on multiple platforms the software must be written in a
 platform independent language, for example Java~\cite{Java}.
@@ -83,6 +85,12 @@ TODO: Describe whats where in this thesis
 \subsection{Codmon 2.0}
 //TODO: adapt Codmon 2.0 to new project name.
 //TODO: 2) Explain Solution, including why it's different then existing solutions (compare with solutions described in the problem indication)
+
+\subsubsection{init}
+\label{subsec:init}
+
+\subsubsection{wrapper}
+\label{subsec:wrapper}
 
 \newpage
 \section{Conclusion}
