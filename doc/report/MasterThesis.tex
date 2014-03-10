@@ -59,7 +59,7 @@ to add both new test cases and software to the test environment without knowing 
 \noindent This thesis describes a multi-platform, user friendly modular test environment called \project{}. The \project{} project provides users with a set of virtual machines,
 in which \project{} is already installed and preconfigured. The purpose of the virtual machines is to make it as user friendly as possible. By doing it this way the only things
 a \project{} user has to do are 1) add their project  to the init.xml file. ant add the tests to a so called wrapper file. Both of these files will be discussed in more detail in 
-sections \ref{subsec:init} and \ref{subsec:wrapper} .
+sections \ref{subsec:init} and \ref{subsec:wrappers} .
 
 
 \subsection{Thesis outline}
@@ -74,8 +74,9 @@ discuss the results based on section \ref{sec:experiments}. We end this section 
 
 \section{Codmon}
 \label{sec:codmon}
-Before we start describing the \project{} we start with a description of the current Codmon framework. We first describe How Codmon works and why it is not good enough for the purposes mentioned
-in section \ref{subsec:Problemstatement}. 
+Before we start describing the \project{} we start with a description of the current Codmon framework, we first describe How Codmon works and why it is not good enough for the purposes mentioned
+in section \ref{subsec:Problemstatement}. The original Codmon framework was built in 2005 by François Lesuer\cite{Codmon}. The main reason to build Codmon was to test the different Ibis
+projects\cite{Ibis}\cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} on the DAS-2.
 
 \subsection{Codmon Design}
 \label{subsec:CodmonDesign}
