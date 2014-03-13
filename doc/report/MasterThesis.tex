@@ -27,48 +27,45 @@ TODO: Preface,acknowledgements
 \section{Introduction}
 \label{sec:Introduction}
 This chapter will give an introduction about the \project{} project by giving a brief decription of background of my research and of the
-previous version of the Codmon project. It also describes the structure of the reminder of this thesis.
+previous version of the Codmon project. It also describes the structure of this thesis.
 
 \subsection{Background}
 \label{sec:Background}
 In times when software projects become more and more complex, testing of this software becomes more and more important. Many software
 related problems are caused by lack of testing of the software~\cite{TTCST}. One of the challenges of software engineering is to make
 sure that the software behaves in the same way on different platforms. Even when software is written in such a way that it can run on multiple platforms, there 
-are still issues that must be dealt with, before one is able to run and test the software. Think about the configuration of the test environment 
+are still issues that must be dealt with, before one is able to run and test the software. Example issues are the configuration of the test environment 
 or finding and installing all the prerequisite libraries etc etc. 
 
 \subsection{Problem indication}
 \label{subsec:Problemindication}
-Now days there are numerous test frameworks and test environments available. For example there is \emph{Junit}\cite{Junit} for Java-unit testing and \emph{NUnit}\cite{Nunit} for \CS{}-unit testing.
+Nowdays there are numerous test frameworks and test environments available. For example there is \emph{Junit}\cite{Junit} for Java-unit testing and \emph{NUnit}\cite{Nunit} for \CS{}-unit testing.
 There are also different environments like Hudson\cite{HudsonDoc}, \cite{Hudson}, Jenkins\cite{JenkinsDoc} which can build a project and run a series of (unit) tests against this project. 
 All of the frameworks and environments have both their advantages and disadvantages. One of the advantages of unit testing is that a software developer easily can add new \emph{functional} unit tests.
 One of the disadvantages is that standard unit testing ignores non-functional tests like performance testing and the deployment of the software. Jenkins and Hudson,like Unit tests, also have their
-disadvantages. One of them is, although they both run on different platforms, in their usage they are not really platform independent. For example, If you want
-to make a connection form Hudson or Jenkins to a remote machine you do this by executing a shell script to be able to do this, a user must know in advance on which platform this script has to run.
+disadvantages. One of them is, although they both run on different platforms, in their usage they are not really platform independent. For example, if you want
+to make a connection from Hudson or Jenkins to a remote machine you do this by executing a shell script to be able to do this, a user must know in advance on which platform this script has to run.
 With this in mind you can see that, although it is possible to connect to different machines it is not a 100\% platform independent environment.
  
 \subsection{Problem statement}
 \label{subsec:Problemstatement}
 The test frameworks and test environments mentioned in section \ref{subsec:Problemindication} can be criticized on one or more aspects. What we are looking for is in fact, a combination
-of the positive aspects of the described frameworks and environments, without getting the undesirable aspects for free. So the big question is, is it possible to design a
-multi-platform, modular test environment? If the answer to this question is yes, if we manage to design such a test environment, is it also possible to design is in such a way
-that is user friendly and maintainable? To be able to answer the second question we first have to define what is meant with \emph{"user friendly"} in this thesis,
-with user friendly we mean that it must be possible to add easily both new test cases and software under test to the test environment. In other words a user must be able
-to add both new test cases and software to the test environment without knowing anything about the internal mechanisms of the test environment.\\
+of the positive aspects of the described frameworks and environments, without the undesirable aspects. So the central question is, is it possible to design a
+multi-platform, modular test environment? In addition, we study if it is possible to design the test environment in a \emph{user friendly} way, meaning that it must
+be possible to easily add both new test cases and software without knowing anything about the internal mechanisms of the test environment.\\
 
 \noindent This thesis describes a multi-platform, user friendly modular test environment called \project{}. The \project{} project provides users with a set of virtual machines,
-in which \project{} is already installed and preconfigured. The purpose of the virtual machines is to make it as user friendly as possible. By doing it this way the only things
-a \project{} user has to do are 1) add their project  to the init.xml file. ant add the tests to a so called wrapper file. Both of these files will be discussed in more detail in 
+in which \project{} is already installed and preconfigured. The purpose of the virtual machines is to make it as user friendly as possible. By doing it this way the only tasks
+a \project{} user has to do are 1) add their project  to the init.xml file. and 2) add the tests to a so called wrapper file. Both of these files will be discussed in more detail in 
 sections \ref{subsec:init} and \ref{subsec:wrappers} .
 
 
 \subsection{Thesis outline}
 \label{subsec:Thesisoutline}
-Section \ref{sec:codmon} first describes the current Codmon framework. It starts with telling why the original Codmon was built. Then it continuous with a description of the design of Codmon
-in section \ref{subsec:CodmonDesign}. Section \ref{subsec:CodmonProblems} treats the problems of the current Codmon project. Section \ref{sec:Codmon2.0} describes the \project{} project. This
-section starts with the  a subsection called \emph{The road to \project{}}. Here we explain the ideas that game into mind and how we got to the final \project{} design. Section \ref{sec:Codmon2.0}
-describes the \project{} project. It starts with a general description of the project followed by a detailed explanation of the different modules of \project{}. In Section \ref{sec:conclusion} we
-discuss the results based on section \ref{sec:experiments}. We end this section with a brief discussion of related work.
+Section \ref{sec:codmon} first describes the current Codmon framework. It starts with explaining why the original Codmon was built. Then it continuous with a description of the design of Codmon
+and the problems of the current Codmon project in section \ref{sec:codmon}. Section \ref{sec:Codmon2.0} describes the \project{} project. This section starts with the \emph{The road 
+to \project{}}. Here we explain the ideas that came into mind and how we got to the final \project{} design. Section \ref{sec:Codmon2.0} describes the \project{} project. It starts with 
+a general description of the project followed by a detailed explanation of the different modules of \project{}. In Section \ref{sec:conclusion} we discuss the results based on section \ref{sec:experiments}. We end this section with a brief discussion of related work.
 
 \newpage
 
