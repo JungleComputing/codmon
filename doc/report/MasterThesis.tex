@@ -72,13 +72,20 @@ a general description of the project followed by a detailed explanation of the d
 \section{Codmon}
 \label{sec:codmon}
 Before we start describing the \project{} we start with a description of the current Codmon framework, we first describe How Codmon works and why it is not good enough for the purposes mentioned
-in section \ref{subsec:Problemstatement}. The original Codmon framework was built in 2005 by François Lesuer\cite{Codmon}. The main reason to build Codmon was to test the different Ibis
-projects\cite{Ibis}\cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} on the DAS-2.
+in section \ref{subsec:Problemstatement}. The original Codmon framework was built in 2005 by François Lesuer\cite{Codmon}. Codmon is built for testing Ibis projects\cite{Ibis}\cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} 
+on the DAS-2\cite{das2} computer. Codmon was (At this moment the das2 and Codmon aren't in use anymore) able to perform both functional and performance tests. If for some reason a particular
+test failed, Codmon reported the problems directly to the programmer who made the last changes in code under test. It was also the intention that Codmon would be extensible. In this the Codmon 
+developers succeeded only partially. We will discuss this more in depth in section \ref{subsec:CodmonProblems}.  
 
 \subsection{Codmon Design}
 \label{subsec:CodmonDesign}
+In this section we will describe the design of the Codmon framework. 
+
 \subsection{Codmon problems}
 \label{subsec:CodmonProblems}
+TODO: Was only supporting cvs. difficult to extend for other users.
+TODO: Think about too many different languages and techniques (java , perl) the later isn't platform independent.
+
 
 \newpage
 \section{\project{}}
@@ -87,10 +94,6 @@ projects\cite{Ibis}\cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} on the DAS-2.
 \subsection{the road to \project{}}
 //TODO: Think of better subsection title!!
 //TODO: Explain ideas and road to solution
-
-\subsection{Codmon 2.0}
-//TODO: adapt Codmon 2.0 to new project name.
-//TODO: 2) Explain Solution, including why it's different then existing solutions (compare with solutions described in the problem indication)
 
 \subsubsection{The init.xml file}
 \label{subsec:init}
