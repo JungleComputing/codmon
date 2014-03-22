@@ -79,7 +79,16 @@ developers succeeded only partially. We will discuss this more in depth in secti
 
 \subsection{Codmon Design}
 \label{subsec:CodmonDesign}
-In this section we will describe the design of the Codmon framework. 
+This section we will describe the design of the Codmon framework. The setup of Codmon is more or less modular and consiste of a few core parts. The set of tests that should run is describe
+in different configuration files which are called \emph{Sensors}. A sensor describes which test should be executed and also the software that is under these tests. A sensor consits of two
+parts. First there is the \emph{onoff} part, which is used for compilation parts and functional tests. The core of each sensor element in a sensor file consists of two parts: a wrapper and
+a shell-script command. Second there is the \emph{graph} part. This part is used for performance tests. The results of a performance test will be compared with the results of previous tests 
+and if the performance result of a test drops below a certain level, an alarm is raised. The same occures when one or more functional tests are failing.\\
+
+\noindent Where a \emph{sensor} describes the structure of a set of tests, a so called \emph{wrapper} describes an actual test. Wrappers are small programms that are written int the PERL
+language. The return value of a wrapper indicates if a test succeeded or not. In case of a failure an alarm is raised and both the return value and the actual error code will be shown to
+the programmer who made the last contribution to the code. The results of the performance tests are plotted in a graph, which makes it easy for the developers to see the performance
+behaviour.
 
 \subsection{Codmon problems}
 \label{subsec:CodmonProblems}
