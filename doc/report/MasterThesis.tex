@@ -1,6 +1,7 @@
 \documentclass[a4paper,10pt]{scrartcl}
 \usepackage[utf8]{inputenc}
-
+\usepackage{graphicx}
+\usepackage{float}
 
 % Title Page
 \title{Codmon: A multi-platform modular test environment.}
@@ -88,7 +89,15 @@ and if the performance result of a test drops below a certain level, an alarm is
 \noindent Where a \emph{sensor} describes the structure of a set of tests, a so called \emph{wrapper} describes an actual test. Wrappers are small programms that are written int the PERL
 language. The return value of a wrapper indicates if a test succeeded or not. In case of a failure an alarm is raised and both the return value and the actual error code will be shown to
 the programmer who made the last contribution to the code. The results of the performance tests are plotted in a graph, which makes it easy for the developers to see the performance
-behaviour.
+behaviour. Figure 1 shows a schematic picture of the Codmon structure. More technical details about the Codmon implementation can be found in \cite{Codmon}
+
+\begin{figure}[!ht]
+  \caption{\emph{figure 1: Codmon}}
+  \centering
+    \includegraphics[scale=0.5]{codmon}
+\end{figure}
+
+
 
 \subsection{Codmon problems}
 \label{subsec:CodmonProblems}
