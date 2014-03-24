@@ -27,7 +27,7 @@ TODO: Preface,acknowledgements
 
 \section{Introduction}
 \label{sec:Introduction}
-This chapter will give an introduction about the \project{} project by giving a brief decription of background of my research and of the
+This chapter will give an introduction about the \project{} project by giving a brief description of background of my research and of the
 previous version of the Codmon project. It also describes the structure of this thesis.
 
 \subsection{Background}
@@ -40,7 +40,7 @@ or finding and installing all the prerequisite libraries etc etc.
 
 \subsection{Problem indication}
 \label{subsec:Problemindication}
-Nowdays there are numerous test frameworks and test environments available. For example there is \emph{Junit}\cite{Junit} for Java-unit testing and \emph{NUnit}\cite{Nunit} for \CS{}-unit testing.
+Now days there are numerous test frameworks and test environments available. For example there is \emph{Junit}\cite{Junit} for Java-unit testing and \emph{NUnit}\cite{Nunit} for \CS{}-unit testing.
 There are also different environments like Hudson\cite{HudsonDoc}, \cite{Hudson}, Jenkins\cite{JenkinsDoc} which can build a project and run a series of (unit) tests against this project. 
 All of the frameworks and environments have both their advantages and disadvantages. One of the advantages of unit testing is that a software developer easily can add new \emph{functional} unit tests.
 One of the disadvantages is that standard unit testing ignores non-functional tests like performance testing and the deployment of the software. Jenkins and Hudson,like Unit tests, also have their
@@ -57,7 +57,7 @@ be possible to easily add both new test cases and software without knowing anyth
 
 \noindent This thesis describes a multi-platform, user friendly modular test environment called \project{}. The \project{} project provides users with a set of virtual machines,
 in which \project{} is already installed and preconfigured. The purpose of the virtual machines is to make it as user friendly as possible. By doing it this way the only tasks
-a \project{} user has to do are 1) add their project  to the init.xml file. and 2) add the tests to a so called wrapper file. Both of these files will be discussed in more detail in 
+a \project{} user has to do are 1) add their project  to the init.XML file. and 2) add the tests to a so called wrapper file. Both of these files will be discussed in more detail in 
 sections \ref{subsec:init} and \ref{subsec:wrappers} .
 
 
@@ -72,24 +72,25 @@ a general description of the project followed by a detailed explanation of the d
 
 \section{Codmon}
 \label{sec:codmon}
-Before we start describing the \project{} we start with a description of the current Codmon framework, we first describe How Codmon works and why it is not good enough for the purposes mentioned
-in section \ref{subsec:Problemstatement}. The original Codmon framework was built in 2005 by François Lesuer\cite{Codmon}. Codmon is built for testing Ibis projects\cite{Ibis}\cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} 
-on the DAS-2\cite{das2} computer. Codmon was (At this moment the das2 and Codmon aren't in use anymore) able to perform both functional and performance tests. If for some reason a particular
-test failed, Codmon reported the problems directly to the programmer who made the last changes in code under test. It was also the intention that Codmon would be extensible. In this the Codmon 
-developers succeeded only partially. We will discuss this more in depth in section \ref{subsec:CodmonProblems}.  
+Before we start describing the \project{} test environment, we start with a description of the current Codmon framework, we first describe how Codmon works and why it is not good enough for the purposes mentioned
+in section \ref{subsec:Problemstatement}. The original Codmon framework was built in 2005 by François Lesuer\cite{Codmon}. Originally Codmon was built for testing Ibis projects\cite{Ibis}\cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} 
+on the DAS-2\cite{das2} computer. Codmon was (At this moment the das2 and Codmon aren't in use anymore.) able to perform both functional and performance tests. If for some reason a particular
+test failed, Codmon reported the problems,by sending an email, directly to the programmer who made the last changes in code under test. It was also the intention that Codmon would be extensible. In this the Codmon 
+programmers succeeded only partially. We will discuss this more in depth in section \ref{subsec:CodmonProblems}.  
 
 \subsection{Codmon Design}
 \label{subsec:CodmonDesign}
-This section we will describe the design of the Codmon framework. The setup of Codmon is more or less modular and consiste of a few core parts. The set of tests that should run is describe
-in different configuration files which are called \emph{Sensors}. A sensor describes which test should be executed and also the software that is under these tests. A sensor consits of two
-parts. First there is the \emph{onoff} part, which is used for compilation parts and functional tests. The core of each sensor element in a sensor file consists of two parts: a wrapper and
-a shell-script command. Second there is the \emph{graph} part. This part is used for performance tests. The results of a performance test will be compared with the results of previous tests 
-and if the performance result of a test drops below a certain level, an alarm is raised. The same occures when one or more functional tests are failing.\\
+This section we will describe the design of the Codmon framework. The setup of Codmon is more or less modular and consists of a few core elements. The set of tests that should run is described
+in different configuration files which are called \emph{Sensors}. A sensor describes precisely which test should be execute and also the software that is under these tests. A sensor consists of two
+parts. First there is the \emph{onoff} part, which is used for compilation parts and the functional tests. The core of each sensor element in a sensor file consists of two parts: a wrapper and
+a shell-script command. Second there is the \emph{graph} part. This part is used for the performance tests. The results of a performance test will be compared with the results of previous tests 
+and if the performance result of a test drops below a certain level, an alarm is raised. When an alarm is raised, an email is sent to the last contributor of the code of which a test fails. 
+The same happens when one or more functional tests are failing.\\
 
-\noindent Where a \emph{sensor} describes the structure of a set of tests, a so called \emph{wrapper} describes an actual test. Wrappers are small programms that are written int the PERL
-language. The return value of a wrapper indicates if a test succeeded or not. In case of a failure an alarm is raised and both the return value and the actual error code will be shown to
+\noindent Where a \emph{sensor} describes the structure of a set of tests, a so called \emph{wrapper} describes the actual test. Wrappers are small programs that are written int the PERL
+language. The return value of a wrapper indicates when a test was successful or not. In case of a failure an alarm is raised and both the return value and the actual error code will be shown to
 the programmer who made the last contribution to the code. The results of the performance tests are plotted in a graph, which makes it easy for the developers to see the performance
-behaviour. Figure 1 shows a schematic picture of the Codmon structure. More technical details about the Codmon implementation can be found in \cite{Codmon}
+behavior. Figure 1 shows a schematic picture of the Codmon structure. More technical details about the Codmon implementation can be found in \cite{Codmon}
 
 \begin{figure}[!ht]
   \caption{\emph{figure 1: Codmon}}
@@ -101,14 +102,14 @@ behaviour. Figure 1 shows a schematic picture of the Codmon structure. More tech
 
 \subsection{Codmon problems}
 \label{subsec:CodmonProblems}
-The purpose of this research was to see if it's possible to design a multi-platform, user friendly modular test environment. There are multiple reasons why Codmon doesn't satisfy this. First
+The goal of this research was to see if it's possible to design a multi-platform, user friendly modular test environment. There are multiple reasons why Codmon doesn't satisfy this. First
 to be multi-platform, without applying every change multiple times, the platform must be written in a platform-independent language. If we take a look ad Codmon there are at least three 
-different lang used. The core of Codmon is written in java, which is indeed platform independent\cite{Java}, so this is not the real problem. As we've explained in section \ref{sec:codmon} the
-important part of the sensors is a combination of a \emph{shel-script} command and a \emph{wrapper}
-
-TODO: Was only supporting cvs. difficult to extend for other users.
-TODO: Think about too many different languages and techniques (java , perl) the later isn't platform independent.
-
+different languages used. The core of Codmon is written in java, which is indeed platform independent\cite{Java}, so this is not the real problem. As we've explained in section \ref{sec:codmon} the
+core-part of the sensors is a combination of a \emph{shell-script} command and a \emph{wrapper}. Since a Linux shell-script will usually won't work on a Windows environment this part is definitely
+not platform independent. The same can be said about the PERL language, this will,without special effort, neither work on a Windows environment. Next to this there are also several separate
+scripts for example, for  CVS-checkouts and the startup of the Codmon framework. Taking this into our mind, we can easily see that the Codmon framework is far from platform independent. Due to these chaos of 
+different scripts and languages it is also difficult for programmers to add new modules or tests to the Codmon framework. In The next reminder of this thesis we'll explain how \project{} solves
+these and other issues. 
 
 \newpage
 \section{\project{}}
@@ -118,7 +119,7 @@ TODO: Think about too many different languages and techniques (java , perl) the 
 //TODO: Think of better subsection title!!
 //TODO: Explain ideas and road to solution
 
-\subsubsection{The init.xml file}
+\subsubsection{The init.XML file}
 \label{subsec:init}
 
 \subsubsection{Version control}
