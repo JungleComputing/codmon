@@ -74,10 +74,10 @@ choices in section \ref{sec:evaluation}. In Section \ref{sec:conclusion} we disc
 \section{Codmon}
 \label{sec:codmon}
 In this section we describe the original Codmon framework and its shortcomings. The original Codmon framework was built in 2005 by François Lesuer\cite{Codmon}. Originally Codmon was built for 
-testing and performance monitoring Ibis projects\cite{Ibis}\cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} on the DAS-2\cite{das2} computer. Codmon was (At this moment the das2 and Codmon aren't in use anymore.) 
-able to perform both functional and performance tests. If for some reason a particular test failed, Codmon reported the problems. It does this by sending an email directly to the programmer who made the last changes 
-in code under test. Codmon also reported in the same way in case the performance drops below a certain treshold. The It was also the intention that Codmon would be extensible. In this the Codmon programmers succeeded 
-only partially. We will discuss this more in depth in section \ref{subsec:CodmonProblems}.  
+testing and performance monitoring Ibis projects\cite{Ibis}\cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} on the DAS-2\cite{das2} computer. Codmon was (at this moment both the das2 and Codmon aren't 
+in use anymore.) able to perform both functional and performance tests. If for some reason a particular test failed, Codmon raised an alarm and reported the failures. Codmon does this by sending an 
+email directly to the programmer who made the last changes in the software that was tested. Codmon also reported in the same way in case the performance drops below a certain treshold. Next to 
+sending an email in case of failing tests, Codmon also marks them on a results web page. It was also the intention that Codmon would be extensible. In this the Codmon programmers succeeded only partially. We will discuss this more in depth in section \ref{subsec:CodmonProblems}.  
 
 \subsection{Codmon Design}
 \label{subsec:CodmonDesign}
