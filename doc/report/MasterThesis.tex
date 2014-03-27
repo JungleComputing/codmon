@@ -79,14 +79,22 @@ in use anymore.) able to perform both functional and performance tests. If for s
 email directly to the programmer who made the last changes in the software that was tested. Codmon also reported in the same way in case the performance drops below a certain treshold. Next to 
 sending an email in case of failing tests, Codmon also marks them on a results web page. It was also the intention that Codmon would be extensible. In this the Codmon programmers succeeded only partially. We will discuss this more in depth in section \ref{subsec:CodmonProblems}.  
 
-\subsection{Codmon Design}
+\subsection{The working of Codmon}
 \label{subsec:CodmonDesign}
-In this section we will describe the design of the Codmon framework. The setup of Codmon is more or less modular and consists of a few core elements. The set of tests that should run is described
-in different configuration files which are called \emph{Sensors}. A sensor describes precisely which tests should be executed and also the software that is under these tests. A sensor consists of two
-parts. First there is the \emph{onoff} part, which is used for compilation parts and the functional tests. The core of each sensor element in a sensor file consists of two parts: a wrapper and
-a shell-script command. Second there is the \emph{graph} part. This part is used for the performance tests. The results of a performance test will be compared with the results of previous tests 
+In this section we will describe the design of the Codmon framework. The Codmon framework is more or less modular and consists of a two parts. The first part is the actual Codmon program. This part 
+is resposible for a few things, which we will explain in a few minutes. When a user wants to test one of the applications mentioned above, the only thing he or she must do is to make sure that the Codmon 
+framework is installed on the Das-2. He or she needs to know nothing of the Codmon program, except for how it should be started. This \emph{core-part} of Codmon is resposible for a few things. first
+it creates a \emph{shot} of the actual state of the of the programs that are tested. It does this by executing a set of \emph{sensors} and collecting the output of these executions. later in this 
+section we'll explain what sensors are. In case of a performance tests, the sensor file will make the distinction between functional test and performance tests, the test information is stored in 
+a RRD database\cite{RRD}. From this data averages are calculated and eventually the graphs are generated\cite{Codmon}. The results of a performance test will be compared with the results of previous tests 
 and if the performance result of a test drops below a certain treshold, an alarm is raised. When an alarm is raised, an email is sent to the last contributor of the code of which a test fails. 
 The same happens when one or more functional tests are failing.\\
+
+\noindent The second part of the Codmon framework are the sensor files. A sensor file describes a "test set" that can be executed by the Codmon program. Such a sensor file onsists of two parts. 
+First there is the \emph{onoff} part, which is used for compilation parts and the functional tests. The core of each sensor element in a sensor file consists of two parts: a wrapper and a 
+shell-script command. Second there is the \emph{graph} part. This part is used for the performance tests. Figure 2 shows a very simple version of such a sensor file.
+
+//TODO add sensor code snuppet
 
 \noindent Where a \emph{sensor} describes the structure of a set of tests, a so called \emph{wrapper} describes the actual test. Wrappers are small programs that are written int the PERL
 language. The return value of a wrapper indicates if a test was successful or not. In case of a failure an alarm is raised and both the return value and the actual error code will be mailed to
