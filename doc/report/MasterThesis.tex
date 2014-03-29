@@ -2,6 +2,7 @@
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{float}
+\usepackage{listings}
 
 % Title Page
 \title{Codmon: A multi-platform modular test environment.}
@@ -90,11 +91,30 @@ a RRD database\cite{RRD}. From this data averages are calculated and eventually 
 and if the performance result of a test drops below a certain treshold, an alarm is raised. When an alarm is raised, an email is sent to the last contributor of the code of which a test fails. 
 The same happens when one or more functional tests are failing.\\
 
-\noindent The second part of the Codmon framework are the sensor files. A sensor file describes a "test set" that can be executed by the Codmon program. Such a sensor file onsists of two parts. 
-First there is the \emph{onoff} part, which is used for compilation parts and the functional tests. The core of each sensor element in a sensor file consists of two parts: a wrapper and a 
-shell-script command. Second there is the \emph{graph} part. This part is used for the performance tests. Figure 2 shows a very simple version of such a sensor file.
+\noindent The second part of the Codmon framework are the sensor files. A sensor file describes a "test set" that can be executed by the Codmon program. Such a sensor file consists of two parts. 
+First there is the \emph{onoff} part, which is used for compilation parts and the functional tests.  Second there is the \emph{graph} part. This part is used for the performance tests. 
+The core of each sensor element in a sensor file is the CMD attribute. This CMD attribute consists of two basic parts: a wrapper and a shell-script command. This shell-script command can be anything. 
+For instance it can be a SVN command, or a ANT job or something else. Listing \ref{list:wrapper} gives an example of such a senor. \\
 
-//TODO add sensor code snuppet
+\lstset{
+  captionpos=b,
+  caption = \emph{Sensor example},
+  label =list:wrapper
+}
+\begin{lstlisting}
+ <sensor id="update_ok" 
+    name="CVS update" 
+    cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl 
+    CODMON_HOME sh codmon/local/cvsup.sh" 
+    scope="ibis" 
+    scheduled="false" 
+    graph="true" 
+    fatal="true" />
+\end{lstlisting}
+ 
+\noindent In this case the CMD attribute apparently consits of a wrapper called \emph{time\_wrapper.pl} and a shell-script command called \emph{cvsup.sh}. The wrapper indicates the kind of test
+that is executed. The shell-script command indicates which programm is tested. In case of Listing \ref{list:wrapper} the update time of the CVS repository is is measured.\\
+
 
 \noindent Where a \emph{sensor} describes the structure of a set of tests, a so called \emph{wrapper} describes the actual test. Wrappers are small programs that are written int the PERL
 language. The return value of a wrapper indicates if a test was successful or not. In case of a failure an alarm is raised and both the return value and the actual error code will be mailed to
