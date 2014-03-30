@@ -150,8 +150,11 @@ of configuration,of which you don't want to bother anyone, before a user is able
 \newpage
 \section{The Road to \project{}}
 \label{sec:road}
-
-//TODO: Explain ideas and road to solution
+As you could read in section \ref{subsec:Problemstatement} we're looking for a multi-platform, user friendly modular test environment. This environment must at least satisfy the next few 
+requirements. The most importent requirement is that it runs on multiple platforms. A second requirement is that we don't want to bother the users of the test environment with the internal 
+mechanisms of the environment. A third requirement is that is should be modular and plugable. This means that it is possible for both users to easily add new components to the environment. The 
+same shoud apply to developers who maintain the environment. A last requirement is that it, to be user friendly, the sensors as described in section \ref{subsec:CodmonDesign} should all have 
+the same structure so a user can add tests always in the same way.
 
 \newpage
 \section{The implementation of \project{}}
