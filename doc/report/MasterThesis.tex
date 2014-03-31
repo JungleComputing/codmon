@@ -154,7 +154,12 @@ As you could read in section \ref{subsec:Problemstatement} we're looking for a m
 requirements. The most importent requirement is that it runs on multiple platforms. A second requirement is that we don't want to bother the users of the test environment with the internal 
 mechanisms of the environment. A third requirement is that is should be modular and plugable. This means that it is possible for both users to easily add new components to the environment. The 
 same shoud apply to developers who maintain the environment. A last requirement is that it, to be user friendly, the sensors as described in section \ref{subsec:CodmonDesign} should all have 
-the same structure so a user can add tests always in the same way.
+the same structure so a user can add tests always in the same way.\\
+
+\noindent In the previous sections we have shown that Codmon has some good aspects as well as some aspects that aren't that good. To design a test environment which satisfies the above requirements 
+we decided to reuse the good parts of Codmon and design new components where necessary. Since the core program of Codmon is written in Java, we decided to reuse most of this code and only adapt 
+it if there was no other option. In the section \ref{sec:Codmon2.0} we'll show where and why we've adapted the Codmon core program. Because the Codmon core program is written in Java already we've 
+decided to write the Wrappers in Java as well. Using as litle languages as possible will help the people who have to maintain te environment.
 
 \newpage
 \section{The implementation of \project{}}
