@@ -156,10 +156,36 @@ mechanisms of the environment. A third requirement is that is should be modular 
 same shoud apply to developers who maintain the environment. A last requirement is that it, to be user friendly, the sensors as described in section \ref{subsec:CodmonDesign} should all have 
 the same structure so a user can add tests always in the same way.\\
 
-\noindent In the previous sections we have shown that Codmon has some good aspects as well as some aspects that aren't that good. To design a test environment which satisfies the above requirements 
+\noindent In the previous sections we have stated that Codmon has some good aspects as well as some aspects that aren't that good. To design a test environment which satisfies the above requirements 
 we decided to reuse the good parts of Codmon and design new components where necessary. Since the core program of Codmon is written in Java, we decided to reuse most of this code and only adapt 
-it if there was no other option. In the section \ref{sec:Codmon2.0} we'll show where and why we've adapted the Codmon core program. Because the Codmon core program is written in Java already we've 
-decided to write the Wrappers in Java as well. Using as litle languages as possible will help the people who have to maintain te environment.
+it if there is no other option. In the section \ref{sec:Codmon2.0} we'll show where,how and why we've adapted the Codmon core program. Because the Codmon core program is written in Java already we've 
+decided to write the all wrappers in Java as well. Using as litle languages as possible will help the people who have to maintain te environment.\\
+
+\noindent We also saw that the core of sensor consists out of two parts a wrapper and a shell-script command. In most cases this shell script command wille be to start some program. This program should also 
+be platform independent. As we discussed above in \project{} all the wrappers will be written in Java. Hereby writing these programs in Java as well will be an obvious choice. So now we have a Java wrapper
+and a Java program. We thus need a platform independent construction that, at least, is able to start a program. We have chosen to use \emph{ANT} for this. One of the reasons to choose Ant is that it provides 
+us with a lot of fexibility. Lets take a look at the following example. A user who wants to test a piece of Java software. probably already has a build file for building the software. So there is nothing new 
+here. The only thing the user has to add is a new ant-target, which starts the program. Listing \ref{list:sensorNew} shows the new sensor structure:
+
+\lstset{
+  captionpos=b,
+  caption = \emph{Sensor new structure},
+  label =list:sensorNew
+}
+\begin{lstlisting}
+ <sensor id="update_ok" 
+    name="CVS update" 
+    cmd="java <wrapper> <path to build file > <ant> <target>" 
+    scope="ibis" 
+    scheduled="false" 
+    graph="true" 
+    fatal="true" />
+\end{lstlisting}
+
+The \textless target\textgreater \ is an optional value. When the target value is left out Codmon will run the default ant target. In section \ref{sec:Codmon2.0} we'll show how this all is implemented in the 
+\project{} environment.\\
+
+\noindent An other problem we discussed in section \ref{subsec:CodmonDesign} is the \emph{CVS-Checkout} mechanism.
 
 \newpage
 \section{The implementation of \project{}}
