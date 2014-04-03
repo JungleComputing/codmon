@@ -187,7 +187,8 @@ The \textless target\textgreater \ is an optional value. When the target value i
 
 \noindent An other problem we discussed in section \ref{subsec:CodmonDesign} is the \emph{CVS-Checkout} mechanism. The way Codmon was designed it could only handle CVS-checkouts and updates. The \project{} 
 environment must be able to deal with different versioning systems. To achieve this we decided to design a separate \emph{module} outside of \project{} that takes care of the checkouts and updates of the 
-software that the users want to test. If this modules all implement the same interface, it is easy for (extern-) developers to add new version control systems. The only thing a user has to do, is indicate which 
+software that the users want to test. If this modules all implement the same interface, it is easy for (extern-) developers to add new version control systems. This interface should at least define mechanisms 
+for fetching and updating the software. Next to this is must also provide some basic mechanism which provide the users with the history log of the software. The only thing a user has to do, is indicate which 
 version control system his software is using. We discuss the implementation in more depth in section \ref{sec:Codmon2.0}.\\
 
 \noindent When you want to test your software on multiple platforms you don't want to download, install and configure the test environment over and over. The \project{} project comes up with a nice and powerful 
