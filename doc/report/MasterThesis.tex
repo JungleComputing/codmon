@@ -3,6 +3,7 @@
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{listings}
+\usepackage[english]{babel}
 
 % Title Page
 \title{Codmon: A multi-platform modular test environment.}
@@ -201,10 +202,52 @@ exactly we'll see in section \ref{sec:Codmon2.0}.
 \section{The implementation of \project{}}
 \label{sec:Codmon2.0}
 In This section we'll describe how we've implemented the decisions made in section \ref{sec:road} in the \project{} project. We'll discuss the implementation in the same order as the order the different modules 
-appear to a user of \project{} environment. 
+appear to a user of \project{} environment. When someone wants to use the \project{} test environment there are two options he can choose to get acces to this environment. We'll come to these options later in 
+this section. For now we assume the user has acces to a working \project{} environment.
 
 \subsection{The init.XML file}
 \label{subsec:init}
+
+Before the \project{} environment is able to run one or more tests on a software, it has to know where it can find the software and check it out\footnote{for the sake of simplicity,when we talk about it in a 
+general way, we call both check-out and clone check-out in this thesis.}. This information and other information has to be added to an \emph{init.xml} file. This file is stored at \emph{"codmon/codmon/local/
+checkoutApplications/"}. Listing \ref{list:init} shows the structure of the init file. The explanation of its elements is shown in table \ref{tab:init}. 
+
+\lstset{
+  captionpos=b,
+  caption = \emph{init.xml example},
+  label =list:init
+}
+\begin{lstlisting}
+ <projects>
+	<project>
+		<name>projectname</name>
+		<location>http://www.sampleurl.com</location>
+		<versionControl>
+			<type>svn</type>
+			<command>checkout</command>
+		</versionControl>
+		<run>true</run>
+		<user>username</user>
+		<pwd>pwd</pwd>
+	</project>
+<projects>
+\end{lstlisting}  
+
+\begin{table}
+\centering
+  \begin{tabular}{ | l| p{5cm} |}
+  \hline
+  \textbf{projects} & List of all the projects that are involved in a test series. \\ \hline
+  \textbf{project} & Contains the information of one specific project. \\ \hline
+  \textbf{name} & The name of the project. \\ \hline
+  \textbf{location} & The URL of the location where the project can be found. \\ \hline
+  \textbf{versionControl} & The type of version control system that is used for the project. e.g. \emph{SVN} or \emph{Git} \\ \hline
+  \end{tabular}
+\caption{Table1 : init.xml elements}
+\label{tab:init}
+\end{table}
+
+
 
 \subsection{wrappers}
 \label{subsec:wrappers}
