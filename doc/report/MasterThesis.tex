@@ -6,7 +6,7 @@
 \usepackage[english]{babel}
 
 % Title Page
-\title{Codmon: A multi-platform modular test environment.}
+\title{\project{}: A multi-platform modular test environment.}
 \author{Berend van Veenendaal}
 \bibliographystyle{plain}
 %hieronder wordt de project naam als variabele gedeclareerd
@@ -73,7 +73,6 @@ It starts with a general description of the project followed by a detailed expla
 in section \ref{sec:evaluation}. In Section \ref{sec:conclusion} we discuss the results based on section \ref{sec:evaluation}. We end this section with a brief discussion of related work.
 
 \newpage
-
 \section{Codmon}
 \label{sec:codmon}
 In this section we describe the original Codmon framework and its shortcomings. The original Codmon framework was built in 2005 by François Lesuer\cite{Codmon}. Originally Codmon was built for 
@@ -138,39 +137,51 @@ can be found in \cite{Codmon}.
 \subsection{Codmon problems}
 \label{subsec:CodmonProblems}
 The goal of this research was to see if it's possible to design a multi-platform, user friendly modular test environment. There are multiple reasons why Codmon doesn't fit the bill. In this section
-we'll discuss these reasons in detail.\\
+we'll discuss these reasons in detail.
  
-\noindent First Codmon is not multi-platform. To be multi-platform, without applying every change multiple times, the platform itself must be written in a platform-independent language. 
+\subsubsection{Multi-platform}
+\label{prob:multi}
+First Codmon is not multi-platform. To be multi-platform, without applying every change multiple times, the platform itself must be written in a platform-independent language. 
 In Codmon at least three different languages are used. The Codmon program itself is written in Java, which is indeed platform independent\cite{Java}, so this is not the real problem. As we've explained in 
 section \ref{subsec:CodmonDesign} the core-part of the sensors is a combination of a \emph{shell-script} command and a \emph{wrapper}. Since a Linux shell-script usually won't work on a Windows environment 
 this part is definitely not platform independent. The same can be said about the PERL language, this will without special effort, also not work on a Windows environment. Next to this there are also several 
-separate shell-scripts for example, for  CVS-checkouts and the startup of the Codmon framework. Taking this into account, we can easily see that the Codmon framework is far from platform independent.\\
+separate shell-scripts for example, for  CVS-checkouts and the startup of the Codmon framework. Taking this into account, we can easily see that the Codmon framework is far from platform independent.
+
+\subsubsection{Modularity}
+\label{prob:modular} 
+The second one is the modularity of Codmon. Due to the chaos of different scripts and languages it is difficult for programmers to add new modules or tests to the Codmon framework. Adding new tests and modules 
+should be straight forward 
+
+\subsubsection{User-friendliness}
+\label{prob:user}
+The third reason is the user-friendliness of Codmon. Next to modularity, which also contributes to the user-friendliness of the test environment, Codmon requires quite a bit of configuration,of 
+which you don't want to bother anyone, before a user is able to use it. In the reminder of this thesis we'll explain in detail how we have solved these and other issues in the \project{} environment.\\
  
-\noindent The second one is the modularity of Codmon. Due to the chaos of different scripts and languages it is difficult for programmers to add new modules or tests to the Codmon framework. For instance the structure of the 
-wrappers. As you could see in section \ref{subsec:CodmonDesign} the CMD attribute of a sensor consists of two basic parts: a wrapper and a shell-script command, of which the shell-script command could be 
-anything. From a users perspective it would be much easier if there was only one type of command possible, an Ant-job\cite{Ant} for instance.\\
-
-\noindent The third reason is the user-friendliness of Codmon. Next to modularity, which also contributes to the user-friendliness of the test environment, Codmon requires quite a bit of configuration,of 
-which you don't want to bother anyone, before a user is able to use it. In the reminder of this thesis we'll explain how \project{} solves these and other issues. 
-
+\noindent Another issue regarding to user-friendliness is the structure of the wrappers. As you could see in section \ref{subsec:CodmonDesign} the CMD attribute of a sensor consists of two basic parts: 
+a wrapper and a shell-script command, of which the shell-script command could be anything. From a users perspective it would be much easier if there was only one type of command possible, an Ant-job\cite{Ant} 
+for instance.
 
 \newpage
 \section{The Road to \project{}}
 \label{sec:road}
-As you could read in section \ref{subsec:Problemstatement} we're looking for a multi-platform, user friendly modular test environment. This environment must at least satisfy the following 
-requirements. The most important requirement is that it runs on multiple platforms. A second requirement is that we don't want to bother the users of the \project{} environment with the internal 
-mechanisms of the environment. A third requirement is that is should be modular and pluggable. This means that it is possible for both users to easily add new components to the environment. The 
-same should apply to developers who maintain the environment. A last requirement is that it, to be user friendly, the sensors as described in section \ref{subsec:CodmonDesign} should all have 
-the same structure so a user can add tests always in the same way.\\
+As we described in section \ref{subsec:Problemstatement} our goal is to develop a multi-platform, user friendly modular test environment. This environment must at least satisfy the following requirements. 
+The most important requirement is that \project{} is \emph{multiple-platform}. A second requirement is that is should be \emph{modular} and pluggable. This means that it is possible for both users to easily 
+add new components to the environment. The same should apply to developers who maintain the environment. A third requirement is that \project{} environment must be user friendly. We don't want to bother 
+the users of the \project{} environment with the internal mechanisms of it. A second issue regarding to user-friendliness is that the sensors as described in section \ref{subsec:CodmonDesign} should all 
+have the same structure so a user can add tests always in the same way.\\
 
-\noindent In the previous sections we have stated that Codmon has some good aspects as well as some aspects that aren't that good. To design a test environment which satisfies the mentioned requirements 
-we decided to reuse the good parts of Codmon and design new components where necessary. Since the core program of Codmon is written in Java, we decided to reuse most of this code and only adapt 
-it if there is no other option. In section \ref{sec:Codmon2.0} we'll show where,how and why we've adapted the Codmon core program. Because the Codmon core program is written in Java already we've 
-decided to write the all wrappers in Java as well. Using as little languages as possible will help the people who have to maintain the environment.\\
+\subsection{General decisions}
+\label{subsec:general}
+In the previous sections we have stated that Codmon has some good aspects as well as some aspects that aren't that good. To design a test environment which satisfies the mentioned requirements 
+we decided to reuse the good parts of Codmon and design new components where necessary. Since the core program of Codmon is written in Java and Java is multi-platform we decided to reuse most of this code 
+and only adapt it if there is no other option. In section \ref{sec:Codmon2.0} we'll show where, how and why we've adapted the Codmon core program. 
 
-\noindent We also saw that the core of a sensor consists of two parts a wrapper and a shell-script command. In most cases this shell script command will start some program. This program should also 
+\subsection{Multi-platform}
+\label{road:multi}
+Because the Codmon core program is written in Java already we've decided to write the all wrappers in Java as well. Using as few languages as possible will help the people who have to maintain the 
+environment. We also saw that the core of a sensor consists of two parts a wrapper and a shell-script command. In most cases this shell script command will start some program. This program should also 
 be able to run on multiple platforms. As we discussed above in \project{} all the wrappers will be written in Java. Hereby writing these programs in Java as well is an obvious choice. So now we have a Java wrapper
-and a Java program. We thus need a platform independent construction that, at least, is able to start a program. We have chosen to use \emph{ANT} for this. One of the reasons to choose Ant is that it provides 
+and a Java program. We thus need a platform independent construction that, at least, is able to start a program. We have chosen to use \emph{Ant} for this. One of the reasons to choose Ant is that it provides 
 us with a lot of flexibility. Lets take a look at the following example. A user who wants to test a piece of Java software probably already has a build file for building the software. So there is nothing new 
 here. The only thing the user has to add is a new ant-target, which starts the program. Listing \ref{list:sensorNew} shows the new sensor structure:
 
@@ -192,24 +203,33 @@ here. The only thing the user has to add is a new ant-target, which starts the p
 The \textless target\textgreater \ is an optional value. When the target value is left out, Codmon will run the default ant target. In section \ref{sec:Codmon2.0} we'll show how this all is implemented in the 
 \project{} environment.\\
 
-\noindent An other problem we discussed in section \ref{subsec:CodmonDesign} is the \emph{CVS-Checkout} mechanism. The way Codmon was designed it could only handle CVS-checkouts and updates. The \project{} 
-environment must be able to deal with different versioning systems. To achieve this we decided to design a separate \emph{module} outside of \project{} that takes care of the checkouts and updates of the 
-software that the users want to test. If this modules all implement the same interface, it is easy for (extern-) developers to add new version control systems. This interface should at least define mechanisms 
-for fetching and updating the software. Next to this is must also provide some basic mechanism which provide the users with the history log of the software. The only thing a user has to do, is indicate which 
-version control system his software is using. We discuss the implementation in more depth in section \ref{sec:Codmon2.0}.\\
+\subsection{Modularity}
+\label{road:modular}
+Another problem we discussed in section \ref{subsec:CodmonDesign} is the modularity of the environment. The way Codmon was designed it could only handle CVS-checkouts and updates. The \project{} 
+environment must be able to deal with different versioning systems. To achieve this we decided to design separate \emph{modules} outside of the \project{} core program that takes care of the checkouts and updates of the 
+software that the users want to test. Each of these modules implement the interface for a different version-control system. Adding support for a new version-control system implies that the codmon developers 
+(or the users of \project{}) have to write a new module that implements this interface for this new version-control system. This interface should at least define mechanisms for fetching and updating the 
+software. Next to this is must also provide some basic mechanism which provide the users with the history log of the software. The only thing a user has to do, is indicate which version control system his 
+software is using. We discuss the implementation in more depth in section \ref{sec:Codmon2.0}.\\
 
-\noindent When you want to test your software on multiple platforms you don't want to download, install and configure the test environment over and over. The \project{} project comes up with a nice and powerful 
+\noindent The new sensor structure as discussed in section \ref{road:multi} makes adding new test also straight forward. The only thing a \project{} user has to do is add a new test, and create an Ant target 
+for this test. 
+
+\subsection{User-friendliness}
+\label{road:user}
+When a user wants to test his software on multiple platforms you don't want to download, install and configure the test environment over and over. The \project{} project comes up with a nice and powerful 
 solution for this problem. It provides a set of virtual machines in which \project{} is already installed en pre-configured. The only things a user has to do before he can use the by \project{} supplied tests is
-to download one or more of these virtual machines, load them into VM-ware and add the details of his software to an init file. By doing is this way the nasty configuration details are hidden for the users of the 
+to download one or more of these virtual machines, load them into VM-ware and add the details of his software to an initialization file. By doing it this way the nasty configuration details are hidden for the users of the 
 \project{} environment. Also when a a new version of an operating system arrives, the \project{} developers only have to configure one new image, which is directly available for all the users. How this works 
 exactly we'll see in section \ref{sec:Codmon2.0}. 
+
 
 \newpage
 \section{The implementation of \project{}}
 \label{sec:Codmon2.0}
 In This section we'll describe how we've implemented the decisions made in section \ref{sec:road} in the \project{} project. We'll discuss the implementation in the same order as the order the different modules 
-appear to a user of \project{} environment. When someone wants to use the \project{} test environment there are two options he can choose to get acces to this environment. We'll come to these options later in 
-this section. For now we assume the user has acces to a working \project{} environment.
+appear to a user of \project{} environment. When someone wants to use the \project{} test environment there are two options he can choose to get access to this environment. We'll come to these options later in 
+this section. For now we assume the user has access to a working \project{} environment.
 
 \subsection{The init.XML file}
 \label{subsec:init}
@@ -247,7 +267,11 @@ checkoutApplications/"}. Listing \ref{list:init} shows the structure of the init
   \textbf{project} & Contains the information of one specific project. \\ \hline
   \textbf{name} & The name of the project. \\ \hline
   \textbf{location} & The URL of the location where the project can be found. \\ \hline
-  \textbf{versionControl} & The type of version control system that is used for the project. e.g. \emph{SVN} or \emph{Git} \\ \hline
+  \textbf{versionControl} & Element that contains specific information about the version-control system \\ \hline
+  \textbf{type} & The type of version control system that is used for the project. e.g. \emph{SVN} or \emph{Git} \\ \hline
+  \textbf{run} & \textbf{Boolean} that indicates is a project should be tested. \\ \hline
+  \textbf{user} & username to login into the version-control system \\ \hline
+  \textbf{pwd} & password to login into the version-control system \\ \hline
   \end{tabular}
 \caption{Table1 : init.xml elements}
 \label{tab:init}
