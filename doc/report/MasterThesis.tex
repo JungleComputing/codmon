@@ -137,16 +137,22 @@ can be found in \cite{Codmon}.
 
 \subsection{Codmon problems}
 \label{subsec:CodmonProblems}
-The goal of this research was to see if it's possible to design a multi-platform, user friendly modular test environment. There are multiple reasons why Codmon doesn't fit the bill. First,
-to be multi-platform, without applying every change multiple times, the platform itself must be written in a platform-independent language. Codmon uses at least three 
-different languages used. The Codmon program itself is written in Java, which is indeed platform independent\cite{Java}, so this is not the real problem. As we've explained in section \ref{subsec:CodmonDesign} the
-core-part of the sensors is a combination of a \emph{shell-script} command and a \emph{wrapper}. Since a Linux shell-script usually won't work on a Windows environment this part is definitely
-not platform independent. The same can be said about the PERL language, this will without special effort, also not work on a Windows environment. Next to this there are also several separate
-scripts for example, for  CVS-checkouts and the startup of the Codmon framework. Taking this into account, we can easily see that the Codmon framework is far from platform independent. Due to the chaos of 
-different scripts and languages it is also difficult for programmers to add new modules or tests to the Codmon framework. The second one is the structure of the wrappers. As you could see in 
-section \ref{subsec:CodmonDesign} the CMD attribute of a sensor consists of two basic parts: a wrapper and a shell-script command, of which the shell-script command could be anything. From a users 
-perspective it would be much easier if there was only one type of command possible, an Ant-job for instance. A third reason is the portability of the test-framework. Codmon requires kind a bit
-of configuration,of which you don't want to bother anyone, before a user is able to use it. In the reminder of this thesis we'll explain how \project{} solves these and other issues. 
+The goal of this research was to see if it's possible to design a multi-platform, user friendly modular test environment. There are multiple reasons why Codmon doesn't fit the bill. In this section
+we'll discuss these reasons in detail.\\
+ 
+\noindent First Codmon is not multi-platform. To be multi-platform, without applying every change multiple times, the platform itself must be written in a platform-independent language. 
+In Codmon at least three different languages are used. The Codmon program itself is written in Java, which is indeed platform independent\cite{Java}, so this is not the real problem. As we've explained in 
+section \ref{subsec:CodmonDesign} the core-part of the sensors is a combination of a \emph{shell-script} command and a \emph{wrapper}. Since a Linux shell-script usually won't work on a Windows environment 
+this part is definitely not platform independent. The same can be said about the PERL language, this will without special effort, also not work on a Windows environment. Next to this there are also several 
+separate shell-scripts for example, for  CVS-checkouts and the startup of the Codmon framework. Taking this into account, we can easily see that the Codmon framework is far from platform independent.\\
+ 
+\noindent The second one is the modularity of Codmon. Due to the chaos of different scripts and languages it is difficult for programmers to add new modules or tests to the Codmon framework. For instance the structure of the 
+wrappers. As you could see in section \ref{subsec:CodmonDesign} the CMD attribute of a sensor consists of two basic parts: a wrapper and a shell-script command, of which the shell-script command could be 
+anything. From a users perspective it would be much easier if there was only one type of command possible, an Ant-job\cite{Ant} for instance.\\
+
+\noindent The third reason is the user-friendliness of Codmon. Next to modularity, which also contributes to the user-friendliness of the test environment, Codmon requires quite a bit of configuration,of 
+which you don't want to bother anyone, before a user is able to use it. In the reminder of this thesis we'll explain how \project{} solves these and other issues. 
+
 
 \newpage
 \section{The Road to \project{}}
