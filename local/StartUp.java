@@ -19,7 +19,12 @@ public class StartUp{
 
 	
 
-
+	/**
+	*@author bvl300
+	*First the the files and the sub- directories are deleted after this the directory 
+	*itself is deleted.
+	*Returns true in case of succes , false in case of a failure
+	**/
 	private boolean deleteDirectory(File dir) {
         	File[] files = dir.listFiles();
         	 if (files != null) {
