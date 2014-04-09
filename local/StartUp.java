@@ -139,7 +139,7 @@ public class StartUp{
 
 	/**
  	*@author bvl300
- 	*initilezes the program. creates and copy dday files to the right directories
+ 	*initialezes the program. creates and copy dday files to the right directories
  	*/ 	 	
 	private Method init(String[] argv){
 		File[] directories = createDdayDirectories(4);
@@ -148,7 +148,11 @@ public class StartUp{
 		return getStartMethod(argv);
 	}
 
-
+	
+	/**
+ 	*@author bvl300
+ 	*Invoke method m with the correct parameters
+ 	*/ 
 	private void run(Method m,String[] argv){
 		String sensor = argv[0];
 		String[] statsArgs = new String[2];

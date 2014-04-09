@@ -1,9 +1,25 @@
-\documentclass[a4paper,10pt]{scrartcl}
+\documentclass{article}
 \usepackage[utf8]{inputenc}
 \usepackage{graphicx}
 \usepackage{float}
 \usepackage{listings}
+\usepackage{color}
 \usepackage[english]{babel}
+
+\definecolor{mygreen}{rgb}{0,0.6,0}
+\definecolor{mygray}{rgb}{0.5,0.5,0.5}
+\definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+\lstset{ %
+  backgroundcolor=\color{white},   % choose the background color
+  basicstyle=\footnotesize,        % size of fonts used for the code
+  breaklines=true,                 % automatic line breaking only at whitespace
+  captionpos=b,                    % sets the caption-position to bottom
+  commentstyle=\color{mygreen},    % comment style
+  escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
+  keywordstyle=\color{blue},       % keyword style
+  stringstyle=\color{mymauve},     % string literal style
+}
 
 % Title Page
 \title{\project{}: A multi-platform modular test environment.}
@@ -103,11 +119,10 @@ For instance it can be a SVN command, or a ANT job or something else. Listing \r
   caption = \emph{Sensor example},
   label =list:sensor
 }
-\begin{lstlisting}
+\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
  <sensor id="update_ok" 
     name="CVS update" 
-    cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl 
-    CODMON_HOME sh codmon/local/cvsup.sh" 
+    cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.plCODMON_HOME sh codmon/local/cvsup.sh" 
     scope="ibis" 
     scheduled="false" 
     graph="true" 
@@ -190,7 +205,7 @@ here. The only thing the user has to add is a new ant-target, which starts the p
   caption = \emph{Sensor new structure},
   label =list:sensorNew
 }
-\begin{lstlisting}
+\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
  <sensor id="update_ok" 
     name="CVS update" 
     cmd="java <wrapper> <path to build file > <ant> <target>" 
@@ -227,12 +242,32 @@ exactly we'll see in section \ref{sec:Codmon2.0}.
 \newpage
 \section{The implementation of \project{}}
 \label{sec:Codmon2.0}
-In This section we'll describe how we've implemented the decisions made in section \ref{sec:road} in the \project{} project. We'll discuss the implementation in the same order as the order the different modules 
-appear to a user of \project{} environment. When someone wants to use the \project{} test environment there are two options he can choose to get access to this environment. We'll come to these options later in 
-this section. For now we assume the user has access to a working \project{} environment.
+In This section we'll describe how we've implemented the decisions made in section \ref{sec:road} in the \project{} project. We'll start with the parts that were necessary to achieve that \project{} is multi-platform 
+followed by the parts that affect the modularity. We end this section with the parts that affect user-friendliness. When someone wants to use the \project{} test environment there are two options he can choose 
+to get access to this environment. We'll come to these options later in this section. For now we assume the user has access to a working \project{} environment.
 
-\subsection{The init.XML file}
-\label{subsec:init}
+\subsection{multi-platform}
+\label{imp:multi}
+In the previous sections we mentioned that the tangle of shell-scripts and PERL-code ensures that Codmon isn't multiplatform. To be sure that \project{} is multiplatform we've chosen that all the code of the 
+\project{} environment is written in Java. First we describe how we've implemented the start-up of a test run. After this we describe how both the tests and the software that is tested are connected together.
+
+\subsubsection{Start-up}
+\label{imp:start}
+As we will see in section \ref{imp:modular} everything outside the \project{} core program is a separated module, so also the start-up module. The start-up module is called with one parameter namely the name of 
+the sensor file that is needed for this run. The current start-up module is responsible for a few things. First it initializes the \project{} environment. If it the first time \project{} is used, four result 
+directories are created. Otherwise the results of the previous test-runs are copied to the history folders so in the current result folder is space for the new test results \footnote{Due to historic reason the 
+reusult folders are still called dday,dday1,dda2 etc etc}.\\
+
+\noindent When the all the result files are in the right place the \project{} core program must be started. Because this is a completely new Java program we needed a way to pass the sensor file parameter to 
+the core program. Remember at this stage \project{} is already built. So to achieve this we have to make use of \emph{dynamic class loading}. Appendix \ref{AppendixA} shows how this is implemented in the 
+\project{} environment.
+
+
+\subsection{Modularity}
+\label{imp:modular}
+
+\subsection{user-friendliness}
+\label{imp-user}
 
 Before the \project{} environment is able to run one or more tests on a software, it has to know where it can find the software and check it out\footnote{for the sake of simplicity,when we talk about it in a 
 general way, we call both check-out and clone check-out in this thesis.}. This information and other information has to be added to an \emph{init.xml} file. This file is stored at \emph{"codmon/codmon/local/
@@ -243,7 +278,7 @@ checkoutApplications/"}. Listing \ref{list:init} shows the structure of the init
   caption = \emph{init.xml example},
   label =list:init
 }
-\begin{lstlisting}
+\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
  <projects>
 	<project>
 		<name>projectname</name>
@@ -279,13 +314,6 @@ checkoutApplications/"}. Listing \ref{list:init} shows the structure of the init
 
 
 
-\subsection{wrappers}
-\label{subsec:wrappers}
-
-\subsection{Version control}
-\label{subsec:versionControl}
-
-
 \newpage
 \section{evaluation}
 \label{sec:evaluation}
@@ -299,4 +327,80 @@ TODO: Discus related and future work
 \newpage
 
 \bibliography{Master}
+\newpage
+\appendix
+\section{Appendix A: Dynamic class loading}
+\label{AppendixA}
+
+\lstset{
+  captionpos=b,
+  caption = \emph{dynamic class loading},
+  label =list:method
+}
+\begin{lstlisting}[frame=single ,language=Java]
+private ClassLoader getClassLoader(String[] jars) throws MalformedURLException, SecurityException{
+		ArrayList<URL> paths = new ArrayList<URL>();
+
+     		for (String externalJar : jars) {
+         		paths.add(new File(externalJar).toURI().toURL());
+			System.out.println(paths.get(0));
+     		}
+     		
+		URL[] urls = paths.toArray(new URL[paths.size()]);
+		return new URLClassLoader(urls);
+	}	
+
+	/**
+	 *@author bvl300
+	 *Loads codmon.jar so I can Use it here
+	 **/
+	private Method getStartMethod(String[] argv){	
+		Method m = null;
+		Class<?> cl = null;
+		String[] jars = getJars();;
+		try{
+		        ClassLoader loader = getClassLoader(jars);
+			cl = loader.loadClass("Stats");
+			m = cl.getMethod("main", new Class[] { argv.getClass() });
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+
+		if(!m.isAccessible()){
+			final Method temporary_method = m;
+			AccessController.doPrivileged(new PrivilegedAction<Object>() {
+            			 public Object run() {
+               		  		temporary_method.setAccessible(true);
+                 			return null;
+             			}
+         		});
+		}
+		return m;
+	} 
+\end{lstlisting} 
+\newpage
+\lstset{
+  captionpos=b,
+  caption = \emph{invokation of the method},
+  label =list:run
+}
+\begin{lstlisting}[frame=single ,language=Java]
+	/**
+ 	*@author bvl300
+ 	*Invoke method m with the correct parameters
+ 	*/ 
+	private void run(Method m,String[] argv){
+		String sensor = argv[0];
+		String[] statsArgs = new String[2];
+		statsArgs[0] = "../sensors-"+sensor+".xml";
+		statsArgs[1] = "../dday/shot-"+sensor+".xml";
+		try{
+			m.invoke(null,new Object[]{statsArgs});
+		}catch(Exception e){
+			System.out.println(e.getMessage());
+		}
+	}
+\end{lstlisting}  
+
+
 \end{document}    
