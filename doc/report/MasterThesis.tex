@@ -19,6 +19,7 @@
   escapeinside={\%*}{*)},          % if you want to add LaTeX within your code
   keywordstyle=\color{blue},       % keyword style
   stringstyle=\color{mymauve},     % string literal style
+  numbers=left,			   %places line numbers on the left side
 }
 
 % Title Page
@@ -248,20 +249,29 @@ to get access to this environment. We'll come to these options later in this sec
 
 \subsection{multi-platform}
 \label{imp:multi}
-In the previous sections we mentioned that the tangle of shell-scripts and PERL-code ensures that Codmon isn't multiplatform. To be sure that \project{} is multiplatform we've chosen that all the code of the 
+In the previous sections we mentioned that the tangle of shell-scripts and PERL-code ensures that Codmon isn't multiplatform. To ensure that \project{} is multiplatform we've chosen that all the code of the 
 \project{} environment is written in Java. First we describe how we've implemented the start-up of a test run. After this we describe how both the tests and the software that is tested are connected together.
 
 \subsubsection{Start-up}
 \label{imp:start}
-As we will see in section \ref{imp:modular} everything outside the \project{} core program is a separated module, so also the start-up module. The start-up module is called with one parameter namely the name of 
-the sensor file that is needed for this run. The current start-up module is responsible for a few things. First it initializes the \project{} environment. If it the first time \project{} is used, four result 
-directories are created. Otherwise the results of the previous test-runs are copied to the history folders so in the current result folder is space for the new test results \footnote{Due to historic reason the 
-reusult folders are still called dday,dday1,dda2 etc etc}.\\
+In a non multi-platform environment it is very easy to create a shell-script (or a batch-file in case of Windows) to start a program. As we wil see in Java this is a little more complex.\\
+
+\noindent As we will see in section \ref{imp:modular} everything outside the \project{} core program is a separated module, so also the start-up module. The start-up module is called with one parameter namely 
+the name of the sensor file that is needed for this run. The current start-up module is responsible for a few things. First it initializes the \project{} environment. If it the first time \project{} is used, 
+four result directories are created. Otherwise the results of the previous test-runs are copied to the history folders so in the current result folder is space for the new test results \footnote{Due to historic 
+reason the reusult folders are still called dday,dday1,dda2 etc etc}.\\
 
 \noindent When the all the result files are in the right place the \project{} core program must be started. Because this is a completely new Java program we needed a way to pass the sensor file parameter to 
-the core program. Remember at this stage \project{} is already built. So to achieve this we have to make use of \emph{dynamic class loading}. Appendix \ref{AppendixA} shows how this is implemented in the 
-\project{} environment.
+the core program. Remember at this stage \project{} is already built. So to achieve this we have to make use of \emph{dynamic class loading}. Dynamic class loading means that only at runtime is decided which 
+(Java) class is called. Listings \ref{list:method} and \ref{list:run} in Appendix \ref{AppendixA} show how this is implemented in the \project{} environment.
 
+\subsubsection{Ant connector}
+\label{imp:ant}
+A second issue we had to deal with are the the senors in the senor files. In section \ref{road:multi} we have already seen the new sensor structure. A wrapper is a separated process which has to be started by 
+the \project{} core program.  When the \project{} core program evaluates a sensor it...
+ 
+\subsection{Tests}
+\label{imp:test}
 
 \subsection{Modularity}
 \label{imp:modular}
@@ -292,7 +302,8 @@ checkoutApplications/"}. Listing \ref{list:init} shows the structure of the init
 		<pwd>pwd</pwd>
 	</project>
 <projects>
-\end{lstlisting}  
+\end{lstlisting} 
+
 
 \begin{table}
 \centering

@@ -347,7 +347,6 @@ class Shot {
     /**
      *@author bvl300
      *Starts a new process in a given directory
-     *TODO commando uitbreidem met te testen software
      **/
     private Process startProcess(String cmd) throws IOException {
 	//Need to specify which Arraylist util vs awt 	
