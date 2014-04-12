@@ -265,11 +265,63 @@ reason the reusult folders are still called dday,dday1,dda2 etc etc}.\\
 the core program. Remember at this stage \project{} is already built. So to achieve this we have to make use of \emph{dynamic class loading}. Dynamic class loading means that only at runtime is decided which 
 (Java) class is called. Listings \ref{list:method} and \ref{list:run} in Appendix \ref{AppendixA} show how this is implemented in the \project{} environment.
 
-\subsubsection{Ant connector}
+\subsubsection{Ant-connector}
 \label{imp:ant}
 A second issue we had to deal with are the the senors in the senor files. In section \ref{road:multi} we have already seen the new sensor structure. A wrapper is a separated process which has to be started by 
-the \project{} core program.  When the \project{} core program evaluates a sensor it...
+the \project{} core program.  When the \project{} core program evaluates a sensor it first extracts the the wrapper from the sensor \emph{cmd}-attribute. After this also the Ant-target is extracted from the 
+\emph{cmd}-attribute. In the sensor of listing \ref{list:imp_sensor} the wrapper will be the \emph{TimeWrapper}, while the Ant-target will be \emph{"run"}.\\
+
+\lstset{
+  captionpos=b,
+  caption = \emph{sensor example},
+  label =list:imp_sensor
+}
+\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
+<sensor id="checkout_ok" name="TestApps: checkout projects" 
+  cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant run"  
+  scope="checkOut" 
+  scheduled="false" 
+  graph="true" 
+fatal="true"/>
+\end{lstlisting} 
+
+\noindent When the \project{} core program has extracted these values it starts a \emph{Wrapper} process (See appendix \ref{AppendixC}). Listing \ref{list:process} shows how this is done. The Ant target is 
+passed as a parameter to this Wrapper process. This Wrapper,which is a test, starts he Ant-conector, which is a small Java Class (see Appendix \ref{AppendixC}) which evaluates and executes the Ant-target. 
+Such an Ant-target can be a "simple" \emph{build} target or in this case it is the \emph{run} target. This is shown in listing \ref{list:runTarget}. This "run"-target executes the software that is tested by, 
+in this case, the TimeWrapper.\\
  
+
+\lstset{
+  captionpos=b,
+  caption = \emph{Create new process},
+  label =list:process
+}
+\begin{lstlisting}[frame=shadowbox, language=Java,showstringspaces=false]
+final Process pr = new ProcessBuilder(argList)
+ 		 .directory(new File(dir)) 
+    		 .start();
+\end{lstlisting} 
+
+\lstset{
+  captionpos=b,
+  caption = \emph{The run-target},
+  label =list:runTarget
+}
+\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
+	<!--Run the Checkout programm-->
+	<target name="run">
+		<java  fork="true" classname="Checkout" classpath="${env.CLASSPATH}" output="out.txt">
+	  		<classpath>
+				<path location="${jar.dir}/CheckoutApplications.jar"/>
+	        	</classpath>
+			<arg value="${arg0}" />
+			<arg value="${arg1}" />
+		</java>
+	</target>
+\end{lstlisting} 
+
+\noindent TODO: netjes een eind aan deze sectie maken.
+
 \subsection{Tests}
 \label{imp:test}
 
@@ -340,7 +392,7 @@ TODO: Discus related and future work
 \bibliography{Master}
 \newpage
 \appendix
-\section{Appendix A: Dynamic class loading}
+\section{Dynamic class loading}
 \label{AppendixA}
 
 \lstset{
@@ -412,6 +464,115 @@ private ClassLoader getClassLoader(String[] jars) throws MalformedURLException, 
 		}
 	}
 \end{lstlisting}  
+
+\newpage
+\section{The TimeWrapper}
+\label{AppendixB}
+
+
+\lstset{
+  captionpos=b,
+  caption = \emph{The TimeWrapper},
+  label =list:timeWrapper
+}
+\begin{lstlisting}[frame=single ,language=Java]
+import java.text.DecimalFormat;
+/**
+ *@author bvl300
+ *This wrapper messures the time of the module
+ *that is executed.
+ */
+public class TimeWrapper{
+
+
+	public TimeWrapper(String argv[]){
+                String dir = argv[0];
+                String cmd = argv[1];
+                String target;
+		if(argv.length==3){
+			target = argv[2];
+		}else{
+			target = "main";
+		}
+                long startTime;
+		double duration;
+		
+                Ant ant = new Ant(dir,target);
+                ant.init();
+
+                startTime = System.nanoTime();
+                try{
+			ant.run();
+		}catch(Exception e){
+			System.out.println(e+"\n<br/>\n");
+		}finally{
+                	duration = (double)((System.nanoTime()-startTime)/1000000000.0);
+			DecimalFormat df = new DecimalFormat("#.##");
+			System.out.println("<test id=\"time\" name=\"Time\" value=\""+df.format(duration)+"\" unit=\"s\"/>\n");
+		}
+	}
+
+
+	/**
+ 	*@author bvl300
+ 	* */	
+	public static void main(String argv[]){
+		new TimeWrapper(argv);	
+	}
+ 
+}
+\end{lstlisting}
+
+\newpage
+\section{The Ant-connector}
+\label{AppendixC}
+
+
+\lstset{
+  captionpos=b,
+  caption = \emph{The Ant Class},
+  label =list:Ant
+}
+\begin{lstlisting}[frame=single ,language=Java]
+import java.io.File;
+import org.apache.tools.ant.ProjectHelper;
+import org.apache.tools.ant.Project;
+import org.apache.tools.ant.ProjectHelper;
+
+public class Ant{
+	File buildFile;
+	Project project;
+	ProjectHelper projectHelper;
+	String dir;
+	String target;	
+
+	public Ant(String dir,String target){
+		this.dir= dir;
+		this.target = target;
+		buildFile = new File(dir+"/build.xml");
+		project = new Project();
+		projectHelper = ProjectHelper.getProjectHelper();
+	}
+
+	public void init(){;
+		project.setUserProperty("antFile",buildFile.getAbsolutePath());
+                project.init();
+                project.addReference("ant.projectHelper",projectHelper);
+                projectHelper.parse(project,buildFile);
+	}
+
+	public void run(){
+		this.project.executeTarget(target);
+	}
+
+}
+\end{lstlisting}
+
+
+
+
+
+
 
 
 \end{document}    

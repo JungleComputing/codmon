@@ -368,12 +368,14 @@ class Shot {
 	return pr;
     }
 
+      /**
+     *@author bvl300
+     **/
     private void init_onoff(String id, String name, String wrapper, String cmd, String scope, String graph, String fatal, BufferedResults results) {
 	try {
 	    System.err.println(running+"/"+total+"-Checking: "+name+"..."+((id.equals("separator")||id.equals("part"))?"(Separator)":""));
 	    // long start = Util.getTime();
-	    Process compil;	    
-	    //compil = runtime.exec(lookup_wrapper(wrapper)+cmd);
+	    Process compil;	   
             compil = startProcess(lookup_wrapper(wrapper)+cmd);
 	    results.append(id, name, scope, null, compil, graph, null, fatal);
 
