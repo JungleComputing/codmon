@@ -249,17 +249,17 @@ to get access to this environment. We'll come to these options later in this sec
 
 \subsection{multi-platform}
 \label{imp:multi}
-In the previous sections we mentioned that the tangle of shell-scripts and PERL-code ensures that Codmon isn't multiplatform. To ensure that \project{} is multiplatform we've chosen that all the code of the 
+In the previous sections we mentioned that the tangle of shell-scripts and PERL-code ensures that Codmon isn't multi-platform. To ensure that \project{} is multi-platform we've chosen that all the code of the 
 \project{} environment is written in Java. First we describe how we've implemented the start-up of a test run. After this we describe how both the tests and the software that is tested are connected together.
 
 \subsubsection{Start-up}
 \label{imp:start}
-In a non multi-platform environment it is very easy to create a shell-script (or a batch-file in case of Windows) to start a program. As we wil see in Java this is a little more complex.\\
+In a non multi-platform environment it is very easy to create a shell-script (or a batch-file in case of Windows) to start a program. As we will see in Java this is a little more complex.\\
 
 \noindent As we will see in section \ref{imp:modular} everything outside the \project{} core program is a separated module, so also the start-up module. The start-up module is called with one parameter namely 
 the name of the sensor file that is needed for this run. The current start-up module is responsible for a few things. First it initializes the \project{} environment. If it the first time \project{} is used, 
 four result directories are created. Otherwise the results of the previous test-runs are copied to the history folders so in the current result folder is space for the new test results \footnote{Due to historic 
-reason the reusult folders are still called dday,dday1,dda2 etc etc}.\\
+reason the result folders are still called dday,dday1,dday2 etc etc}.\\
 
 \noindent When the all the result files are in the right place the \project{} core program must be started. Because this is a completely new Java program we needed a way to pass the sensor file parameter to 
 the core program. Remember at this stage \project{} is already built. So to achieve this we have to make use of \emph{dynamic class loading}. Dynamic class loading means that only at runtime is decided which 
@@ -286,7 +286,7 @@ fatal="true"/>
 \end{lstlisting} 
 
 \noindent When the \project{} core program has extracted these values it starts a \emph{Wrapper} process (See appendix \ref{AppendixC}). Listing \ref{list:process} shows how this is done. The Ant target is 
-passed as a parameter to this Wrapper process. This Wrapper,which is a test, starts he Ant-conector, which is a small Java Class (see Appendix \ref{AppendixC}) which evaluates and executes the Ant-target. 
+passed as a parameter to this Wrapper process. This Wrapper,which is a test, starts he Ant-connector, which is a small Java Class (see Appendix \ref{AppendixC}) which evaluates and executes the Ant-target. 
 Such an Ant-target can be a "simple" \emph{build} target or in this case it is the \emph{run} target. This is shown in listing \ref{list:runTarget}. This "run"-target executes the software that is tested by, 
 in this case, the TimeWrapper.\\
  
@@ -339,7 +339,7 @@ systems, namely Subversion (\emph{SVN}) and Git.\\
 \noindent
 The main checkout module is responsible for a few things. First it reads the initialization file, which contains information about the test projects. We'll come back to the initialization file later. This 
 information contains, among other information, the kind of version control system that is used for this software. With this information both the update and updateLog methods for this software can be invoked (See 
-Appendix \ref{AppendixD}). For implementing this menthods for SVN repositories we've used the \emph{SVNKit} Api\cite{SVNKit}. For the Git repositories we've used the \emph{JGit} 
+Appendix \ref{AppendixD}). For implementing this methods for SVN repositories we've used the \emph{SVNKit} Api\cite{SVNKit}. For the Git repositories we've used the \emph{JGit} 
 Api\cite{JGit}.\\
 
 \noindent As you can see now it is easy to add a sub-module for a new kind of version control system. The only thing a developer has to do is implement the update and updateLog methods. And add the calls to
@@ -354,16 +354,18 @@ and non-functional tests.
 
 \subsection{user-friendliness}
 \label{imp-user}
-finally it's time to discuss the user-friendliness of \project{}.
+finally it's time to discuss the user-friendliness of \project{}. As we said before, we don't want to bother the \project{} environment users with internal mechanisms of it. Neither we want to bother them with 
+the time consuming configuration of it. This section describes the why \project{} is a very user friendly environment.\\
 
-
-Before the \project{} environment is able to run one or more tests on a software, it has to know where it can find the software and check it out.This information and other information has to be added to 
-an \emph{init.xml} file. This file is stored at \emph{"codmon/codmon/local/checkoutApplications/"}. Listing \ref{list:init} shows the structure of the init file. The explanation of its elements is shown in 
-table \ref{tab:init}. 
+\subsubsection{The initialization file}
+\label{imp:init}
+\noindent Before the \project{} environment is able to run one or more tests on a software, it has to know where it can find the software and check it out.This information and other information has to be added to 
+the \emph{initialization file}, which is an XML file. This file is stored at \emph{"codmon/codmon/local/checkoutApplications/"}. Listing \ref{list:init} shows the structure of the init file. The explanation 
+of its elements is shown in table \ref{tab:init}. \\
 
 \lstset{
   captionpos=b,
-  caption = \emph{init.xml example},
+  caption = \emph{Initialization file},
   label =list:init
 }
 \begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
@@ -397,11 +399,20 @@ table \ref{tab:init}.
   \textbf{user} & username to login into the version-control system \\ \hline
   \textbf{pwd} & password to login into the version-control system \\ \hline
   \end{tabular}
-\caption{Table1 : init.xml elements}
+\caption{Table 1: Elements of the initialization file}
 \label{tab:init}
 \end{table}
 
+\noindent So the only thing a user has to do when he wants to test a new software compent is addung a new project to the initialization file.
 
+\subsubsection{Virtual environments}
+\label{imp:virual}
+We have said already a few times that we don't want to bother the users of the \project{} environment with the configuration of it. We came up with the idea that it would be nice and extrmely useful if a 
+user just use a preconfigured \project{} environment. To achieve this the \project{} project provides a set of virtual machines on which \project{} is already installed en preconfigured. The only thing a 
+user must do is install VM-ware (or Virtual box), download one of the provided \project{} images and install them in VM-ware.\\
+
+\noindent The developers of the \project{} can easily provide new images, by installing a \emph{"clean"} image of the target platform, Windows or one of the different Linus distributions for instance, and 
+install and preconfigure \project{} in this image. When this is done successful, VM-ware provides options to create a new distributable image of the preconfigured environment. 
 
 \newpage
 \section{evaluation}
