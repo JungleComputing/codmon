@@ -267,9 +267,9 @@ the core program. Remember at this stage \project{} is already built. So to achi
 
 \subsubsection{Ant-connector}
 \label{imp:ant}
-A second issue we had to deal with are the the senors in the senor files. In section \ref{road:multi} we have already seen the new sensor structure. A wrapper is a separated process which has to be started by 
+A second issue we had to deal with were the the senors in the senor files. In section \ref{road:multi} we have already seen the new sensor structure. A wrapper is a separated process which has to be started by 
 the \project{} core program.  When the \project{} core program evaluates a sensor it first extracts the the wrapper from the sensor \emph{cmd}-attribute. After this also the Ant-target is extracted from the 
-\emph{cmd}-attribute. In the sensor of listing \ref{list:imp_sensor} the wrapper will be the \emph{TimeWrapper}, while the Ant-target will be \emph{"run"}.\\
+\emph{cmd}-attribute. If we use the senor of listing \ref{list:imp_sensor} the wrapper will be the \emph{TimeWrapper}, while the Ant-target will be \emph{"run"}.\\
 
 \lstset{
   captionpos=b,
@@ -320,20 +320,46 @@ final Process pr = new ProcessBuilder(argList)
 	</target>
 \end{lstlisting} 
 
-\noindent TODO: netjes een eind aan deze sectie maken.
+\noindent By implementing it this way it doesn't matter which (Java-) software the wrapper wants to test, it always be done in the same way as described above.
 
-\subsection{Tests}
-\label{imp:test}
 
 \subsection{Modularity}
 \label{imp:modular}
+In section \ref{imp:multi} we described the improvements we made to achieve that \project{} is multi-platform. In this section we'll describe how easy it is to add new modules to the \project{} environment. 
+To do this we use a module called \emph{CheckoutApplications}.
+
+
+\subsubsection{CheckoutApplications module}
+\label{imp:checkout}
+Before \project{} is able to test any software, this software must be available for the \project{} environment. To be available this software must have been checked-out\footnote{for the sake of simplicity,when 
+we talk about it in a general way, we call both check-out and clone check-out in this thesis.} from the repository where it is stored. The CheckoutApplications-module is responsible for this job. The CheckoutApplications 
+itself consists of a main checkout module and different sub-modules which support a specific version control system. At this moment the CheckoutApplications module supports two different version control 
+systems, namely Subversion (\emph{SVN}) and Git.\\
+
+\noindent
+The main checkout module is responsible for a few things. First it reads the initialization file, which contains information about the test projects. We'll come back to the initialization file later. This 
+information contains, among other information, the kind of version control system that is used for this software. With this information both the update and updateLog methods for this software can be invoked (See 
+Appendix \ref{AppendixD}). For implementing this menthods for SVN repositories we've used the \emph{SVNKit} Api\cite{SVNKit}. For the Git repositories we've used the \emph{JGit} 
+Api\cite{JGit}.\\
+
+\noindent As you can see now it is easy to add a sub-module for a new kind of version control system. The only thing a developer has to do is implement the update and updateLog methods. And add the calls to
+this methods to the \emph{checkoutProject} method which you could see in Appendix \ref{AppendixD}.
+ 
+
+\subsubsection{Tests}
+\label{imp:tests}
+Adding new tests is relatively straight forward. As long as the test is written in Java a user can just add a reference to this test to the CMD-attribute of a sensor. This works both the same way for functional 
+and non-functional tests.
+
 
 \subsection{user-friendliness}
 \label{imp-user}
+finally it's time to discuss the user-friendliness of \project{}.
 
-Before the \project{} environment is able to run one or more tests on a software, it has to know where it can find the software and check it out\footnote{for the sake of simplicity,when we talk about it in a 
-general way, we call both check-out and clone check-out in this thesis.}. This information and other information has to be added to an \emph{init.xml} file. This file is stored at \emph{"codmon/codmon/local/
-checkoutApplications/"}. Listing \ref{list:init} shows the structure of the init file. The explanation of its elements is shown in table \ref{tab:init}. 
+
+Before the \project{} environment is able to run one or more tests on a software, it has to know where it can find the software and check it out.This information and other information has to be added to 
+an \emph{init.xml} file. This file is stored at \emph{"codmon/codmon/local/checkoutApplications/"}. Listing \ref{list:init} shows the structure of the init file. The explanation of its elements is shown in 
+table \ref{tab:init}. 
 
 \lstset{
   captionpos=b,
@@ -570,9 +596,51 @@ public class Ant{
 
 
 
+\newpage
+\section{Checkout Applications}
+\label{AppendixD}
 
 
+\lstset{
+  captionpos=b,
+  caption = \emph{Invoking the right update method},
+  label =list:invoke
+}
+\begin{lstlisting}[frame=single ,language=Java]
+private void checkoutProject(Node project) throws SVNException, NoFilepatternException,GitAPIException,WrongRepositoryStateException, InvalidConfigurationException, DetachedHeadException, InvalidRemoteException, CanceledException, RefNotFoundException, NoHeadException,IOException {
+	String url, type, projectName,user,pwd,command;
+	long rev= -1;
+	if (project.getNodeType() == Node.ELEMENT_NODE) {
+			Element eElement = (Element) project;
 
-
+		url = eElement.getElementsByTagName("location").item(0).getTextContent();
+		type = eElement.getElementsByTagName("type").item(0).getTextContent();
+		command = eElement.getElementsByTagName("command").item(0).getTextContent();
+		projectName = eElement.getElementsByTagName("name").item(0).getTextContent();
+		user = eElement.getElementsByTagName("user").item(0).getTextContent();
+                pwd = eElement.getElementsByTagName("pwd").item(0).getTextContent();	
+		if(type.equals("svn")){
+			SVN svnRep = new SVN(basePath, projectName, user,pwd,url,command);
+			if("checkout".equals(command)||"export".equals(command)){
+			 	svnRep.update();
+			}	
+			rev = svnRep.getRev();
+			if(checkOldLog(projectName,rev)){
+				svnRep.updateLog();
+			}
+		}else if(type.equals("git")){
+			GitObject gitRep = new GitObject(basePath,projectName,url,user,pwd);
+			if("clone".equals(command)){
+				gitRep.update();
+			}
+			if(checkOldLog(projectName,rev)){
+				gitRep.updateLog();
+			}
+		}else{
+			//throw SVNException("Version control system not found");
+		}
+	}	
+}
+\end{lstlisting}
 
 \end{document}    

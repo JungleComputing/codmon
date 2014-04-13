@@ -14,8 +14,7 @@ import org.tmatesoft.svn.core.SVNException;
 import org.eclipse.jgit.api.errors.*;
  
 //TODO -Log policy
-//     -Revission nr of application to be testedi
-//     -git
+//     -Revission nr of application to be tested
 public class Checkout{
 	private String basePath = "../../../";           
 
@@ -24,7 +23,7 @@ public class Checkout{
 	*This method checks if it is necessary to update the logFile and if so
 	*It calls the update method.
  	*TODO make suitable for all kind of Logs
-	*TODO dubbke check if it works also when file exists
+	*TODO double check if it works also when file exists
  	* */ 
 	private boolean checkOldLog(String projectName,long rev)throws SVNException{
 		String fileName = projectName +"Log.txt";
