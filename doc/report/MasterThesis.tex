@@ -417,21 +417,30 @@ install and preconfigure \project{} in this image. When this is done successful,
 \newpage
 \section{Discussion}
 \label{sec:evaluation}
-In section \ref{subsec:Problemstatement} we proposed the following question: \emph{"Is it possible to design a multi-platform, modular test environment"}? In addition, we've studied if this would be possible to 
-design this test environment in a user friendly way, meaning that it must be possible to easily add both new test cases and software without knowing anything about the internal mechanisms of this test environment. 
+In section \ref{subsec:Problemstatement} we proposed the following question: \emph{"Is it possible to design a multi-platform, modular test environment"}? In addition, we've studied if it would be 
+possible to design such a test environment in a user friendly way, meaning that it must be possible to easily add both new test cases and software without knowing anything about the internal mechanisms of this test environment. 
 In section \ref{sec:road} and \ref{sec:Codmon2.0} we showed that, at first sight, the answer to these questions can be answered with yes. Before making that our final conclusion let's first take a deeper look 
 into what we have a achieved and discuss the pros and cons of \project{}. \\
 
 \subsection{Multi-platform}
 \label{dis:multi}
+Let's first take a look at the Multi-platform requirement. A software program or environment is considered to be multi-platform \emph{when it is compatible with or involving more than one type of computer or 
+operating system}\cite{def:multi}. When we take a look at what we describe in sections \ref{road:multi} and \ref{imp:multi} we see that ,in contrast to the Codmon framework, \project{} is completely written in 
+the Java programming language. Because the same Java code can run on a wide range of platforms we can say with certainty that the \project{} environment will run on multiple platforms. Also the behavior will be 
+the same on these different platforms\cite{Java}. 
 
 \subsection{Modularity}
 \label{dis:modular}
-
+The second requirement we have to discuss is the modularity of the \project{} environment. This is a little less straight forward than the Multi-platform requirement. The main question we have to answer is: 
+\emph{When do consider the environment to be modular}. Is it modular if a user of the environment can add new tets in a straight forward manner? Is it modular when it is easy to add new, or extend, utility 
+modules like the checkout Applications module? Or is \project{} environment only modular if the core program itself is modular as well? To answer this question we have to consider what the main purpose of the 
+\project{} environment is. When we summarize all the requirements we can see that the environment should be especially easy in being in use and maintenance. This brings us nothing further. What do we mean by 
+maintenance? Are we talking about the \project{} core program or about adding (and removing) functionality and tests? 
 
 \subsection{User-friendliness}
 \label{dis:user}
-
+Where in section \ref{dis:multi} the question was straight forward and in section \ref{dis:modular} the discussion was only about two different viewpoints, the subject of User-friendliness is even less trivial. 
+..TODO
 
 \newpage
 \section{Conclusion and future work}
