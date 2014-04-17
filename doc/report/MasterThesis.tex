@@ -34,7 +34,10 @@
 \maketitle
 
 \begin{abstract}
-TODO:Abstract
+In times when software projects become more and more complex,the testing of this software becomes more and more important. One of the problems with software testing is, that is difficult to test software in 
+different environments. \project{} provides different virtual test environments on which projects can test their software. \project{} is modular, which means that it is easy to add new test cases to the framework 
+as well as software components that must be tested. It also provides mechanisms to add new plugable utility modules to the \project{} environment. The same \project{} version runs on different platforms, so it 
+is also multi-platform.
 \end{abstract}
 \newpage
 \section*{Preface}
@@ -452,6 +455,7 @@ sensors via a grafical user interface will reduce the risk of errors in these fi
 environment to its users.
 
 \subsection{Conclusion}
+\label{dis:conclusion}
 Now we have discussed the different requirents of the \project{} environment we can conclude that due to the usage of Java and Ant \project{} is a \emph{multi-platform} environment \ref{dis:multi}. When we only take the 
 modularity regarding to usage and maintenance of the environment into account and not of the \project{} core program, \project{} is also \emph{modular} \ref{dis:modular}. When we take the \project{} into account it's 
 only partially modular. Looking at the \emph{user-friendliness} \ref{dis:user} of \project{} it depends of the person how he or she thinks about user-friendliness. Thoug one thing we can say about \project{} 
@@ -459,12 +463,18 @@ the possibility of preconfigured virtual machines and the way of adding new to b
 
 
 \newpage
-\section{future work}
+\section{Future work and Recomandations}
 \label{sec:conclusion}
-TODO: give answers to the questions from section Problem statement
-TODO: Discus future work
-\newpage
+Finally we describe, the sections above, what future work and research, regarding to \project{}, could be done to improve it. When we take a look at what we've described in sections \ref{dis:modular} and 
+\ref{dis:conclusion} we see that the \project{} core program is still one big monolithic program. To improve the maintainability of \project{} it would be useful to see if and how we can transform this monolithic 
+program into a program with a more modular design.\\
 
+\noindent In sections \ref{dis:user} and \ref{dis:conclusion} we described different views on user friendliness. In our opinion the biggest improvement could be gained with a nice and fancy user interface. It would 
+really worth to do some future research to see if it is possible to combine \project{} with a tool like Jenkins \cite{JenkinsDoc}. Jenkins could probably provide a userinterface to at least start tests that use 
+different sensor files. It probably also could generate nice and more fancy representations of the test results! It also could provide us with one and the same user interface that could control the whole \project{} 
+environment.  
+
+\newpage
 \bibliography{Master}
 \newpage
 \appendix
