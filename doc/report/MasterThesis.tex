@@ -203,25 +203,28 @@ we'll discuss these reasons in detail.
 \label{prob:multi}
 First of all Codmon is not multi-platform. To be multi-platform, without applying every change multiple times, Codmon itself must be written in a platform-independent language. 
 In Codmon, at least three different languages are used. The Codmon program itself is written in Java, which is indeed platform independent\cite{Java}, so this is not the real problem. As we've explained in 
-section \ref{subsec:CodmonDesign}, the core-part of the sensors is a combination of a \emph{shell-script} command and a \emph{wrapper}. Since a Unix shell-script usually won't work on a Windows environment 
-this part is definitely not platform independent. The same can be said about the PERL language, this will without special effort, also not work on a Windows environment. Next to this there are also several 
-separate shell-scripts for example, for  CVS-checkouts and the startup of the Codmon framework. Taking this into account, we can easily see that the Codmon framework is far from platform independent.
+section \ref{subsec:CodmonDesign}, the core-part of the sensors is a combination of a \emph{shell-script} command and a \emph{wrapper}. Since a Unix shell-script usually won't work in a Windows environment 
+this part is definitely not platform independent. The same can be said about the PERL language; this will, without special effort, also not work in a Windows environment. Next to this there are also several 
+separate shell-scripts, for example for  CVS-checkouts and the startup of the Codmon framework. Taking this into account, we can easily see that the Codmon framework is far from platform independent.
 
 \subsubsection{Modularity}
 \label{prob:modular} 
 The second one is the modularity of Codmon. Due to the chaos of different scripts and languages it is difficult for programmers to add new modules or tests to the Codmon framework. Adding new tests and modules 
-should be straight forward 
+should be straightforward. 
 
 \subsubsection{User-friendliness}
 \label{prob:user}
-The third reason is the user-friendliness of Codmon. Next to modularity, which also contributes to the user-friendliness of the test environment, Codmon requires quite a bit of configuration,of 
-which you don't want to bother anyone, before a user is able to use it. In the reminder of this thesis we'll explain in detail how we have solved these and other issues in the \project{} environment.\\
+The third reason is the user-friendliness of Codmon. Next to modularity, which also contributes to the user-friendliness of the test environment, Codmon requires quite a bit of configuration, with 
+which you don't want to bother anyone, before it can be used. In the reminder of this thesis we'll explain in detail how we have solved these and other issues in the \project{} environment.\\
  
-\noindent Another issue regarding to user-friendliness is the structure of the wrappers. As you could see in section \ref{subsec:CodmonDesign} the CMD attribute of a sensor consists of two basic parts: 
+\noindent Another issue regarding to user-friendliness is the structure of the wrappers. As discussed in section \ref{subsec:CodmonDesign}, the CMD attribute of a sensor consists of two basic parts: 
 a wrapper and a shell-script command, of which the shell-script command could be anything. From a users perspective it would be much easier if there was only one type of command possible, an Ant-job\cite{Ant} 
-for instance.
+for instance.\\
 
-\newpage
+\noindent A third issue regarding user-friendliness is the limited support of version control systems. Codmon only supports \emph{CVS}\cite{CVS}. From a user-friendliness perspective it would be much better 
+if Codmon would support multiple version control systems, for instance SVN\cite{SVN} or Git\cite{Git}. It also would be nice if other version control systems could be easily added to the test environment.
+
+
 \section{The Road to \project{}}
 \label{sec:road}
 As we described in section \ref{subsec:Problemstatement} our goal is to develop a multi-platform, user friendly modular test environment. This environment must at least satisfy the following requirements. 
