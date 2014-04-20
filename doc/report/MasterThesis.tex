@@ -5,10 +5,19 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage[english]{babel}
-
+\restylefloat{table}
 \definecolor{mygreen}{rgb}{0,0.6,0}
 \definecolor{mygray}{rgb}{0.5,0.5,0.5}
 \definecolor{mymauve}{rgb}{0.58,0,0.82}
+
+
+
+\lstnewenvironment{code}[1][]%
+  {\minipage{\linewidth} 
+   \lstset{basicstyle=\ttfamily\footnotesize,frame=single,#1}}
+  {\endminipage}
+
+
 
 \lstset{ %
   backgroundcolor=\color{white},   % choose the background color
@@ -55,8 +64,8 @@ previous version of the Codmon project. It also describes the structure of this 
 \subsection{Background}
 \label{sec:Background}
 In times when software projects become more and more complex, testing of this software becomes more and more important. Many software related problems are caused by lack of testing of the 
-software~\cite{TTCST}. Most of the times software testers only test software on one platform. For instance only on a Linux or a Windows platform. Setting-up and configuring again and again all 
-the different test environments on different platforms simply costs too much time. So one of the challenges of software testing is to make sure that the software behaves in the same way on 
+software~\cite{TTCST}. Most of the times software testers only test software on a single platform, for instance only on a Linux or only on a Windows platform. Setting-up and configuring again and again all 
+the different test environments on different platforms simply costs too much time. So, one of the challenges of software testing is to make sure that the software behaves in the same way on 
 different platforms, without spending too much time on the installation and configuration of the test environment on all these platforms. Even when the test environment is written in such a way 
 that it is able to run on different platforms, there are still issues that must be dealt with, before one is able to run and test the software. So in an ideal world we can test the software without being 
 worried about setting up the test environment. 
@@ -66,10 +75,12 @@ worried about setting up the test environment.
 Nowdays there are numerous test frameworks and test environments available. For example there is \emph{Junit}\cite{Junit} for Java-unit testing and \emph{NUnit}\cite{Nunit} for \CS{}-unit testing.
 There are also different environments like Hudson\cite{HudsonDoc}\cite{Hudson}, Jenkins\cite{JenkinsDoc} which can build a project and run a series of (unit) tests against this project. 
 These frameworks and environments have both their advantages and disadvantages. One of the advantages of unit testing is that a software developer can easily add new \emph{functional} unit tests.
-One of the disadvantages is that standard unit testing ignores non-functional tests like performance testing and the deployment of the software. Jenkins and Hudson,like Unit tests, also have their
-disadvantages. For instance, although they both run on several platforms, in their usage they are not really platform independent. For example, if you want
-to make a connection from Hudson or Jenkins to a remote machine you do this by executing a shell script, so a user must know in advance on which platform this script has to run.
-So although it is possible to connect to different machines it is not a 100\% platform independent environment.
+One of the disadvantages is that standard unit testing ignores non-functional tests like performance testing and the deployment of the software.\\
+
+\noindent Jenkins and Hudson, like Unit tests, also have their
+disadvantages. For instance, although they both run on several platforms, in their usage they are not really platform independent. Both Hudson and Jenkins have the possibility to execute shell-scripts or 
+bash scripts. So, if a user wants to start a test or program he must know in advance on which platform this script has to run. Only then he can decide if he needs a shell script or a bash script. So, although 
+this is a powerful feature it is not a 100\% platform independent environment.
  
 \subsection{Problem statement}
 \label{subsec:Problemstatement}
@@ -80,70 +91,90 @@ be possible to easily add both new test cases and software without knowing anyth
 
 \noindent This thesis describes a multi-platform, user friendly modular test environment called \project{}. The \project{} project provides users with a set of virtual machines,
 in which Codmon is already installed and preconfigured. The purpose of the virtual machines is to make it easy for users to test software in several environments.  When a user wants to 
-test his software on Windows 7, he should download the \project{} windows 7 VM and install it in VM-ware or Virtual box. The same applies for testing his software in an Ubuntu environment. 
-By doing it this way the  only tasks a user of \project{} has to do are 1) add their project to an initialization file and 2) add the tests to a so called wrapper file. This will be discussed 
-in more detail in section \ref{sec:Codmon2.0}.
+test his software on Windows 7, he should download the \project{} windows 7 VM and install it in VM-ware or Virtual box. The same applies for testing his software in an Ubuntu environment. In this case he should 
+download the \project{} Ubuntu VM and install this in VM-ware or Virtual box. By doing it this way the  only tasks a user of \project{} has to do are 1) add their project to an initialization file and 2) add 
+the tests to a so called wrapper file. This will be discussed in more detail in section \ref{sec:Codmon2.0}.
 
 
 \subsection{Thesis outline}
 \label{subsec:Thesisoutline}
-Section \ref{sec:codmon} first describes the original Codmon framework and why it was built. It also identifies the problems it has. In section \ref{sec:road}, \emph{The road to \project{}}, 
+Section \ref{sec:codmon} first describes the original Codmon framework and the motivation for its development. It also identifies its shortcommings. In section \ref{sec:road}, \emph{The road to \project{}}, 
 we explain how we got to the final \project{} design. Section \ref{sec:Codmon2.0} describes the implementation of the \project{} project. 
-It starts with a general description of the project followed by a detailed explanation of the different modules of \project{}. After this we will evaluate the choices and their consequences 
+It starts with a general description of the project followed by a detailed explanation of the different modules of \project{}. Next we will evaluate the choices and their consequences 
 in section \ref{sec:evaluation}. In Section \ref{sec:conclusion} we discuss the results based on section \ref{sec:evaluation}. We end this section with a brief discussion of related work.
 
 \newpage
 \section{Codmon}
 \label{sec:codmon}
 In this section we describe the original Codmon framework and its shortcomings. The original Codmon framework was built in 2005 by François Lesuer\cite{Codmon}. Originally Codmon was built for 
-testing and performance monitoring Ibis projects\cite{Ibis}\cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} on the DAS-2\cite{das2} computer. Codmon was able to perform both functional and performance tests. 
-\footnote{At this moment both the das2 and Codmon aren't in use anymore.} If for some reason a particular test failed, Codmon raised an alarm and reported the failures. Codmon does this by 
-sending an email directly to the programmer who made the last changes in the software that was tested. Codmon also reported in the same way in case the performance drops below a certain threshold. 
-Next to sending an email in case of failing tests, Codmon also marks them on a results web page. It was also the intention that Codmon would be extensible. In this the Codmon programmers 
+testing and performance monitoring Ibis projects\cite{Ibis} \cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} on the DAS-2\cite{das2} computer. Codmon was able to perform both functional and performance tests.\footnote{At 
+this moment both the Da-2 and Codmon aren't in use anymore.} If for some reason a particular test fails, Codmon raises an alarm and reports the failures. Codmon does this by 
+sending an email directly to the programmer who made the last changes in the software that was tested. Codmon also reports in the same way in case the performance drops below a certain threshold. 
+Next to sending an email in case of failing tests, Codmon also presents the results on a results web page. It was also the intention that Codmon would be extensible. In this the Codmon programmers 
 succeeded only partially. We will discuss this more in depth in section \ref{subsec:CodmonProblems}.  
 
 \subsection{The working of Codmon}
 \label{subsec:CodmonDesign}
-In this section we will describe the design of the Codmon framework. The Codmon framework is more or less modular and consists of a two parts. The first part is the actual Codmon program. This part 
-is responsible for a few things, which we will explain in a few minutes. When a user wants to test one of the applications mentioned above, the only thing he or she must do is to make sure that the Codmon 
-framework is installed on the Das-2. He or she needs to know nothing of the Codmon program, except for how it should be started. This \emph{core-part} of Codmon is responsible for a few things. first
-it creates a \emph{shot} of the actual state of the of the programs that are tested. It does this by executing a set of \emph{sensors} and collecting the output of these executions. later in this 
-section we'll explain what sensors are. In case of a performance tests, the sensor file will make the distinction between functional test and performance tests, the test information is stored in 
-a RRD database\cite{RRD}. From this data averages are calculated and eventually the graphs are generated\cite{Codmon}. The results of a performance test will be compared with the results of previous tests 
-and if the performance result of a test drops below a certain threshold, an alarm is raised. When an alarm is raised, an email is sent to the last contributor of the code of which a test fails. 
-The same happens when one or more functional tests are failing.\\
+In this section we will describe the design of the Codmon framework. The Codmon framework is more or less modular and consists of a two parts. The part that controls Codmon and the Codmon core program.\\
 
-\noindent The second part of the Codmon framework are the sensor files. A sensor file describes a "test set" that can be executed by the Codmon program. Such a sensor file consists of two parts. 
-First there is the \emph{onoff} part, which is used for compilation parts and the functional tests.  Second there is the \emph{graph} part. This part is used for the performance tests. 
-The core of each sensor element in a sensor file is the CMD attribute. This CMD attribute consists of two basic parts: a wrapper and a shell-script command. This shell-script command can be anything. 
-For instance it can be a SVN command, or a ANT job or something else. Listing \ref{list:sensor} gives an example of such a senor. \\
+\subsubsection{Controlling Codmon}
+\label{control}
+\noindent We first describe the part that controls Codmon. With controlling we mean which test will run and in which order they will run. There are two differen kind of tests, functional and non-functional 
+tests. The source code of the projects that will be tested is stored in a \emph{CVS} repository. Both the functional and non-functional tests are describe in so called \emph{sensor} files. A sensor file 
+describes a "test set" that can be executed by the Codmon program. Such a sensor file consists of two parts. First there is the \emph{onoff} part, which is used for compilation parts and the functional 
+tests.  Second there is the \emph{graph} part. This part is used for the performance tests. The core of each sensor element in a sensor file is the CMD attribute. This CMD attribute consists of two basic 
+parts: a wrapper and a shell-script command. This shell-script command can be anything. For instance it can be a SVN command, or a ANT job or something else. Listing \ref{list:sensor} gives an example of 
+such a sensor.\\
+
 
 \lstset{
   captionpos=b,
   caption = \emph{Sensor example},
   label =list:sensor
 }
-\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
+\begin{code}[frame=shadowbox, language=XML,showstringspaces=false]
  <sensor id="update_ok" 
     name="CVS update" 
     cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.plCODMON_HOME sh codmon/local/cvsup.sh" 
     scope="ibis" 
-    scheduled="false" 
+    scheduled="false"
+    enabled="true"
     graph="true" 
     fatal="true" />
-\end{lstlisting}
- 
+\end{code}
+
 \noindent In this case the CMD attribute apparently consists of a wrapper called \emph{time\_wrapper.pl} and a shell-script command called \emph{cvsup.sh}. The wrapper indicates the kind of test
-that is executed. The shell-script command indicates which program is tested. In case of Listing \ref{list:sensor} the update time of the CVS repository is is measured.\\
+that is executed. The shell-script command indicates which program is tested. In case of Listing \ref{list:sensor} the update time of the CVS repository is is measured. Table \ref{tab:codsensor} describes
+the attributes of a sensor\cite{Codmon}.\\
+
+\begin{table}[h]
+\centering
+  \begin{tabular}{ | l| p{5cm} |}
+  \hline
+  \textbf{id} & Unique ID of the sensor. \\ \hline
+  \textbf{name} & Name of the sensor. \\ \hline
+  \textbf{cmd} & Command to be ran, eventually inside the wrapper. \\ \hline
+  \textbf{scope} & The repository folder which should be analyzed in case of an alarm. \\ \hline
+  \textbf{scheduled} & Whether this sensor is scheduled \\ \hline
+  \textbf{enabled} & Whether this sensor is enabled \\ \hline
+  \textbf{graph} & Whether this sensor is to be graphed \\ \hline
+  \textbf{fatal} & Whether failing in this step is fatal\\ \hline
+  \end{tabular}
+\caption{Table 1: Codmon sensor}
+\label{tab:codsensor}
+\end{table}
 
 
-\noindent Where a \emph{sensor} describes the structure of a set of tests, a so called \emph{wrapper} describes the actual test. Wrappers are small programs that are written int the PERL
+\noindent Where a \emph{sensor} describes the structure of a set of tests, a so called \emph{wrapper} describes the actual test. Wrappers are small programs that are written in the PERL
 language. The return value of a wrapper indicates if a test was successful or not. In case of a failure an alarm is raised and both the return value and the actual error code will be mailed to
-the programmer who made the last contribution to the code. The results of the performance tests are plotted in a graph, which makes it easy for the developers to see the performance
+the programmer who made the last contribution to the code.\\
+
+\noindent The results of the performance tests are plotted in a graph, which makes it easy for the developers to see the performance
 behavior. It is fundamental to understand that a \emph{wrapper} is not part of the Codmon program itself. Leaving the wrappers outside of Codmon gives a user the possibility to add their own 
 wrappers as well as using general wrappers without knowing the the details of the actual Codmon program. A general wrapper is a wrapper that can be used for each software component. The 
-\emph{time\_wrapper} is a good example of a general wrapper. Figure 1 shows a schematic picture of the Codmon structure \cite{Codmon}. More technical details about the Codmon implementation 
-can be found in \cite{Codmon}.
+\emph{time\_wrapper} is a good example of a general wrapper. The time\_wrapper measures the duration of a test. This can be very useful to see if changes to the program that is tested have affect on the 
+duration of a test. This duration can give an indication if the performance of the software has changed. Figure 1 shows a schematic picture of the Codmon structure \cite{Codmon}. More technical details 
+about the Codmon implementation can be found in \cite{Codmon}.\\
 
 \begin{figure}[!ht]
   \caption{\emph{figure 1: Codmon}}
@@ -151,6 +182,16 @@ can be found in \cite{Codmon}.
     \includegraphics[scale=0.5]{codmon}
 \end{figure}
 
+\subsubsection{The Codmon core program}
+\label{coreprogram}
+\noindent The second part is the actual Codmon program. This part is responsible for a few things, which we will explain below. When a user wants to test one of the applications mentioned above, the only 
+thing he must do is to make sure that the Codmon framework is installed on the Das-2. He needs to know nothing of the Codmon program, except for how it should be started. This \emph{core-part} of 
+Codmon is responsible for a few things. First it creates a \emph{shot} of the actual state of the of the programs that are tested. It does this by executing a set of \emph{sensors} and collecting the 
+output of these executions. In case of a performance tests, the sensor file will make the distinction between functional test and performance tests, 
+the test information is stored in a RRD database\cite{RRD}. From this data averages are calculated and eventually the graphs are generated\cite{Codmon}. The results of a performance test will be compared 
+with the results of previous tests and if the performance result of a test drops below a certain threshold, an alarm is raised. When an alarm is raised, an email is sent to the last contributor of the code 
+of which a test fails. The same happens when one or more functional tests are failing.\\
+ 
 
 
 \subsection{Codmon problems}
@@ -160,9 +201,9 @@ we'll discuss these reasons in detail.
  
 \subsubsection{Multi-platform}
 \label{prob:multi}
-First Codmon is not multi-platform. To be multi-platform, without applying every change multiple times, the platform itself must be written in a platform-independent language. 
-In Codmon at least three different languages are used. The Codmon program itself is written in Java, which is indeed platform independent\cite{Java}, so this is not the real problem. As we've explained in 
-section \ref{subsec:CodmonDesign} the core-part of the sensors is a combination of a \emph{shell-script} command and a \emph{wrapper}. Since a Linux shell-script usually won't work on a Windows environment 
+First of all Codmon is not multi-platform. To be multi-platform, without applying every change multiple times, Codmon itself must be written in a platform-independent language. 
+In Codmon, at least three different languages are used. The Codmon program itself is written in Java, which is indeed platform independent\cite{Java}, so this is not the real problem. As we've explained in 
+section \ref{subsec:CodmonDesign}, the core-part of the sensors is a combination of a \emph{shell-script} command and a \emph{wrapper}. Since a Unix shell-script usually won't work on a Windows environment 
 this part is definitely not platform independent. The same can be said about the PERL language, this will without special effort, also not work on a Windows environment. Next to this there are also several 
 separate shell-scripts for example, for  CVS-checkouts and the startup of the Codmon framework. Taking this into account, we can easily see that the Codmon framework is far from platform independent.
 
@@ -402,7 +443,7 @@ of its elements is shown in table \ref{tab:init}. \\
   \textbf{user} & username to login into the version-control system \\ \hline
   \textbf{pwd} & password to login into the version-control system \\ \hline
   \end{tabular}
-\caption{Table 1: Elements of the initialization file}
+\caption{Table 2: Elements of the initialization file}
 \label{tab:init}
 \end{table}
 
