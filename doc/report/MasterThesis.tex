@@ -227,26 +227,33 @@ if Codmon would support multiple version control systems, for instance SVN\cite{
 
 \section{The Road to \project{}}
 \label{sec:road}
-As we described in section \ref{subsec:Problemstatement} our goal is to develop a multi-platform, user friendly modular test environment. This environment must at least satisfy the following requirements. 
-The most important requirement is that \project{} is \emph{multiple-platform}. A second requirement is that is should be \emph{modular} and pluggable. This means that it is possible for both users to easily 
-add new components to the environment. The same should apply to developers who maintain the environment. A third requirement is that \project{} environment must be user friendly. We don't want to bother 
-the users of the \project{} environment with the internal mechanisms of it. A second issue regarding to user-friendliness is that the sensors as described in section \ref{subsec:CodmonDesign} should all 
-have the same structure so a user can add tests always in the same way.\\
+As we described in section \ref{subsec:Problemstatement} our goal is to develop a multi-platform, user-friendly modular test environment. This environment must at least satisfy the following requirements!
+
+\begin{itemize}
+\item \project{} should be \emph{multiple-platform}.
+\item \project{} should be \emph{modular}.
+\item \project{} should be \emph{user-friendly}.
+\end{itemize}
+ 
+\noindent With modular we mean that it is possible for users to easily add new components to the environment. The same should apply to developers who maintain the environment. User-friendly will say that 
+we don't want to bother the users of the \project{} environment with the internal mechanisms of it. A second issue regarding to user-friendliness is that the sensors as described in section \ref{subsec:CodmonDesign} 
+should all have the same structure so a user can add tests always in the same way.\\
 
 \subsection{General decisions}
 \label{subsec:general}
-In the previous sections we have stated that Codmon has some good aspects as well as some aspects that aren't that good. To design a test environment which satisfies the mentioned requirements 
-we decided to reuse the good parts of Codmon and design new components where necessary. Since the core program of Codmon is written in Java and Java is multi-platform we decided to reuse most of this code 
-and only adapt it if there is no other option. In section \ref{sec:Codmon2.0} we'll show where, how and why we've adapted the Codmon core program. 
+In the previous sections we have stated that Codmon has some good aspects as well as some aspects that aren't that good. For our new test environment we decided to reuse the good parts of Codmon and design 
+new components where necessary to fulfill the requirements described above. Since the core program of Codmon is written in Java and Java is multi-platform we decided to reuse most of this code and to 
+modify it where needed. In section \ref{sec:Codmon2.0} we'll show where, how and why we've adapted the Codmon core program. 
 
 \subsection{Multi-platform}
 \label{road:multi}
 Because the Codmon core program is written in Java already we've decided to write the all wrappers in Java as well. Using as few languages as possible will help the people who have to maintain the 
-environment. We also saw that the core of a sensor consists of two parts a wrapper and a shell-script command. In most cases this shell script command will start some program. This program should also 
-be able to run on multiple platforms. As we discussed above in \project{} all the wrappers will be written in Java. Hereby writing these programs in Java as well is an obvious choice. So now we have a Java wrapper
-and a Java program. We thus need a platform independent construction that, at least, is able to start a program. We have chosen to use \emph{Ant} for this. One of the reasons to choose Ant is that it provides 
-us with a lot of flexibility. Lets take a look at the following example. A user who wants to test a piece of Java software probably already has a build file for building the software. So there is nothing new 
-here. The only thing the user has to add is a new ant-target, which starts the program. Listing \ref{list:sensorNew} shows the new sensor structure:
+environment. We also saw that in the original Codmon framework the core of a sensor consists of two parts: a wrapper and a shell-script command. In most cases this shell script command will start some 
+program. This program should also be able to run on multiple platforms. As we discussed above in \project{} all the wrappers will be written in Java. So writing these programs in Java as well is an 
+obvious choice. So now we have a Java wrapper and a Java program. We thus need a multi-platform construction that, at least, is able to start a program. We have chosen to use \emph{Ant} for this. 
+The main reason to choose Ant is that it provides us with a lot of flexibility. Lets take a look at the following example. A user who wants to test a piece of Java software probably already has a build 
+file for building the software. So there is nothing new here. The only thing the user has to add is a new ant-target, which starts the program. Listing \ref{list:sensorNew} shows the new sensor structure; 
+for the same tasks as in listing \ref{list:sensor}.
 
 \lstset{
   captionpos=b,
