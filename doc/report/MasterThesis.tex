@@ -252,15 +252,14 @@ environment. We also saw that in the original Codmon framework the core of a sen
 program. This program should also be able to run on multiple platforms. As we discussed above in \project{} all the wrappers will be written in Java. So writing these programs in Java as well is an 
 obvious choice. So now we have a Java wrapper and a Java program. We thus need a multi-platform construction that, at least, is able to start a program. We have chosen to use \emph{Ant} for this. 
 The main reason to choose Ant is that it provides us with a lot of flexibility. Lets take a look at the following example. A user who wants to test a piece of Java software probably already has a build 
-file for building the software. So there is nothing new here. The only thing the user has to add is a new ant-target, which starts the program. Listing \ref{list:sensorNew} shows the new sensor structure; 
-for the same tasks as in listing \ref{list:sensor}.
+file for building the software. So there is nothing new here. The only thing the user has to add is a new ant-target, which starts the program. Listing \ref{list:sensorNew} shows how this will look like.
 
 \lstset{
   captionpos=b,
   caption = \emph{Sensor new structure},
   label =list:sensorNew
 }
-\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
+\begin{code}[frame=shadowbox, language=XML,showstringspaces=false]
  <sensor id="update_ok" 
     name="CVS update" 
     cmd="java <wrapper> <path to build file > <ant> <target>" 
@@ -268,21 +267,39 @@ for the same tasks as in listing \ref{list:sensor}.
     scheduled="false" 
     graph="true" 
     fatal="true" />
-\end{lstlisting}
+\end{code}
 
 The \textless target\textgreater \ is an optional value. When the target value is left out, Codmon will run the default ant target. In section \ref{sec:Codmon2.0} we'll show how this all is implemented in the 
-\project{} environment.\\
+\project{} environment. The key idea is that all software that is to be tested is started by calling an Ant-target.\\
 
 \subsection{Modularity}
 \label{road:modular}
 Another problem we discussed in section \ref{subsec:CodmonDesign} is the modularity of the environment. The way Codmon was designed it could only handle CVS-checkouts and updates. The \project{} 
-environment must be able to deal with different versioning systems. To achieve this we decided to design separate \emph{modules} outside of the \project{} core program that takes care of the checkouts and updates of the 
-software that the users want to test. Each of these modules implement the interface for a different version-control system. Adding support for a new version-control system implies that the codmon developers 
+environment must be able to deal with different version control systems. To achieve this we decided to design separate \emph{modules} outside of the \project{} core program to take care of the checkouts and updates of the 
+software that the users want to test. Each of these modules implement the \emph{versionControl} interface for a different version-control system. Adding support for a new version-control system implies that the codmon developers 
 (or the users of \project{}) have to write a new module that implements this interface for this new version-control system. This interface should at least define mechanisms for fetching and updating the 
-software. Next to this is must also provide some basic mechanism which provide the users with the history log of the software. The only thing a user has to do, is indicate which version control system his 
-software is using. We discuss the implementation in more depth in section \ref{sec:Codmon2.0}.\\
+software. Next to this it must also provide some basic mechanism which provides the users with the history log of the software. Listing \ref{list:interface} shows the versionControl interface.
+The user only has to do, is indicate which version control system his software is using. We discuss the implementation in more depth in section \ref{sec:Codmon2.0}.\\
 
-\noindent The new sensor structure as discussed in section \ref{road:multi} makes adding new test also straight forward. The only thing a \project{} user has to do is add a new test, and create an Ant target 
+\lstset{
+  captionpos=b,
+  caption = \emph{VersionControl interface},
+  label =list:interface
+}
+\begin{code}[frame=shadowbox, language=Java,showstringspaces=false]
+/**
+@author bvl300 
+Basic interface for version control modules
+*/
+public interface versionControl{
+	
+		public void update() throws Exception;
+		
+		public void updateLog() throws Exception;
+}
+\end{code}
+
+\noindent The new sensor structure as discussed in section \ref{road:multi} makes adding new test also straightforward. The a \project{} user only has to do is add a new test, and create an Ant target 
 for this test. 
 
 \subsection{User-friendliness}
