@@ -361,10 +361,7 @@ class Shot {
         argList.add(arguments[3]);
 	//The 4th argument is used for a non-default ant target
         if(arguments.length==5){argList.add(arguments[4]);}
-		System.out.println("dir---->: "+dir);
-		for(String s : argList){
-			System.out.println(""+s);
-		}
+
 	final Process pr = new ProcessBuilder(argList)
  		 .directory(new File(dir)) 
     		 .start();
