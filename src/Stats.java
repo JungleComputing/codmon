@@ -348,8 +348,7 @@ class Shot {
      *@author bvl300
      *Starts a new process in a given directory
      **/
-    private Process startProcess(String cmd) throws IOException {
-	//Need to specify which Arraylist util vs awt 	
+    private Process startProcess(String cmd) throws IOException {	
 	java.util.List<String> argList= new ArrayList<String>();
         String[] arguments = cmd.split("\\s+");
         String call = arguments[0];
