@@ -101,7 +101,7 @@ the tests to a so called wrapper file. This will be discussed in more detail in 
 Section \ref{sec:codmon} first describes the original Codmon framework and the motivation for its development. It also identifies its shortcommings. In section \ref{sec:road}, \emph{The road to \project{}}, 
 we explain how we got to the final \project{} design. Section \ref{sec:Codmon2.0} describes the implementation of the \project{} project. 
 It starts with a general description of the project followed by a detailed explanation of the different modules of \project{}. Next we will evaluate the choices and their consequences 
-in section \ref{sec:evaluation}. In Section \ref{sec:conclusion} we discuss the results based on section \ref{sec:evaluation}. We end this section with a brief discussion of related work.
+in section \ref{sec:evaluation}. In Section \ref{sec:future} we discuss the results based on section \ref{sec:evaluation}. We end this section with a brief discussion of related work.
 
 \newpage
 \section{Codmon}
@@ -322,33 +322,34 @@ configure one new image, which is directly available for all the users. How this
 \newpage
 \section{The implementation of \project{}}
 \label{sec:Codmon2.0}
-In This section we'll describe how we've implemented the decisions made in section \ref{sec:road} in the \project{} project. We'll start with the parts that were necessary to achieve that \project{} is multi-platform 
+In this section we'll describe how we've implemented the decisions made in section \ref{sec:road} in the \project{} project. We'll start with the parts that were necessary to achieve that \project{} is multi-platform 
 followed by the parts that affect the modularity. We end this section with the parts that affect user-friendliness. When someone wants to use the \project{} test environment there are two options he can choose 
 to get access to this environment. We'll come to these options later in this section. For now we assume the user has access to a working \project{} environment.
 
 \subsection{multi-platform}
 \label{imp:multi}
-In the previous sections we mentioned that the tangle of shell-scripts and PERL-code ensures that Codmon isn't multi-platform. To ensure that \project{} is multi-platform we've chosen that all the code of the 
-\project{} environment is written in Java. First we describe how we've implemented the start-up of a test run. After this we describe how both the tests and the software that is tested are connected together.
+In the previous sections we mentioned that the tangle of shell-scripts and PERL-code ensures that Codmon isn't multi-platform. To ensure that \project{} is multi-platform we've chosen to implement the 
+\project{} environment completely in Java. First we describe how we've implemented the initialization of a test run. Then we describe how both the tests and the software that is tested are connected together.
 
-\subsubsection{Start-up}
+\subsubsection{Initialization}
 \label{imp:start}
-In a non multi-platform environment it is very easy to create a shell-script (or a batch-file in case of Windows) to start a program. As we will see in Java this is a little more complex.\\
+In a non multi-platform environment it is very easy to create a shell-script (or a batch-file in case of Windows) to start a program. In Java, this is a little more complex.\\
 
-\noindent As we will see in section \ref{imp:modular} everything outside the \project{} core program is a separated module, so also the start-up module. The start-up module is called with one parameter namely 
-the name of the sensor file that is needed for this run. The current start-up module is responsible for a few things. First it initializes the \project{} environment. If it the first time \project{} is used, 
-four result directories are created. Otherwise the results of the previous test-runs are copied to the history folders so in the current result folder is space for the new test results \footnote{Due to historic 
-reason the result folders are still called dday,dday1,dday2 etc etc}.\\
+\noindent In section \ref{imp:modular} we describe that everything outside the \project{} core program is a separated module, including the start-up module. The start-up module is called with one parameter namely: 
+the name of the sensor file that describes the tests that will be executed in this run. The start-up module is responsible for a couple of tasks. First it initializes the \project{} environment. If it is the 
+first time \project{} is used, four result folders are created. Otherwise the results of the previous test-runs are copied to history folders so in the current result folder is space for the new 
+test results \footnote{For historic reasons the result folders are called dday,dday1,dday2 etc.}. The \emph{dday} folder is used to store the results of the current run, while the other folders are used to 
+store the results of previous runs.\\
 
-\noindent When the all the result files are in the right place the \project{} core program must be started. Because this is a completely new Java program we needed a way to pass the sensor file parameter to 
+\noindent When the all the result files of the previous tests are copied to the right place the \project{} core program can be started. Because this is a completely new Java program we needed a way to pass the sensor file parameter to 
 the core program. Remember at this stage \project{} is already built. So to achieve this we have to make use of \emph{dynamic class loading}. Dynamic class loading means that only at runtime is decided which 
 (Java) class is called. Listings \ref{list:method} and \ref{list:run} in Appendix \ref{AppendixA} show how this is implemented in the \project{} environment.
 
 \subsubsection{Ant-connector}
 \label{imp:ant}
-A second issue we had to deal with were the the senors in the senor files. In section \ref{road:multi} we have already seen the new sensor structure. A wrapper is a separated process which has to be started by 
+A second issue we had to deal with were the the sensors in the sensor files. In section \ref{road:multi} we have already seen the new sensor structure. A wrapper is a separated process which has to be started by 
 the \project{} core program.  When the \project{} core program evaluates a sensor it first extracts the the wrapper from the sensor \emph{cmd}-attribute. After this also the Ant-target is extracted from the 
-\emph{cmd}-attribute. If we use the senor of listing \ref{list:imp_sensor} the wrapper will be the \emph{TimeWrapper}, while the Ant-target will be \emph{"run"}.\\
+\emph{cmd}-attribute. If we use the sensor of listing \ref{list:imp_sensor} the wrapper will be the \emph{TimeWrapper}, while the Ant-target will be \emph{"run"}.\\
 
 \lstset{
   captionpos=b,
@@ -365,14 +366,15 @@ fatal="true"/>
 \end{lstlisting} 
 
 \noindent When the \project{} core program has extracted these values it starts a \emph{Wrapper} process (See appendix \ref{AppendixC}). Listing \ref{list:process} shows how this is done. The Ant target is 
-passed as a parameter to this Wrapper process. This Wrapper,which is a test, starts he Ant-connector, which is a small Java Class (see Appendix \ref{AppendixC}) which evaluates and executes the Ant-target. 
+passed as a parameter to this Wrapper process. This Wrapper, which is a test, starts he Ant-connector, which is a small Java Class (see Appendix \ref{AppendixC}) which evaluates and executes the Ant-target. 
 Such an Ant-target can be a "simple" \emph{build} target or in this case it is the \emph{run} target. This is shown in listing \ref{list:runTarget}. This "run"-target executes the software that is tested by, 
 in this case, the TimeWrapper.\\
  
 
 \lstset{
   captionpos=b,
-  caption = \emph{Create new process},
+  caption = \emph{Start a new process: The different elements of the CMD attribute of the sensor described in listing \ref{list:imp_sensor} are seperatly stored in the \emph{argList} argument. The dir argument 
+sets the place from where the process should start},
   label =list:process
 }
 \begin{lstlisting}[frame=shadowbox, language=Java,showstringspaces=false]
@@ -381,13 +383,14 @@ final Process pr = new ProcessBuilder(argList)
     		 .start();
 \end{lstlisting} 
 
+
 \lstset{
   captionpos=b,
   caption = \emph{The run-target},
   label =list:runTarget
 }
 \begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
-	<!--Run the Checkout programm-->
+	<!--Run the Checkout program-->
 	<target name="run">
 		<java  fork="true" classname="Checkout" classpath="${env.CLASSPATH}" output="out.txt">
 	  		<classpath>
@@ -399,7 +402,8 @@ final Process pr = new ProcessBuilder(argList)
 	</target>
 \end{lstlisting} 
 
-\noindent By implementing it this way it doesn't matter which (Java-) software the wrapper wants to test, it always be done in the same way as described above.
+\noindent By implementing it this way it doesn't matter which (Java-)software\footnote{Theoretically it is also possible to run non-Java applications, but they are out of scope for the \project{} project. 
+See also section \ref{sec:future}.} the wrapper wants to test, it will always be done in the same way as described above.
 
 
 \subsection{Modularity}
@@ -410,35 +414,34 @@ To do this we use a module called \emph{CheckoutApplications}.
 
 \subsubsection{CheckoutApplications module}
 \label{imp:checkout}
-Before \project{} is able to test any software, this software must be available for the \project{} environment. To be available this software must have been checked-out\footnote{for the sake of simplicity,when 
-we talk about it in a general way, we call both check-out and clone check-out in this thesis.} from the repository where it is stored. The CheckoutApplications-module is responsible for this job. The CheckoutApplications 
-itself consists of a main checkout module and different sub-modules which support a specific version control system. At this moment the CheckoutApplications module supports two different version control 
-systems, namely Subversion (\emph{SVN}) and Git.\\
+Before \project{} is able to test any software, this software must be available for the \project{} environment. To be available this software must have been extracted from the repository where it is stored. 
+The CheckoutApplications-module is responsible for this job. The CheckoutApplications itself consists of a main checkout module and different sub-modules which support a specific version control system. 
+Currently, the CheckoutApplications module supports two different version control systems, namely Subversion (\emph{SVN}) and Git.\\
 
 \noindent
-The main checkout module is responsible for a few things. First it reads the initialization file, which contains information about the test projects. We'll come back to the initialization file later. This 
-information contains, among other information, the kind of version control system that is used for this software. With this information both the update and updateLog methods for this software can be invoked (See 
-Appendix \ref{AppendixD}). For implementing this methods for SVN repositories we've used the \emph{SVNKit} Api\cite{SVNKit}. For the Git repositories we've used the \emph{JGit} 
+The main checkout module is responsible for couple of tasks. First it reads the initialization file, which contains information about the test projects. We'll come back to the initialization file later. This 
+information contains, among others, the kind of version control system that is used for this software. With this information both the update and updateLog methods for this software can be invoked (See 
+Appendix \ref{AppendixD}). For implementing these methods for SVN repositories we've used the \emph{SVNKit} Api\cite{SVNKit}. For the Git repositories we've used the \emph{JGit} 
 Api\cite{JGit}.\\
 
-\noindent As you can see now it is easy to add a sub-module for a new kind of version control system. The only thing a developer has to do is implement the update and updateLog methods. And add the calls to
-this methods to the \emph{checkoutProject} method which you could see in Appendix \ref{AppendixD}.
- 
+\noindent For a user, now it is easy to add a sub-module for a new kind of version control system. The only thing a developer has to do is implement the update and updateLog methods. And add the calls to
+this methods to the \emph{checkoutProject} method which you could see in Appendix \ref{AppendixD}. The \emph{update} method is resposible to check if the latest version of the software is locally available for 
+testing. If this is not the case it does a checkout or update on the software's repository. The \emph{updateLog} method is responsible to maintain the logfile of the software. 
 
 \subsubsection{Tests}
 \label{imp:tests}
-Adding new tests is relatively straight forward. As long as the test is written in Java a user can just add a reference to this test to the CMD-attribute of a sensor. This works both the same way for functional 
+Adding new tests is relatively straightforward. As long as the test is written in Java a user can just add a reference to this test to the CMD-attribute of a sensor. This works the same way for, both functional 
 and non-functional tests.
 
 
-\subsection{user-friendliness}
+\subsection{User-friendliness}
 \label{imp-user}
-finally it's time to discuss the user-friendliness of \project{}. As we said before, we don't want to bother the \project{} environment users with internal mechanisms of it. Neither we want to bother them with 
-the time consuming configuration of it. This section describes the why \project{} is a very user friendly environment.\\
+Finally it's time to discuss the user-friendliness of \project{}. As we said before, we don't want to bother the \project{} users with its internal mechanisms. Neither do we want to bother them with 
+its time consuming configuration. This section describes the why \project{} is a very user friendly environment.\\
 
 \subsubsection{The initialization file}
 \label{imp:init}
-\noindent Before the \project{} environment is able to run one or more tests on a software, it has to know where it can find the software and check it out.This information and other information has to be added to 
+\noindent Before the \project{} environment is able to run one or more tests on a software, it has to know where it can find this software and extract it from its repository. This information and other information has to be added to 
 the \emph{initialization file}, which is an XML file. This file is stored at \emph{"codmon/codmon/local/checkoutApplications/"}. Listing \ref{list:init} shows the structure of the init file. The explanation 
 of its elements is shown in table \ref{tab:init}. \\
 
@@ -460,38 +463,40 @@ of its elements is shown in table \ref{tab:init}. \\
 		<user>username</user>
 		<pwd>pwd</pwd>
 	</project>
-<projects>
+</projects>
 \end{lstlisting} 
 
 
-\begin{table}
+\begin{table}[h]
 \centering
   \begin{tabular}{ | l| p{5cm} |}
   \hline
   \textbf{projects} & List of all the projects that are involved in a test series. \\ \hline
-  \textbf{project} & Contains the information of one specific project. \\ \hline
+  \textbf{project} & Contains the information of a specific project. \\ \hline
   \textbf{name} & The name of the project. \\ \hline
   \textbf{location} & The URL of the location where the project can be found. \\ \hline
   \textbf{versionControl} & Element that contains specific information about the version-control system \\ \hline
   \textbf{type} & The type of version control system that is used for the project. e.g. \emph{SVN} or \emph{Git} \\ \hline
-  \textbf{run} & \textbf{Boolean} that indicates is a project should be tested. \\ \hline
+  \textbf{run} & \textbf{Boolean} that indicates if a project should be tested. \\ \hline
   \textbf{user} & username to login into the version-control system \\ \hline
   \textbf{pwd} & password to login into the version-control system \\ \hline
   \end{tabular}
-\caption{Table 2: Elements of the initialization file}
+\caption{Elements of the initialization file. In Section \ref{sec:evaluation} and section \ref{sec:future} we'll come back to the security issues regarding the username and password}
 \label{tab:init}
 \end{table}
 
-\noindent So the only thing a user has to do when he wants to test a new software compent is addung a new project to the initialization file.
+
+\noindent So the only tasks that are left for a user  when he wants to test a new software component is adding a new project to the initialization file and add them to a (new) sensor file. Whe a user wants 
+to use or create his own tests he must create its own wrapper(s) for this. 
 
 \subsubsection{Virtual environments}
 \label{imp:virual}
-We have said already a few times that we don't want to bother the users of the \project{} environment with the configuration of it. We came up with the idea that it would be nice and extrmely useful if a 
-user just use a preconfigured \project{} environment. To achieve this the \project{} project provides a set of virtual machines on which \project{} is already installed en preconfigured. The only thing a 
+We have said already a few times that we don't want to bother the users of the \project{} environment with its configuration. We came up with the idea that it would be nice and extremely useful if a 
+user just use a preconfigured \project{} environment. To achieve this the \project{} project provides a set of virtual machines on which \project{} is already installed and preconfigured. The only thing a 
 user must do is install VM-ware (or Virtual box), download one of the provided \project{} images and install them in VM-ware.\\
 
-\noindent The developers of the \project{} can easily provide new images, by installing a \emph{"clean"} image of the target platform, Windows or one of the different Linus distributions for instance, and 
-install and preconfigure \project{} in this image. When this is done successful, VM-ware provides options to create a new distributable image of the preconfigured environment. 
+\noindent The developers of the \project{} can easily provide new images, by installing a \emph{"clean"} image of the target platform, Windows or one of the different Linux distributions for instance, and 
+install and preconfigure \project{} in this image. When this is done successfully, VM-ware provides options to create a new distributable image of the preconfigured environment. 
 
 \newpage
 \section{Discussion}
@@ -540,7 +545,7 @@ the possibility of preconfigured virtual machines and the way of adding new to b
 
 \newpage
 \section{Future work and Recomandations}
-\label{sec:conclusion}
+\label{sec:future}
 Finally we describe, the sections above, what future work and research, regarding to \project{}, could be done to improve it. When we take a look at what we've described in sections \ref{dis:modular} and 
 \ref{dis:conclusion} we see that the \project{} core program is still one big monolithic program. To improve the maintainability of \project{} it would be useful to see if and how we can transform this monolithic 
 program into a program with a more modular design.\\
