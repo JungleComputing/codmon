@@ -45,7 +45,7 @@
 \begin{abstract}
 In times when software projects become more and more complex,the testing of this software becomes more and more important. One of the problems with software testing is, that is difficult to test software in 
 different environments. \project{} provides different virtual test environments on which projects can test their software. \project{} is modular, which means that it is easy to add new test cases to the framework 
-as well as software components that must be tested. It also provides mechanisms to add new plugable utility modules to the \project{} environment. The same \project{} version runs on different platforms, so it 
+as well as software components that must be tested. It also provides mechanisms to add new pluggable utility modules to the \project{} environment. The same \project{} version runs on different platforms, so it 
 is also multi-platform.
 \end{abstract}
 \newpage
@@ -98,7 +98,7 @@ the tests to a so called wrapper file. This will be discussed in more detail in 
 
 \subsection{Thesis outline}
 \label{subsec:Thesisoutline}
-Section \ref{sec:codmon} first describes the original Codmon framework and the motivation for its development. It also identifies its shortcommings. In section \ref{sec:road}, \emph{The road to \project{}}, 
+Section \ref{sec:codmon} first describes the original Codmon framework and the motivation for its development. It also identifies its shortcomings. In section \ref{sec:road}, \emph{The road to \project{}}, 
 we explain how we got to the final \project{} design. Section \ref{sec:Codmon2.0} describes the implementation of the \project{} project. 
 It starts with a general description of the project followed by a detailed explanation of the different modules of \project{}. Next we will evaluate the choices and their consequences 
 in section \ref{sec:evaluation}. In Section \ref{sec:future} we discuss the results based on section \ref{sec:evaluation}. We end this section with a brief discussion of related work.
@@ -108,7 +108,7 @@ in section \ref{sec:evaluation}. In Section \ref{sec:future} we discuss the resu
 \label{sec:codmon}
 In this section we describe the original Codmon framework and its shortcomings. The original Codmon framework was built in 2005 by François Lesuer\cite{Codmon}. Originally Codmon was built for 
 testing and performance monitoring Ibis projects\cite{Ibis} \cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} on the DAS-2\cite{das2} computer. Codmon was able to perform both functional and performance tests.\footnote{At 
-this moment both the Da-2 and Codmon aren't in use anymore.} If for some reason a particular test fails, Codmon raises an alarm and reports the failures. Codmon does this by 
+this moment both the DAS-2 and Codmon aren't in use anymore.} If for some reason a particular test fails, Codmon raises an alarm and reports the failures. Codmon does this by 
 sending an email directly to the programmer who made the last changes in the software that was tested. Codmon also reports in the same way in case the performance drops below a certain threshold. 
 Next to sending an email in case of failing tests, Codmon also presents the results on a results web page. It was also the intention that Codmon would be extensible. In this the Codmon programmers 
 succeeded only partially. We will discuss this more in depth in section \ref{subsec:CodmonProblems}.  
@@ -119,7 +119,7 @@ In this section we will describe the design of the Codmon framework. The Codmon 
 
 \subsubsection{Controlling Codmon}
 \label{control}
-\noindent We first describe the part that controls Codmon. With controlling we mean which test will run and in which order they will run. There are two differen kind of tests, functional and non-functional 
+\noindent We first describe the part that controls Codmon. With controlling we mean which test will run and in which order they will run. There are two different kind of tests, functional and non-functional 
 tests. The source code of the projects that will be tested is stored in a \emph{CVS} repository. Both the functional and non-functional tests are describe in so called \emph{sensor} files. A sensor file 
 describes a "test set" that can be executed by the Codmon program. Such a sensor file consists of two parts. First there is the \emph{onoff} part, which is used for compilation parts and the functional 
 tests.  Second there is the \emph{graph} part. This part is used for the performance tests. The core of each sensor element in a sensor file is the CMD attribute. This CMD attribute consists of two basic 
@@ -373,7 +373,7 @@ in this case, the TimeWrapper.\\
 
 \lstset{
   captionpos=b,
-  caption = \emph{Start a new process: The different elements of the CMD attribute of the sensor described in listing \ref{list:imp_sensor} are seperatly stored in the \emph{argList} argument. The dir argument 
+  caption = \emph{Start a new process: The different elements of the CMD attribute of the sensor described in listing \ref{list:imp_sensor} are separately stored in the \emph{argList} argument. The dir argument 
 sets the place from where the process should start},
   label =list:process
 }
@@ -425,8 +425,8 @@ Appendix \ref{AppendixD}). For implementing these methods for SVN repositories w
 Api\cite{JGit}.\\
 
 \noindent For a user, now it is easy to add a sub-module for a new kind of version control system. The only thing a developer has to do is implement the update and updateLog methods. And add the calls to
-this methods to the \emph{checkoutProject} method which you could see in Appendix \ref{AppendixD}. The \emph{update} method is resposible to check if the latest version of the software is locally available for 
-testing. If this is not the case it does a checkout or update on the software's repository. The \emph{updateLog} method is responsible to maintain the logfile of the software. 
+this methods to the \emph{checkoutProject} method which you could see in Appendix \ref{AppendixD}. The \emph{update} method is responsible to check if the latest version of the software is locally available for 
+testing. If this is not the case it does a checkout or update on the software's repository. The \emph{updateLog} method is responsible to maintain the log file of the software. 
 
 \subsubsection{Tests}
 \label{imp:tests}
@@ -467,7 +467,7 @@ of its elements is shown in table \ref{tab:init}. \\
 \end{lstlisting} 
 
 
-\begin{table}[h]
+\begin{table}[ht]
 \centering
   \begin{tabular}{ | l| p{5cm} |}
   \hline
@@ -481,12 +481,12 @@ of its elements is shown in table \ref{tab:init}. \\
   \textbf{user} & username to login into the version-control system \\ \hline
   \textbf{pwd} & password to login into the version-control system \\ \hline
   \end{tabular}
-\caption{Elements of the initialization file. In Section \ref{sec:evaluation} and section \ref{sec:future} we'll come back to the security issues regarding the username and password}
+\caption{Elements of the initialization file. In Section \ref{sec:evaluation} and section \ref{sec:future} we'll come back to the security issues regarding the user name and password}
 \label{tab:init}
 \end{table}
 
 
-\noindent So the only tasks that are left for a user  when he wants to test a new software component is adding a new project to the initialization file and add them to a (new) sensor file. Whe a user wants 
+\noindent So the only tasks that are left for a user  when he wants to test a new software component is adding a new project to the initialization file and add them to a (new) sensor file. When a user wants 
 to use or create his own tests he must create its own wrapper(s) for this. 
 
 \subsubsection{Virtual environments}
@@ -516,7 +516,7 @@ the same on these different platforms\cite{Java}.
 \subsection{Modularity}
 \label{dis:modular}
 The second requirement we have to discuss is the modularity of the \project{} environment. This is a little less straight forward than the Multi-platform requirement. The main question we have to answer is: 
-\emph{When do consider the environment to be modular}. Is it modular if a user of the environment can add new tets in a straight forward manner? Is it modular when it is easy to add new, or extend, utility 
+\emph{When do consider the environment to be modular}. Is it modular if a user of the environment can add new tests in a straight forward manner? Is it modular when it is easy to add new, or extend, utility 
 modules like the checkout Applications module? Or is \project{} environment only modular if the core program itself is modular as well? To answer this question we have to consider what the main purpose of the 
 \project{} environment is. When we summarize all the requirements we can see that the environment should be especially easy in being in use and maintenance. This brings us nothing further. What do we mean by 
 maintenance? Are we talking about the \project{} core program or about adding (and removing) functionality and tests? 
@@ -524,36 +524,45 @@ maintenance? Are we talking about the \project{} core program or about adding (a
 \subsection{User-friendliness}
 \label{dis:user}
 Where in section \ref{dis:multi} the question was straight forward and in section \ref{dis:modular} the discussion was only about two different viewpoints, the subject of User-friendliness is even less trivial. 
-Where one person might say it is user-friendly when the environment is quick and easy to use, another person migth say that an environment is only user-friendly when is has a nice and fancy user interface.\\
+Where one person might say it is user-friendly when the environment is quick and easy to use, another person might say that an environment is only user-friendly when is has a nice and fancy user interface.\\
 
 \noindent Let's first look at how easy the \project{} environment is in its usage. The user can easily download a \project{} environment image and install this in VM-ware or Virtual box. When this is done, 
 \project{} is immediately ready for usage. In section \ref{imp:modular} we also showed how easy it is to add new tests and (utility) modules like the checkoutApplications module. So when we only take this into 
 account we can say , yes the \project{} environment is user friendly.\\
 
-\noindent Now let's take a look a the second issue. Both adding new software that should be tested as well ass adding tests to a sensor file is,as we've desribed above, quite easy. The only difficulty some users 
+\noindent Now let's take a look a the second issue. Both adding new software that should be tested as well ass adding tests to a sensor file is,as we've described above, quite easy. The only difficulty some users 
 could have with it is that they directly have to edit XML files. Doing this, using a nice and fancy user interface could improve the user-friendliness of \project{}. Also Adding both to be tested software and new 
-sensors via a grafical user interface will reduce the risk of errors in these files. Such a user interface could als be used to display the test results. Doing it this way \project{} appears as one coherent 
-environment to its users.
+sensors via a graphical user interface will reduce the risk of errors in these files. Such a user interface could also be used to display the test results. Doing it this way \project{} appears as one coherent 
+environment to its users.\\
+
+\noindent There is only one issue left that we have to discuss here. The initialization file contains two fields, namely \emph{user} and \emph{pwd}. For this thesis it is OK to do it this way, but in real life 
+this would be a security risk. 
 
 \subsection{Conclusion}
 \label{dis:conclusion}
-Now we have discussed the different requirents of the \project{} environment we can conclude that due to the usage of Java and Ant \project{} is a \emph{multi-platform} environment \ref{dis:multi}. When we only take the 
+Now we have discussed the different requirements of the \project{} environment we can conclude that due to the usage of Java and Ant \project{} is a \emph{multi-platform} environment \ref{dis:multi}. When we only take the 
 modularity regarding to usage and maintenance of the environment into account and not of the \project{} core program, \project{} is also \emph{modular} \ref{dis:modular}. When we take the \project{} into account it's 
-only partially modular. Looking at the \emph{user-friendliness} \ref{dis:user} of \project{} it depends of the person how he or she thinks about user-friendliness. Thoug one thing we can say about \project{} 
-the possibility of preconfigured virtual machines and the way of adding new to be tested software, sensors and utility modules definitely offers some user-frienliness!
+only partially modular. Looking at the \emph{user-friendliness} \ref{dis:user} of \project{} it depends of the person how he or she thinks about user-friendliness. Though one thing we can say about \project{} 
+the possibility of preconfigured virtual machines and the way of adding new to be tested software, sensors and utility modules definitely offers some user-friendliness!
 
 
 \newpage
-\section{Future work and Recomandations}
+\section{Future work and Recommendations}
 \label{sec:future}
 Finally we describe, the sections above, what future work and research, regarding to \project{}, could be done to improve it. When we take a look at what we've described in sections \ref{dis:modular} and 
 \ref{dis:conclusion} we see that the \project{} core program is still one big monolithic program. To improve the maintainability of \project{} it would be useful to see if and how we can transform this monolithic 
 program into a program with a more modular design.\\
 
 \noindent In sections \ref{dis:user} and \ref{dis:conclusion} we described different views on user friendliness. In our opinion the biggest improvement could be gained with a nice and fancy user interface. It would 
-really worth to do some future research to see if it is possible to combine \project{} with a tool like Jenkins \cite{JenkinsDoc}. Jenkins could probably provide a userinterface to at least start tests that use 
+really worth to do some future research to see if it is possible to combine \project{} with a tool like Jenkins \cite{JenkinsDoc}. Jenkins could probably provide a user interface to at least start tests that use 
 different sensor files. It probably also could generate nice and more fancy representations of the test results! It also could provide us with one and the same user interface that could control the whole \project{} 
-environment.  
+environment.\\
+
+\noindent Another interesting question to do some research on is: Is it possible to test non-Java software with \project{}?. It is possible for an Ant target to run non-Java software. But a more interesting 
+question is how can we assure that the software is compiled for the right platform?\\
+
+\noindent The last issue requires attention is the security regarding the version control modules. As we described in \ref{imp:init} the user and pwd are written in plaint text. To prevent security issues some 
+research need to be done on this.
 
 \newpage
 \bibliography{Master}
@@ -569,49 +578,49 @@ environment.
 }
 \begin{lstlisting}[frame=single ,language=Java]
 private ClassLoader getClassLoader(String[] jars) throws MalformedURLException, SecurityException{
-		ArrayList<URL> paths = new ArrayList<URL>();
+  ArrayList<URL> paths = new ArrayList<URL>();
 
-     		for (String externalJar : jars) {
-         		paths.add(new File(externalJar).toURI().toURL());
-			System.out.println(paths.get(0));
-     		}
-     		
-		URL[] urls = paths.toArray(new URL[paths.size()]);
-		return new URLClassLoader(urls);
-	}	
+  for (String externalJar : jars) {
+    paths.add(new File(externalJar).toURI().toURL());
+  }
+  
+  URL[] urls = paths.toArray(new URL[paths.size()]);
+  return new URLClassLoader(urls);
+}	
 
-	/**
-	 *@author bvl300
-	 *Loads codmon.jar so I can Use it here
-	 **/
-	private Method getStartMethod(String[] argv){	
-		Method m = null;
-		Class<?> cl = null;
-		String[] jars = getJars();;
-		try{
-		        ClassLoader loader = getClassLoader(jars);
-			cl = loader.loadClass("Stats");
-			m = cl.getMethod("main", new Class[] { argv.getClass() });
-		}catch(Exception e){
-			System.out.println(e.getMessage());
-		}
+/**
+ *@author bvl300
+ *Loads codmon.jar so I can Use it here
+ **/
+private Method getStartMethod(String[] argv){	
+  Method m = null;
+  Class<?> cl = null;
+  String[] jars = getJars();
+  try{
+    ClassLoader loader = getClassLoader(jars);
+    cl = loader.loadClass("Stats");
+    m = cl.getMethod("main", new Class[] { argv.getClass() });
+  }catch(Exception e){
+    System.out.println(e.getMessage());
+    System.exit(1);
+  }
 
-		if(!m.isAccessible()){
-			final Method temporary_method = m;
-			AccessController.doPrivileged(new PrivilegedAction<Object>() {
-            			 public Object run() {
-               		  		temporary_method.setAccessible(true);
-                 			return null;
-             			}
-         		});
-		}
-		return m;
-	} 
+  if(!m.isAccessible()){
+    final Method temporary_method = m;
+    AccessController.doPrivileged(new PrivilegedAction<Object>() {
+      public Object run() {
+	temporary_method.setAccessible(true);
+	return null;
+      }
+    });
+  }
+  return m;
+} 
 \end{lstlisting} 
 \newpage
 \lstset{
   captionpos=b,
-  caption = \emph{invokation of the method},
+  caption = \emph{invocation of the method},
   label =list:run
 }
 \begin{lstlisting}[frame=single ,language=Java]
@@ -646,7 +655,7 @@ private ClassLoader getClassLoader(String[] jars) throws MalformedURLException, 
 import java.text.DecimalFormat;
 /**
  *@author bvl300
- *This wrapper messures the time of the module
+ *This wrapper measures the time of the module
  *that is executed.
  */
 public class TimeWrapper{
