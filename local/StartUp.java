@@ -122,6 +122,7 @@ public class StartUp{
 			m = cl.getMethod("main", new Class[] { argv.getClass() });
 		}catch(Exception e){
 			System.out.println(e.getMessage());
+			System.exit(1);
 		}
 
 		if(!m.isAccessible()){
