@@ -64,9 +64,9 @@ previous version of the Codmon project. It also describes the structure of this 
 \subsection{Background}
 \label{sec:Background}
 In times when software projects become more and more complex, testing of this software becomes more and more important. Many software related problems are caused by lack of testing of the 
-software~\cite{TTCST}. Most of the times software testers only test software on a single platform, for instance only on a Linux or only on a Windows platform. Setting-up and configuring again and again all 
+software~\cite{TTCST}. Typically software is only tested on a single platform, for instance only on a Linux or only on a Windows platform. Setting-up and configuring again and again all 
 the different test environments on different platforms simply costs too much time. So, one of the challenges of software testing is to make sure that the software behaves in the same way on 
-different platforms, without spending too much time on the installation and configuration of the test environment on all these platforms. Even when the test environment is written in such a way 
+different platforms, without spending too much time on the installation and configuration of the test environment on these platforms. Even when the test environment is written in such a way 
 that it is able to run on different platforms, there are still issues that must be dealt with, before one is able to run and test the software. So in an ideal world we can test the software without being 
 worried about setting up the test environment. 
 
@@ -79,7 +79,7 @@ One of the disadvantages is that standard unit testing ignores non-functional te
 
 \noindent Jenkins and Hudson, like Unit tests, also have their
 disadvantages. For instance, although they both run on several platforms, in their usage they are not really platform independent. Both Hudson and Jenkins have the possibility to execute shell-scripts or 
-bash scripts. So, if a user wants to start a test or program he must know in advance on which platform this script has to run. Only then he can decide if he needs a shell script or a bash script. So, although 
+batch scripts. So, if a user wants to start a test or program he must know in advance on which platform this script has to run. Only then he can decide if he needs a shell script or a batch script. So, although 
 this is a powerful feature it is not a 100\% platform independent environment.
  
 \subsection{Problem statement}
