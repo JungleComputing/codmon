@@ -15,14 +15,14 @@
 
   <target name="compile" depends="init"
         description="compile the source " >
-    <javac srcdir="${src}" destdir="${build}" classpath="libs/jrobin-1.4.0.jar:libs/mail.jar:libs/activation.jar" excludes="apps/**" debug="true" >
+    <javac srcdir="${src}" destdir="${build}" classpath="libs/jrobin-1.4.0.jar:libs/mail.jar:libs/activation.jar:libs/org.eclipse.jgit-3.0.0.201306101825-r.jar" excludes="apps/**" debug="true" >
 	<compilerarg line="-Xlint:all -Xmaxwarns 10000"/>
     </javac>
     <delete file="${build}/codmon.jar"/>
     <jar destfile="${build}/codmon.jar" basedir="${build}">
     <manifest>
       <attribute name="Main-Class" value="Stats"/>
-      <attribute name="Class-Path" value="../libs/jrobin-1.4.0.jar ../libs/activation.jar ../libs/mail.jar"/>
+      <attribute name="Class-Path" value="../libs/jrobin-1.4.0.jar ../libs/activation.jar ../libs/mail.jar ../libs/org.eclipse.jgit-3.0.0.201306101825-r.jar"/>
     </manifest>
     </jar>
     <ant dir="local" inheritAll="false" target="compile" />
