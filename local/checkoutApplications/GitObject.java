@@ -19,7 +19,7 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 
-public class GitObject{
+public class GitObject implements VersionControl{
 
 	private String user;
         private String pwd;	
@@ -33,7 +33,7 @@ public class GitObject{
  	*@author bvl300
 	*Constructor creates a new Git object
  	*/ 	
-	public GitObject(String basePath, String project, String url,String user,String pwd) throws IOException , GitAPIException{
+	public GitObject(String basePath, String project, String url,String user,String pwd){
 		this.basePath = basePath;
 		this.project = project;
 		this.url = url;
@@ -47,13 +47,19 @@ public class GitObject{
  	*Update a Git repository, when it's not cloned yest it clones the
 	* repository.
  	* */	 
-	public void update() throws IOException, NoFilepatternException,GitAPIException, WrongRepositoryStateException, InvalidConfigurationException, DetachedHeadException, InvalidRemoteException, CanceledException, RefNotFoundException, NoHeadException{
+	public void update() throws VersionControlException{
 		String path = basePath+project;
 		File f = new File(path);	
-		if(!f.isDirectory()){ 
-			cloneRepo();
-		}else{
-			pullRepo();
+		try{
+			if(!f.isDirectory()){ 
+				cloneRepo();
+			}else{
+				pullRepo();
+			}
+                }catch(IOException e){
+			throw new VersionControlException(e);
+	        }catch(GitAPIException e){
+			throw new VersionControlException(e);
 		}
 	}
 
@@ -65,9 +71,15 @@ public class GitObject{
 	*Updates the log file from a git project
 	*
 	**/
-	public void updateLog()throws GitAPIException, IOException{
-		Iterator<RevCommit> commits = getCommits().iterator();
-		writeLog(commits);
+	public void updateLog()throws VersionControlException{
+		try{		
+			Iterator<RevCommit> commits = getCommits().iterator();	
+			writeLog(commits);
+		}catch(IOException e){
+			throw new VersionControlException(e);
+	        }catch(GitAPIException e){
+			throw new VersionControlException(e);
+		}
 	}
 
 	
@@ -124,7 +136,7 @@ public class GitObject{
  	*@author bvl300
  	*Updates a git repository by executing the git pull command
  	* */ 
-	private void pullRepo() throws  IOException,GitAPIException, WrongRepositoryStateException, InvalidConfigurationException, DetachedHeadException, InvalidRemoteException, CanceledException, RefNotFoundException, NoHeadException{
+	private void pullRepo() throws  IOException,GitAPIException{
 		File repositoryFolder = new File(basePath+project+"/.git");
                 Repository localRepo = new  FileRepositoryBuilder().setGitDir(repositoryFolder).build();
 		Git  git = new Git(localRepo);

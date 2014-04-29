@@ -20,7 +20,7 @@ import org.tmatesoft.svn.core.wc.SVNWCUtil;
 import org.tmatesoft.svn.core.auth.ISVNAuthenticationManager;
 import org.tmatesoft.svn.core.internal.util.SVNEncodingUtil; 
 
-public class SVN{
+public class SVN implements VersionControl{
 	private String pwd;
 	private SVNURL svnUrl;
 	private String url;
@@ -54,16 +54,20 @@ public class SVN{
         *@author bvl300 
         *@Return svn revision number
         */
-	public void update()throws SVNException{
+	public void update()throws VersionControlException{
 		File dstPath = new File(basePath+project);
                 SVNClientManager cm = SVNClientManager.newInstance(null,user,pwd);
                 SVNUpdateClient updateClient = cm.getUpdateClient();
                 updateClient.setIgnoreExternals(false);
-                svnUrl = SVNURL.parseURIEncoded(url);
-		if("checkout".equals(command)){
-			rev =  updateClient.doCheckout(svnUrl, dstPath, SVNRevision.UNDEFINED,SVNRevision.HEAD,SVNDepth.INFINITY,true);
-		}else if ("export".equals(command)){
-			rev =  updateClient.doExport(svnUrl, dstPath, SVNRevision.UNDEFINED,SVNRevision.HEAD,"\n",true, SVNDepth.INFINITY);
+                try{
+			svnUrl = SVNURL.parseURIEncoded(url);
+			if("checkout".equals(command)){
+				rev =  updateClient.doCheckout(svnUrl, dstPath, SVNRevision.UNDEFINED,SVNRevision.HEAD,SVNDepth.INFINITY,true);
+			}else if ("export".equals(command)){
+				rev =  updateClient.doExport(svnUrl, dstPath, SVNRevision.UNDEFINED,SVNRevision.HEAD,"\n",true, SVNDepth.INFINITY);
+			}
+		}catch(SVNException e){
+			throw new VersionControlException(e);
 		}
 	}
 
@@ -85,12 +89,19 @@ public class SVN{
         *@author bvl300
         *This method updates a log file
         * */
-        public void updateLog()throws SVNException, IOException{
+        public void updateLog()throws VersionControlException {
 		String fileName = project +"Log.txt";
                 File f = new File(basePath+"/"+project+"/"+fileName);
 		Collection logCollection = null;
-                logCollection = this.getSvnInfo();
-                writeLog(logCollection,f);
+		try{                
+			logCollection = this.getSvnInfo();
+  			writeLog(logCollection,f);
+		}catch(SVNException e){
+			throw new VersionControlException(e);
+		}catch(IOException e){
+			throw new VersionControlException(e);
+		}
+              
         }
 
 

@@ -10,11 +10,8 @@ import java.io.FileReader;
 import java.io.LineNumberReader;
 import java.io.PrintWriter;
 import java.util.*;
-import org.tmatesoft.svn.core.SVNException;
 import org.eclipse.jgit.api.errors.*;
  
-//TODO -Log policy
-//     -Revission nr of application to be tested
 public class Checkout{
 	private String basePath = "../../../";           
 
@@ -22,10 +19,8 @@ public class Checkout{
  	*@author bvl300
 	*This method checks if it is necessary to update the logFile and if so
 	*It calls the update method.
- 	*TODO make suitable for all kind of Logs
-	*TODO double check if it works also when file exists
  	* */ 
-	private boolean checkOldLog(String projectName,long rev)throws SVNException{
+	private boolean checkOldLog(String projectName,long rev){
 		String fileName = projectName +"Log.txt";
 		File f = new File(basePath+"/"+projectName+"/"+fileName);
 		try{
@@ -48,7 +43,7 @@ public class Checkout{
  	*@author bvl300
  	*Checks out a specifc project and creates or updates the logfile
  	*/ 
-	private void checkoutProject(Node project) throws SVNException, NoFilepatternException,GitAPIException,WrongRepositoryStateException, InvalidConfigurationException, DetachedHeadException, InvalidRemoteException, CanceledException, RefNotFoundException, NoHeadException,IOException {
+	private void checkoutProject(Node project) throws VersionControlException{
 		String url, type, projectName,user,pwd,command;
 		long rev= -1;
 		if (project.getNodeType() == Node.ELEMENT_NODE) {
@@ -69,7 +64,7 @@ public class Checkout{
 				if(checkOldLog(projectName,rev)){
 					svnRep.updateLog();
 				}
-			}else if(type.equals("git")){
+			}else if(type.equals("git")){			
 				GitObject gitRep = new GitObject(basePath,projectName,url,user,pwd);
 				if("clone".equals(command)){
 					gitRep.update();
@@ -78,7 +73,7 @@ public class Checkout{
 					gitRep.updateLog();
 				}
 			}else{
-				//throw SVNException("Version control system not found");
+				throw new VersionControlException("Version control system not found");
 			}
 		}	
 	}
