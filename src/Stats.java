@@ -348,7 +348,7 @@ class Shot {
      *@author bvl300
      *Starts a new process in a given directory
      **/
-    private Process startProcess(String cmd) throws IOException {	
+    private Process startProcess(String cmd) throws IOException {
 	java.util.List<String> argList= new ArrayList<String>();
         String[] arguments = cmd.split("\\s+");
         String call = arguments[0];
