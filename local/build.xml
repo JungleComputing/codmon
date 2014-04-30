@@ -1,25 +1,32 @@
 <!--ant file to build the Startup application-->
 <project name="StartUp" basedir="." default="main">
 
-        <!--Remove the classes and jar folders-->
-        <target name="clean">
-                <delete file="StartUp.class"/>
-                <delete file="StartUp$1.class"/>
-        </target>
+    <property name="build.sysclasspath" value="ignore"/>
 
-	<path id="default.classpath">
-	    <fileset dir="../libs">
-		<include name="**/*.jar" />
-	    </fileset>
-	</path>
+    <!--Remove the classes and jar folders-->
+    <target name="clean">
+	<delete file="StartUp.class"/>
+	<delete file="StartUp$1.class"/>
+	<ant dir="checkoutApplications" inheritAll="false" target="clean" />
+    </target>
 
-
-        <!--Compile the java code-->
-        <target name="compile">
-            <javac srcdir="."  classpathref="default.classpath"/>
-        </target>
+    <path id="default.classpath">
+	<fileset dir="../libs">
+	    <include name="**/*.jar" />
+	</fileset>
+    </path>
 
 
-        <target name="main" depends="clean,compile"/>
+    <!--Compile the java code-->
+    <target name="compile">
+	<ant dir="checkoutApplications" inheritAll="false" target="compile" />
+	<javac srcdir="."  classpathref="default.classpath">
+	    <exclude name="checkoutApplications/*.java"/>
+	</javac>
+    </target>
+
+
+    <target name="main" depends="clean,compile">
+    </target>
 </project>
 
