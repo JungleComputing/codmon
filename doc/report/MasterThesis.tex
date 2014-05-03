@@ -446,13 +446,12 @@ and non-functional tests.
 \subsection{User-friendliness}
 \label{imp-user}
 Finally it's time to discuss the user-friendliness of \project{}. As we said before, we don't want to bother the \project{} users with its internal mechanisms. Neither do we want to bother them with 
-its time consuming configuration. This section describes the why \project{} is a very user friendly environment.\\
+its time consuming configuration. This section describes why \project{} is a very user friendly environment.\\
 
 \subsubsection{The initialization file}
 \label{imp:init}
 \noindent Before the \project{} environment is able to run one or more tests on a software, it has to know where it can find this software and extract it from its repository. This information and other information has to be added to 
-the \emph{initialization file}, which is an XML file. This file is stored at \emph{"codmon/codmon/local/checkoutApplications/"}. Listing \ref{list:init} shows the structure of the init file. The explanation 
-of its elements is shown in table \ref{tab:init}. \\
+the \emph{initialization file}, which is an XML file. Listing \ref{list:init} shows the structure of the init file. The explanation of its elements is shown in table \ref{tab:init}. \\
 
 \lstset{
   captionpos=b,
@@ -495,7 +494,7 @@ of its elements is shown in table \ref{tab:init}. \\
 \end{table}
 
 
-\noindent So the only tasks that are left for a user  when he wants to test a new software component is adding a new project to the initialization file and add them to a (new) sensor file. When a user wants 
+\noindent The only tasks that are left for a user  when he wants to test a new software component is adding a new project to the initialization file and create a new sensor file for it. When a user wants 
 to use or create his own tests he must create its own wrapper(s) for this. 
 
 \subsubsection{Virtual environments}
@@ -511,23 +510,25 @@ install and preconfigure \project{} in this image. When this is done successfull
 \section{Discussion}
 \label{sec:evaluation}
 In section \ref{subsec:Problemstatement} we proposed the following question: \emph{"Is it possible to design a multi-platform, modular test environment"}? In addition, we've studied if it would be 
-possible to design such a test environment in a user friendly way, meaning that it must be possible to easily add both new test cases and software without knowing anything about the internal mechanisms of this test environment. 
+possible to design such a test environment in a user-friendly way, meaning that it must be possible to easily add both new test cases and software without knowing anything about the internal mechanisms of this test environment. 
 In section \ref{sec:road} and \ref{sec:Codmon2.0} we showed that, at first sight, the answer to these questions can be answered with yes. Before making that our final conclusion let's first take a deeper look 
 into what we have a achieved and discuss the pros and cons of \project{}. \\
 
 \subsection{Multi-platform}
 \label{dis:multi}
-Let's first take a look at the Multi-platform requirement. A software program or environment is considered to be multi-platform \emph{when it is compatible with or involving more than one type of computer or 
-operating system}\cite{def:multi}. When we take a look at what we describe in sections \ref{road:multi} and \ref{imp:multi} we see that ,in contrast to the Codmon framework, \project{} is completely written in 
-the Java programming language. Because the same Java code can run on a wide range of platforms we can say with certainty that the \project{} environment will run on multiple platforms. Also the behavior will be 
-the same on these different platforms\cite{Java}. 
+Let's first take a look at the multi-platform requirement. A software program or environment is considered to be multi-platform \emph{when it is compatible with or involving more than one type of computer or 
+operating system}\cite{def:multi}. This will say that \project{} must be able to run on multiple platforms and that its runtime behavior is the same on these platforms. To achieve this we built the whole 
+\project{} environment, in contrast to the Codmon framework, in the Java programming language. By doing this, at least we are sure \project{} runs on multiple platforms\cite{Java}.\\
+
+\noindent That \project{} runs on multiple platforms doesn't mean that the runtime behavior is also the same on these platforms. To see if \project{} is indeed multi-platform we need to run it on multiple 
+platforms. 
 
 \subsection{Modularity}
 \label{dis:modular}
-The second requirement we have to discuss is the modularity of the \project{} environment. This is a little less straight forward than the Multi-platform requirement. The main question we have to answer is: 
-\emph{When do consider the environment to be modular}. Is it modular if a user of the environment can add new tests in a straight forward manner? Is it modular when it is easy to add new, or extend, utility 
+The second requirement we have to discuss is the modularity of the \project{} environment. This is a little less straightforward than the Multi-platform requirement. The main question we have to answer is: 
+\emph{when do we consider the environment to be modular?}. Is it modular if a user of the environment can add new tests in a straightforward manner? Is it modular when it is easy to add new, or extend, utility 
 modules like the checkout Applications module? Or is \project{} environment only modular if the core program itself is modular as well? To answer this question we have to consider what the main purpose of the 
-\project{} environment is. When we summarize all the requirements we can see that the environment should be especially easy in being in use and maintenance. This brings us nothing further. What do we mean by 
+\project{} environment is. When we summarize all the requirements we can see that the environment should be especially easy to use and maintain. This brings us nothing further. What do we mean by 
 maintenance? Are we talking about the \project{} core program or about adding (and removing) functionality and tests? 
 
 \subsection{User-friendliness}
@@ -549,11 +550,14 @@ this would be a security risk.
 
 \subsection{Conclusion}
 \label{dis:conclusion}
-Now we have discussed the different requirements of the \project{} environment we can conclude that due to the usage of Java and Ant \project{} is a \emph{multi-platform} environment \ref{dis:multi}. When we only take the 
-modularity regarding to usage and maintenance of the environment into account and not of the \project{} core program, \project{} is also \emph{modular} \ref{dis:modular}. When we take the \project{} into account it's 
-only partially modular. Looking at the \emph{user-friendliness} \ref{dis:user} of \project{} it depends of the person how he or she thinks about user-friendliness. Though one thing we can say about \project{} 
-the possibility of preconfigured virtual machines and the way of adding new to be tested software, sensors and utility modules definitely offers some user-friendliness!
+Now we have discussed the different requirements of the \project{} environment we can conclude that due to the usage of Java and Ant \project{} runs on multiple platforms. To see that the runtime behavior is 
+the same on these platforms we created different images of \project{}, both Windows and Linux. Running the same tests in these images showed us that the runtime behavior is also the same on these platforms. So
+we can cocnclude that \project is a \emph{multi-platform} environment \ref{dis:multi}.\\
 
+\noindent When we only take the modularity regarding to usage and maintenance of the environment into account and not of the \project{} core program, \project{} is also \emph{modular} \ref{dis:modular}. 
+When we take the \project{} into account it's only partially modular. Looking at the \emph{user-friendliness} \ref{dis:user} of \project{} it depends of the person how he or she thinks about 
+user-friendliness. Though one thing we can say about \project{} the possibility of preconfigured virtual machines and the way of adding new to be tested software, sensors and utility modules definitely 
+offers some user-friendliness!
 
 \newpage
 \section{Future work and Recommendations}
@@ -765,7 +769,7 @@ public class Ant{
   caption = \emph{Invoking the right update method},
   label =list:invoke
 }
-\begin{lstlisting}[frame=single ,language=Java]
+\begin{lstlisting}[frame=single ,language=Java,showstringspaces=false]
 private void checkoutProject(Node project) throws SVNException, NoFilepatternException,GitAPIException,WrongRepositoryStateException, InvalidConfigurationException, DetachedHeadException, InvalidRemoteException, CanceledException, RefNotFoundException, NoHeadException,IOException {
 	String url, type, projectName,user,pwd,command;
 	long rev= -1;
@@ -779,16 +783,18 @@ private void checkoutProject(Node project) throws SVNException, NoFilepatternExc
 		user = eElement.getElementsByTagName("user").item(0).getTextContent();
                 pwd = eElement.getElementsByTagName("pwd").item(0).getTextContent();	
 		if(type.equals("svn")){
-			SVN svnRep = new SVN(basePath, projectName, user,pwd,url,command);
+			VersionControl svnRep = new SVN(basePath, projectName, user,pwd,url,command);
 			if("checkout".equals(command)||"export".equals(command)){
 			 	svnRep.update();
 			}	
-			rev = svnRep.getRev();
+			try{	
+			  rev = svnRep.getRev();
+			}catch(MethodNotSupportedException e){/*Method is implemented for SVN*/}
 			if(checkOldLog(projectName,rev)){
 				svnRep.updateLog();
 			}
 		}else if(type.equals("git")){
-			GitObject gitRep = new GitObject(basePath,projectName,url,user,pwd);
+			VersionControl gitRep = new GitObject(basePath,projectName,url,user,pwd);
 			if("clone".equals(command)){
 				gitRep.update();
 			}
@@ -796,7 +802,7 @@ private void checkoutProject(Node project) throws SVNException, NoFilepatternExc
 				gitRep.updateLog();
 			}
 		}else{
-			//throw SVNException("Version control system not found");
+			throw new VersionControlException("Version control system not found");
 		}
 	}	
 }
