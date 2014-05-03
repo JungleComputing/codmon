@@ -341,9 +341,10 @@ the name of the sensor file that describes the tests that will be executed in th
 first time \project{} is used, four result folders are created: Three history folders and a "current result" folder. Otherwise the results of the previous test-runs are copied to history folders in the 
 current result folder, called \emph{dday}, has space for the new test results \footnote{For historic reasons the result folders are called dday,dday1,dday2 etc.}.\\
 
-\noindent When all the result files of the previous tests are copied to the history folders the \project{} core program can be started. Because this is a completely new Java program we needed a way to pass 
-the sensor file parameter to the core program. Remember at this stage \project{} is already built. So to achieve this we have to make use of \emph{dynamic class loading}. Dynamic class loading means that only 
-at runtime is decided which (Java) class is called. Listings \ref{list:method} and \ref{list:run} in Appendix \ref{AppendixA} show how this is implemented in the \project{} environment.
+\noindent When all the result files of the previous tests are copied to the history folders the \project{} core program can be started. To increase the modularity of \project{} this is done dynamically, so 
+it is possible to start different programs with the same StartUp module. Because this is a completely new Java program we needed a way to pass the sensor file parameter to the core program. Remember at 
+compile it is unknown which program has to be initiated. So to achieve this we have to make use of \emph{dynamic class loading}. Dynamic class loading means that which (Java) class is called is determined 
+at runtime. Listings \ref{list:method} and \ref{list:run} in Appendix \ref{AppendixA} show how this is implemented in the \project{} environment.
 
 \subsubsection{Ant-connector}
 \label{imp:ant}
@@ -598,7 +599,7 @@ private Method getStartMethod(String[] argv){
   String[] jars = getJars();
   try{
     ClassLoader loader = getClassLoader(jars);
-    cl = loader.loadClass("Stats");
+    cl = loader.loadClass(argv[0]);
     m = cl.getMethod("main", new Class[] { argv.getClass() });
   }catch(Exception e){
     System.out.println(e.getMessage());
@@ -629,7 +630,7 @@ private Method getStartMethod(String[] argv){
  	*Invoke method m with the correct parameters
  	*/ 
 	private void run(Method m,String[] argv){
-		String sensor = argv[0];
+		String sensor = argv[1];
 		String[] statsArgs = new String[2];
 		statsArgs[0] = "../sensors-"+sensor+".xml";
 		statsArgs[1] = "../dday/shot-"+sensor+".xml";
