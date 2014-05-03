@@ -56,16 +56,18 @@ public class Checkout{
 			user = eElement.getElementsByTagName("user").item(0).getTextContent();
                         pwd = eElement.getElementsByTagName("pwd").item(0).getTextContent();	
 			if(type.equals("svn")){
-				SVN svnRep = new SVN(basePath, projectName, user,pwd,url,command);
+				VersionControl svnRep = new SVN(basePath, projectName, user,pwd,url,command);
 				if("checkout".equals(command)||"export".equals(command)){
 				 	svnRep.update();
-				}	
-				rev = svnRep.getRev();
+				}
+				try{	
+					rev = svnRep.getRev();
+				}catch(MethodNotSupportedException e){/*Method is implemented for SVN*/}
 				if(checkOldLog(projectName,rev)){
 					svnRep.updateLog();
 				}
 			}else if(type.equals("git")){			
-				GitObject gitRep = new GitObject(basePath,projectName,url,user,pwd);
+				VersionControl gitRep = new GitObject(basePath,projectName,url,user,pwd);
 				if("clone".equals(command)){
 					gitRep.update();
 				}

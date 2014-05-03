@@ -145,5 +145,10 @@ public class GitObject implements VersionControl{
 		cmd.setCredentialsProvider(cp);
 		cmd.call();    	
 	}
+
+
+	public long getRev()throws MethodNotSupportedException{
+		throw new MethodNotSupportedException("This method is not supported for the Git implementation");
+	}
                 
 }
