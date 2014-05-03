@@ -297,6 +297,14 @@ public interface VersionControl{
 	*If there is a logfile it updates the existing logfile
 	**/
 	public void updateLog() throws VersionControlException;
+
+
+	/**
+	*Returns the revision nr of the last commit.
+	*Because this doesn't make sense for all version control
+	*system it may throw a MethodNotSupportedException.
+	**/
+	public long getRev() throws MethodNotSupportedException;
 }
 \end{code}
 
@@ -348,8 +356,8 @@ at runtime. Listings \ref{list:method} and \ref{list:run} in Appendix \ref{Appen
 
 \subsubsection{Ant-connector}
 \label{imp:ant}
-A second issue we had to deal with were the the sensors in the sensor files. In section \ref{road:multi} we have already seen the new sensor structure. A wrapper is a separated process which has to be started by 
-the \project{} core program.  When the \project{} core program evaluates a sensor it first extracts the the wrapper from the sensor \emph{cmd}-attribute. After this also the Ant-target is extracted from the 
+A second issue we had to deal with were the sensors in the sensor files. In section \ref{road:multi} we have already seen the new sensor structure. A wrapper is a separate process which has to be started by 
+the \project{} core program.  When the \project{} core program evaluates a sensor it first extracts the wrapper from the sensor \emph{cmd}-attribute. Then the Ant-target is extracted from the 
 \emph{cmd}-attribute. If we use the sensor of listing \ref{list:imp_sensor} the wrapper will be the \emph{TimeWrapper}, while the Ant-target will be \emph{"run"}.\\
 
 \lstset{
@@ -375,7 +383,7 @@ in this case, the TimeWrapper.\\
 \lstset{
   captionpos=b,
   caption = \emph{Start a new process: The different elements of the CMD attribute of the sensor described in listing \ref{list:imp_sensor} are separately stored in the \emph{argList} argument. The dir argument 
-sets the place from where the process should start},
+indicates the location from where the process should start},
   label =list:process
 }
 \begin{lstlisting}[frame=shadowbox, language=Java,showstringspaces=false]
