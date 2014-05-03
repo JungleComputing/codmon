@@ -118,7 +118,7 @@ public class StartUp{
 		String[] jars = getJars();;
 		try{
 		        ClassLoader loader = getClassLoader(jars);
-			cl = loader.loadClass("Stats");
+			cl = loader.loadClass(argv[0]);
 			m = cl.getMethod("main", new Class[] { argv.getClass() });
 		}catch(Exception e){
 			System.out.println(e.getMessage());
@@ -144,7 +144,6 @@ public class StartUp{
  	*/ 	 	
 	private Method init(String[] argv){
 		File[] directories = createDdayDirectories(4);
-	//	createBasicFiles();
 		copyData(directories);
 		return getStartMethod(argv);
 	}
@@ -155,7 +154,7 @@ public class StartUp{
  	*Invoke method m with the correct parameters
  	*/ 
 	private void run(Method m,String[] argv){
-		String sensor = argv[0];
+		String sensor = argv[1];
 		String[] statsArgs = new String[2];
 		statsArgs[0] = "../sensors-"+sensor+".xml";
 		statsArgs[1] = "../dday/shot-"+sensor+".xml";
@@ -177,12 +176,14 @@ public class StartUp{
 	/**
  	*@author bvl300
  	*Checks the paramters and if correct, starts a new stats programm
+	*@param agr[0] is the program that has to start.
+	*@param arg[1] is the wrapper that is used.
  	* */ 	 
 	public static void main(String argv[]){
-		if(argv.length ==1){
+		if(argv.length ==2){
 			new StartUp(argv);
 		}else{
-			System.out.println("Stats expects a sensor as a paramater");
+			System.out.println("Stats expects a program and a sensor as a paramaters");
 		}
 	}
 }
