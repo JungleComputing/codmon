@@ -158,7 +158,7 @@ public class SVN implements VersionControl{
 	//---------------------Getters and Setters---------------------/
 	
 
-	public long getRev(){
+	public long getRev()throws MethodNotSupportedException{
 		return this.rev;
 	}
 
