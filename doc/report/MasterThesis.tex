@@ -324,27 +324,26 @@ has to do is add a new test to the Sensor file, and create an Ant target for thi
 \section{The implementation of \project{}}
 \label{sec:Codmon2.0}
 In this section we'll describe how we've implemented the decisions made in section \ref{sec:road} in the \project{} project. We'll start with the parts that were necessary to achieve that \project{} is multi-platform 
-followed by the parts that affect the modularity. We end this section with the parts that affect user-friendliness. When someone wants to use the \project{} test environment there are two options he can choose 
+followed by the parts concerning the modularity of \project{}. We end this section with the parts that provide user-friendliness. When someone wants to use the \project{} test environment there are two options  
 to get access to this environment. We'll come to these options later in this section. For now we assume the user has access to a working \project{} environment.
 
-\subsection{multi-platform}
+\subsection{Multi-platform}
 \label{imp:multi}
-In the previous sections we mentioned that the tangle of shell-scripts and PERL-code ensures that Codmon isn't multi-platform. To ensure that \project{} is multi-platform we've chosen to implement the 
-\project{} environment completely in Java. First we describe how we've implemented the initialization of a test run. Then we describe how both the tests and the software that is tested are connected together.
+In the previous sections we mentioned that the tangle of shell-scripts and PERL-code ensures that Codmon isn't multi-platform. To ensure that \project{} is multi-platform we chose to implement the 
+\project{} environment completely in Java. First we describe how we implemented the initiation of a test run. Then we describe how both the tests and the software that is tested are connected together.
 
 \subsubsection{Initialization}
 \label{imp:start}
-In a non multi-platform environment it is very easy to create a shell-script (or a batch-file in case of Windows) to start a program. In Java, this is a little more complex.\\
+In a single-platform environment it is very easy to create a shell-script (or a batch-file in case of Windows) to start a program. In Java, this is a little more complex.\\
 
 \noindent In section \ref{imp:modular} we describe that everything outside the \project{} core program is a separated module, including the start-up module. The start-up module is called with one parameter namely: 
-the name of the sensor file that describes the tests that will be executed in this run. The start-up module is responsible for a couple of tasks. First it initializes the \project{} environment. If it is the 
-first time \project{} is used, four result folders are created. Otherwise the results of the previous test-runs are copied to history folders so in the current result folder is space for the new 
-test results \footnote{For historic reasons the result folders are called dday,dday1,dday2 etc.}. The \emph{dday} folder is used to store the results of the current run, while the other folders are used to 
-store the results of previous runs.\\
+the name of the sensor file that describes the tests that will be executed in this run. The start-up module is responsible for several tasks. First it initializes the \project{} environment. If it is the 
+first time \project{} is used, four result folders are created: Three history folders and a "current result" folder. Otherwise the results of the previous test-runs are copied to history folders in the 
+current result folder, called \emph{dday}, has space for the new test results \footnote{For historic reasons the result folders are called dday,dday1,dday2 etc.}.\\
 
-\noindent When the all the result files of the previous tests are copied to the right place the \project{} core program can be started. Because this is a completely new Java program we needed a way to pass the sensor file parameter to 
-the core program. Remember at this stage \project{} is already built. So to achieve this we have to make use of \emph{dynamic class loading}. Dynamic class loading means that only at runtime is decided which 
-(Java) class is called. Listings \ref{list:method} and \ref{list:run} in Appendix \ref{AppendixA} show how this is implemented in the \project{} environment.
+\noindent When all the result files of the previous tests are copied to the history folders the \project{} core program can be started. Because this is a completely new Java program we needed a way to pass 
+the sensor file parameter to the core program. Remember at this stage \project{} is already built. So to achieve this we have to make use of \emph{dynamic class loading}. Dynamic class loading means that only 
+at runtime is decided which (Java) class is called. Listings \ref{list:method} and \ref{list:run} in Appendix \ref{AppendixA} show how this is implemented in the \project{} environment.
 
 \subsubsection{Ant-connector}
 \label{imp:ant}
