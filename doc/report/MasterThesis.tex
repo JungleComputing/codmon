@@ -247,7 +247,7 @@ We also saw that in the original Codmon framework the core of a sensor consists 
 program. This program should also be able to run on multiple platforms, so writing these programs in Java as well is an obvious choice. So now we have a Java wrapper and a Java program. We thus need a 
 multi-platform construction that, at least, is able to start a program. We have chosen to use \emph{Ant} for this. The main reason to choose Ant is that it provides us with a lot of flexibility. Lets take 
 a look at the following example. A user who wants to test a piece of Java software probably already has a build file for building the software. So there is nothing new here. The only thing the user has 
-to add is a new ant-target, which starts the program. Listing \ref{list:sensorNew} shows an exmaple of the new sensor structure.
+to add is a new ant-target, which starts the program. Listing \ref{list:sensorNew} shows an example of the new sensor structure.
 
 \lstset{
   captionpos=b,
@@ -293,8 +293,8 @@ public interface VersionControl{
 	public void update() throws VersionControlException;
 	
 	/**
-	*If there is no logfile it creates the logfile. 
-	*If there is a logfile it updates the existing logfile
+	*If there is no log file it creates the log file. 
+	*If there is a log file it updates the existing log file
 	**/
 	public void updateLog() throws VersionControlException;
 
@@ -355,6 +355,7 @@ current result folder, called \emph{dday}, has space for the new test results \f
 it is possible to start different programs with the same StartUp module. Because this is a completely new Java program we needed a way to pass the sensor file parameter to the core program. Remember at 
 compile it is unknown which program has to be initiated. So to achieve this we have to make use of \emph{dynamic class loading}. Dynamic class loading means that which (Java) class is called is determined 
 at runtime. Listings \ref{list:method} and \ref{list:run} in Appendix \ref{AppendixA} show how this is implemented in the \project{} environment.
+
 
 \subsubsection{Ant-connector}
 \label{imp:ant}
@@ -497,7 +498,10 @@ the \emph{initialization file}, which is an XML file. Listing \ref{list:init} sh
 
 
 \noindent The only tasks that are left for a user  when he wants to test a new software component is adding a new project to the initialization file and create a new sensor file for it. When a user wants 
-to use or create his own tests he must create its own wrapper(s) for this. 
+to use or create his own tests he must create its own wrapper(s) for this.\\ 
+
+\noindent There is only one issue left that we have to mention here. The initialization file contains two fields, namely \emph{user} and \emph{pwd}. For this thesis it is OK to do it this way, but in real life 
+this would be a security risk. 
 
 \subsubsection{Virtual environments}
 \label{imp:virual}
@@ -535,49 +539,48 @@ maintenance? Are we talking about the \project{} core program or about adding (a
 
 \subsection{User-friendliness}
 \label{dis:user}
-Where in section \ref{dis:multi} the question was straight forward and in section \ref{dis:modular} the discussion was only about two different viewpoints, the subject of User-friendliness is even less trivial. 
+Where in section \ref{dis:multi} the question was straightforward and in section \ref{dis:modular} the discussion was only about two different viewpoints, the subject of user-friendliness is even more complex. 
 Where one person might say it is user-friendly when the environment is quick and easy to use, another person might say that an environment is only user-friendly when is has a nice and fancy user interface.\\
 
 \noindent Let's first look at how easy the \project{} environment is in its usage. The user can easily download a \project{} environment image and install this in VM-ware or Virtual box. When this is done, 
 \project{} is immediately ready for usage. In section \ref{imp:modular} we also showed how easy it is to add new tests and (utility) modules like the checkoutApplications module. So when we only take this into 
-account we can say , yes the \project{} environment is user friendly.\\
+account we can conclude that the \project{} environment is user friendly.\\
 
-\noindent Now let's take a look a the second issue. Both adding new software that should be tested as well ass adding tests to a sensor file is,as we've described above, quite easy. The only difficulty some users 
-could have with it is that they directly have to edit XML files. Doing this, using a nice and fancy user interface could improve the user-friendliness of \project{}. Also Adding both to be tested software and new 
-sensors via a graphical user interface will reduce the risk of errors in these files. Such a user interface could also be used to display the test results. Doing it this way \project{} appears as one coherent 
-environment to its users.\\
-
-\noindent There is only one issue left that we have to discuss here. The initialization file contains two fields, namely \emph{user} and \emph{pwd}. For this thesis it is OK to do it this way, but in real life 
-this would be a security risk. 
+\noindent Now let's take a look at the second issue. Earlier we've described mechanisms for both adding new software that should be tested, as well ass adding tests to a sensor file. The only difficulty 
+some users could have with it is that they directly have to edit XML files. Doing this, using a nice and fancy user interface could improve the user-friendliness of \project{}. Also, adding both to be 
+tested software and new sensors via a graphical user interface will reduce the risk of errors in these files. Such a user interface could also be used to display the test results. Doing it this way, 
+\project{} would appear as one coherent environment to its users.\\
 
 \subsection{Conclusion}
 \label{dis:conclusion}
-Now we have discussed the different requirements of the \project{} environment we can conclude that due to the usage of Java and Ant \project{} runs on multiple platforms. To see that the runtime behavior is 
+Now that we have discussed the different requirements of the \project{} environment we can conclude, that due to the usage of Java and Ant, \project{} runs on multiple platforms. To see that the runtime behavior is 
 the same on these platforms we created different images of \project{}, both Windows and Linux. Running the same tests in these images showed us that the runtime behavior is also the same on these platforms. So
-we can cocnclude that \project is a \emph{multi-platform} environment \ref{dis:multi}.\\
+we can conclude that \project is a \emph{multi-platform} environment \ref{dis:multi}.\\
 
-\noindent When we only take the modularity regarding to usage and maintenance of the environment into account and not of the \project{} core program, \project{} is also \emph{modular} \ref{dis:modular}. 
-When we take the \project{} into account it's only partially modular. Looking at the \emph{user-friendliness} \ref{dis:user} of \project{} it depends of the person how he or she thinks about 
+\noindent When we only take the modularity regarding to usage and maintenance of the environment into account and not that of the \project{} core program, \project{} is also \emph{modular}. 
+When we take the \project{} into account it's only partially modular.\\
+
+\noindent Looking at the \emph{user-friendliness} of \project{} it depends of the person how he or she thinks about 
 user-friendliness. Though one thing we can say about \project{} the possibility of preconfigured virtual machines and the way of adding new to be tested software, sensors and utility modules definitely 
 offers some user-friendliness!
 
 \newpage
 \section{Future work and Recommendations}
 \label{sec:future}
-Finally we describe, the sections above, what future work and research, regarding to \project{}, could be done to improve it. When we take a look at what we've described in sections \ref{dis:modular} and 
+Finally we describe what future work and research, regarding to \project{}, could be done to improve it. When we take a look at what we've described in sections \ref{dis:modular} and 
 \ref{dis:conclusion} we see that the \project{} core program is still one big monolithic program. To improve the maintainability of \project{} it would be useful to see if and how we can transform this monolithic 
 program into a program with a more modular design.\\
 
 \noindent In sections \ref{dis:user} and \ref{dis:conclusion} we described different views on user friendliness. In our opinion the biggest improvement could be gained with a nice and fancy user interface. It would 
-really worth to do some future research to see if it is possible to combine \project{} with a tool like Jenkins \cite{JenkinsDoc}. Jenkins could probably provide a user interface to at least start tests that use 
+really worth while to see if it is possible to combine \project{} with a tool like Jenkins \cite{JenkinsDoc}. Jenkins could probably provide a user interface to at least start tests that use 
 different sensor files. It probably also could generate nice and more fancy representations of the test results! It also could provide us with one and the same user interface that could control the whole \project{} 
 environment.\\
 
-\noindent Another interesting question to do some research on is: Is it possible to test non-Java software with \project{}?. It is possible for an Ant target to run non-Java software. But a more interesting 
+\noindent Another interesting question to investigate is: is it possible to test non-Java software with \project{}? It is possible for an Ant target to run non-Java software. But a more interesting 
 question is how can we assure that the software is compiled for the right platform?\\
 
-\noindent The last issue that requires attention is the security regarding the version control modules. As we described in \ref{imp:init} the user and pwd are written in plaint text. To prevent security issues some 
-research need to be done on this.
+\noindent The last issue that requires attention is the security regarding the version control modules. As we described in \ref{imp:init} the username and password are written in plaint text. To prevent 
+security issues some work needs to be done on this.
 
 \newpage
 \bibliography{Master}
