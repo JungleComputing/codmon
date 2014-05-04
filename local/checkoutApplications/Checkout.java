@@ -41,11 +41,11 @@ public class Checkout{
 	
 	/**
  	*@author bvl300
- 	*Checks out a specifc project and creates or updates the logfile
+ 	*Checks what versioncontrol system is used and
+	*Checks out a specifc project and creates or updates the logfile
  	*/ 
 	private void checkoutProject(Node project) throws VersionControlException{
 		String url, type, projectName,user,pwd,command;
-		long rev= -1;
 		if (project.getNodeType() == Node.ELEMENT_NODE) {
  			Element eElement = (Element) project;
  
@@ -57,27 +57,28 @@ public class Checkout{
                         pwd = eElement.getElementsByTagName("pwd").item(0).getTextContent();	
 			if(type.equals("svn")){
 				VersionControl svnRep = new SVN(basePath, projectName, user,pwd,url,command);
-				if("checkout".equals(command)||"export".equals(command)){
-				 	svnRep.update();
-				}
-				try{	
-					rev = svnRep.getRev();
-				}catch(MethodNotSupportedException e){/*Method is implemented for SVN*/}
-				if(checkOldLog(projectName,rev)){
-					svnRep.updateLog();
-				}
+				fetch(svnRep,projectName);				
 			}else if(type.equals("git")){			
 				VersionControl gitRep = new GitObject(basePath,projectName,url,user,pwd);
-				if("clone".equals(command)){
-					gitRep.update();
-				}
-				if(checkOldLog(projectName,rev)){
-					gitRep.updateLog();
-				}
+				fetch(gitRep,projectName);				
 			}else{
 				throw new VersionControlException("Version control system not found");
 			}
 		}	
+	}
+
+	
+	private void fetch(VersionControl vc,String projectName) throws VersionControlException{
+		long rev =-1;
+		vc.update();
+		try{	
+			rev = vc.getRev();
+		}catch(MethodNotSupportedException e){
+			System.out.println(e.getMessage());
+		}
+		if(checkOldLog(projectName,rev)){
+			vc.updateLog();
+		}
 	}
 
 
