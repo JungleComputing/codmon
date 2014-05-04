@@ -299,10 +299,12 @@ public interface VersionControl{
 	public void updateLog() throws VersionControlException;
 
 
-	/**
+	/**
+
 	*Returns the revision nr of the last commit.
 	*Because this doesn't make sense for all version control
-	*system it may throw a MethodNotSupportedException.
+	*system it may throw a MethodNotSupportedException.
+
 	**/
 	public long getRev() throws MethodNotSupportedException;
 }
@@ -770,11 +772,10 @@ public class Ant{
   label =list:invoke
 }
 \begin{lstlisting}[frame=single ,language=Java,showstringspaces=false]
-private void checkoutProject(Node project) throws SVNException, NoFilepatternException,GitAPIException,WrongRepositoryStateException, InvalidConfigurationException, DetachedHeadException, InvalidRemoteException, CanceledException, RefNotFoundException, NoHeadException,IOException {
+private void checkoutProject(Node project) throws VersionControlException{
 	String url, type, projectName,user,pwd,command;
-	long rev= -1;
 	if (project.getNodeType() == Node.ELEMENT_NODE) {
-			Element eElement = (Element) project;
+		Element eElement = (Element) project;
 
 		url = eElement.getElementsByTagName("location").item(0).getTextContent();
 		type = eElement.getElementsByTagName("type").item(0).getTextContent();
@@ -784,27 +785,28 @@ private void checkoutProject(Node project) throws SVNException, NoFilepatternExc
                 pwd = eElement.getElementsByTagName("pwd").item(0).getTextContent();	
 		if(type.equals("svn")){
 			VersionControl svnRep = new SVN(basePath, projectName, user,pwd,url,command);
-			if("checkout".equals(command)||"export".equals(command)){
-			 	svnRep.update();
-			}	
-			try{	
-			  rev = svnRep.getRev();
-			}catch(MethodNotSupportedException e){/*Method is implemented for SVN*/}
-			if(checkOldLog(projectName,rev)){
-				svnRep.updateLog();
-			}
-		}else if(type.equals("git")){
+			fetch(svnRep,projectName);				
+		}else if(type.equals("git")){			
 			VersionControl gitRep = new GitObject(basePath,projectName,url,user,pwd);
-			if("clone".equals(command)){
-				gitRep.update();
-			}
-			if(checkOldLog(projectName,rev)){
-				gitRep.updateLog();
-			}
+			fetch(gitRep,projectName);				
 		}else{
 			throw new VersionControlException("Version control system not found");
 		}
 	}	
+}
+
+	
+private void fetch(VersionControl vc,String projectName) throws VersionControlException{
+	long rev =-1;
+	vc.update();
+	try{	
+		rev = vc.getRev();
+	}catch(MethodNotSupportedException e){
+		System.out.println(e.getMessage());
+	}
+	if(checkOldLog(projectName,rev)){
+		vc.updateLog();
+	}
 }
 \end{lstlisting}
 
