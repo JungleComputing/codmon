@@ -50,10 +50,6 @@ as well as software components that must be tested. It also provides mechanisms 
 is also multi-platform.
 \end{abstract}
 \newpage
-\section*{Preface}
-\label{sec:Preface}
-TODO: Preface,acknowledgements
-\newpage
 \tableofcontents
 \newpage
 
@@ -109,7 +105,7 @@ in section \ref{sec:evaluation}. In Section \ref{sec:future} we discuss the resu
 \label{sec:codmon}
 In this section we describe the original Codmon framework and its shortcomings. The original Codmon framework was built in 2005 by François Lesuer\cite{Codmon}. Originally Codmon was built for 
 testing and performance monitoring Ibis projects\cite{Ibis} \cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} on the DAS-2\cite{das2} computer. Codmon was able to perform both functional and performance tests.\footnote{At 
-this moment both the DAS-2 and Codmon aren't in use anymore.} If for some reason a particular test fails, Codmon raises an alarm and reports the failures. Codmon does so by 
+this moment both the DAS-2 and Codmon are not in use anymore.} If for some reason a particular test fails, Codmon raises an alarm and reports the failures. Codmon does so by 
 sending an email directly to the programmer who made the last changes in the software that was tested. Codmon also reports in the same way in case the measurements change significantly. 
 Next to sending an email in case of failing tests, Codmon also presents the results on a web page. It was also the intention that Codmon would be extensible. In this the Codmon programmers 
 succeeded only partially. We will discuss this more in depth in section \ref{subsec:CodmonProblems}.  
@@ -194,7 +190,7 @@ to the last contributor to the tested code. The same happens when one or more fu
 
 \subsection{Codmon problems}
 \label{subsec:CodmonProblems}
-The goal of this research was to see if it's possible to design a multi-platform, user friendly modular test environment. There are multiple reasons why Codmon doesn't fit the bill. In this section
+The goal of this research was to see if it's possible to design a multi-platform, user friendly modular test environment. There are multiple reasons why Codmon does not fit the bill. In this section
 we'll discuss these reasons in detail.
  
 \subsubsection{Multi-platform}
@@ -223,7 +219,7 @@ for instance.\\
 if Codmon would support multiple version control systems, for instance SVN\cite{SVN} or Git\cite{Git}. It also would be nice if other version control systems could be easily added to the test environment.
 
 
-\section{The Road to \project{}}
+\section{The road to \project{}}
 \label{sec:road}
 As we described in section \ref{subsec:Problemstatement} our goal is to develop a test environment that must at least satisfy the following requirements:
 
@@ -497,8 +493,8 @@ the \emph{initialization file}, which is an XML file. Listing \ref{list:init} sh
 \end{table}
 
 
-\noindent The only tasks that are left for a user  when he wants to test a new software component is adding a new project to the initialization file and create a new sensor file for it. When a user wants 
-to use or create his own tests he must create its own wrapper(s) for this.\\ 
+\noindent The only tasks that are left for a user  when he wants to test a new software component is adding a new project to the initialization file, create a new sensor file for it and add a run-target 
+to the software's build file (See Appendix \ref{AppendixE}.). When a user wants to use or create his own tests he must create its own wrapper(s) for this.\\ 
 
 \noindent There is only one issue left that we have to mention here. The initialization file contains two fields, namely \emph{user} and \emph{pwd}. For this thesis it is OK to do it this way, but in real life 
 this would be a security risk. 
@@ -513,7 +509,7 @@ user must do is install VM-ware (or Virtual box), download one of the provided \
 install and preconfigure \project{} in this image. When this is done successfully, VM-ware provides options to create a new distributable image of the preconfigured environment. 
 
 \newpage
-\section{Discussion}
+\section{Discussion and Conclusion}
 \label{sec:evaluation}
 In section \ref{subsec:Problemstatement} we proposed the following question: \emph{"Is it possible to design a multi-platform, modular test environment"}? In addition, we've studied if it would be 
 possible to design such a test environment in a user-friendly way, meaning that it must be possible to easily add both new test cases and software without knowing anything about the internal mechanisms of this test environment. 
@@ -524,10 +520,13 @@ into what we have a achieved and discuss the pros and cons of \project{}. \\
 \label{dis:multi}
 Let's first take a look at the multi-platform requirement. A software program or environment is considered to be multi-platform \emph{when it is compatible with or involving more than one type of computer or 
 operating system}\cite{def:multi}. This will say that \project{} must be able to run on multiple platforms and that its runtime behavior is the same on these platforms. To achieve this we built the whole 
-\project{} environment, in contrast to the Codmon framework, in the Java programming language. By doing this, at least we are sure \project{} runs on multiple platforms\cite{Java}.\\
+\project{} environment, in contrast to the Codmon framework, in the Java programming language. To connect the different Java components we made use of Ant. By doing this, at least we are sure \project{} 
+runs on multiple platforms\cite{Java}.\\
 
-\noindent That \project{} runs on multiple platforms doesn't mean that the runtime behavior is also the same on these platforms. To see if \project{} is indeed multi-platform we need to run it on multiple 
-platforms. 
+\noindent That \project{} runs on multiple platforms doesn't mean that the runtime behavior is also the same on these platforms. To see that the runtime behavior is the same on these platforms we created 
+different images of \project{}, both Windows and Linux. Running the same tests in these images showed us that the runtime behavior is also the same on these platforms. So we can conclude that \project is 
+a \emph{multi-platform} environment \ref{dis:multi}.\\
+
 
 \subsection{Modularity}
 \label{dis:modular}
@@ -535,7 +534,10 @@ The second requirement we have to discuss is the modularity of the \project{} en
 \emph{when do we consider the environment to be modular?}. Is it modular if a user of the environment can add new tests in a straightforward manner? Is it modular when it is easy to add new, or extend, utility 
 modules like the checkout Applications module? Or is \project{} environment only modular if the core program itself is modular as well? To answer this question we have to consider what the main purpose of the 
 \project{} environment is. When we summarize all the requirements we can see that the environment should be especially easy to use and maintain. This brings us nothing further. What do we mean by 
-maintenance? Are we talking about the \project{} core program or about adding (and removing) functionality and tests? 
+maintenance? Are we talking about the \project{} core program or about adding (and removing) functionality and tests?
+
+\noindent When we only take the modularity regarding to usage and maintenance of the environment into account and not that of the \project{} core program, \project{} is also \emph{modular}. 
+When we take the \project{} into account it's only partially modular.\\
 
 \subsection{User-friendliness}
 \label{dis:user}
@@ -551,18 +553,8 @@ some users could have with it is that they directly have to edit XML files. Doin
 tested software and new sensors via a graphical user interface will reduce the risk of errors in these files. Such a user interface could also be used to display the test results. Doing it this way, 
 \project{} would appear as one coherent environment to its users.\\
 
-\subsection{Conclusion}
-\label{dis:conclusion}
-Now that we have discussed the different requirements of the \project{} environment we can conclude, that due to the usage of Java and Ant, \project{} runs on multiple platforms. To see that the runtime behavior is 
-the same on these platforms we created different images of \project{}, both Windows and Linux. Running the same tests in these images showed us that the runtime behavior is also the same on these platforms. So
-we can conclude that \project is a \emph{multi-platform} environment \ref{dis:multi}.\\
-
-\noindent When we only take the modularity regarding to usage and maintenance of the environment into account and not that of the \project{} core program, \project{} is also \emph{modular}. 
-When we take the \project{} into account it's only partially modular.\\
-
-\noindent Looking at the \emph{user-friendliness} of \project{} it depends of the person how he or she thinks about 
-user-friendliness. Though one thing we can say about \project{} the possibility of preconfigured virtual machines and the way of adding new to be tested software, sensors and utility modules definitely 
-offers some user-friendliness!
+\noindent So looking at the \emph{user-friendliness} of \project{} it depends of the person how he or she thinks about user-friendliness. Though one thing we can say about \project{} the possibility of 
+preconfigured virtual machines and the way of adding new to be tested software, sensors and utility modules definitely offers some user-friendliness!
 
 \newpage
 \section{Future work and Recommendations}
@@ -813,4 +805,77 @@ private void fetch(VersionControl vc,String projectName) throws VersionControlEx
 }
 \end{lstlisting}
 
+
+\newpage
+\section{Manual for testing new software}
+\label{AppendixE}
+
+When a user wants to test his software in the \project{} environment he must execute the following steps.\\ 
+
+\noindent First the projects to be tested should be added to the initialization file. This file is stored at "codmon/local/checkoutApplications/"
+
+
+\lstset{
+  captionpos=b,
+  caption = \emph{Initialization file},
+  label =app:init
+}
+\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
+ <projects>
+	<project>
+		<name>projectname</name>
+		<location>http://www.sampleurl.com</location>
+		<versionControl>
+			<type>svn</type>
+			<command>checkout</command>
+		</versionControl>
+		<run>true</run>
+		<user>username</user>
+		<pwd>pwd</pwd>
+	</project>
+</projects>
+\end{lstlisting} 
+
+\noindent Second a sensor file, which describes the the test set, should be created. In this sensor file each sensor describes a test. The sensor file should be stored at "codmon/".  In listing \ref{app:sensor} 
+The Time wrapper test is used to test the building time of the checkoutApplications module.
+
+\lstset{
+  captionpos=b,
+  caption = \emph{Sensor file},
+  label =app:sensor
+}
+\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="libs/style.xml"?>
+
+<sensors>
+	<onoff>
+		<!-- build checkout module-->
+		<sensor id="build_ok" name="TestApps: Build Checkout" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant" scope="checkOut" scheduled="false" graph="true" fatal="true" />
+	</onoff>
+
+	<graph>
+	</graph>
+</sensors>
+\end{lstlisting}
+
+\noindent The last thing the user has to do is adding a run-target to the build.xml of his software, which can be invoked by the Ant-connector.
+
+\lstset{
+  captionpos=b,
+  caption = \emph{Ant run-target},
+  label =app:target
+}
+\begin{code}[frame=shadowbox, language=XML,showstringspaces=false]
+<!--Run the program-->
+	<target name="run">
+		<java  fork="true" classname="Checkout" classpath="${env.CLASSPATH}" output="out.txt">
+	  		<classpath>
+				<path location="${jar.dir}/software.jar"/>
+	        	</classpath>
+			<arg value="${arg0}" />
+			<arg value="${arg1}" />
+		</java>
+	</target>
+\end{code}
 \end{document}    
