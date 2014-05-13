@@ -55,7 +55,7 @@ is also multi-platform.
 
 \section{Introduction}
 \label{sec:Introduction}
-This chapter introduces the \project{} project by giving a brief description of background of my research and of the
+This chapter introduces the \project{} project by giving a brief description of the background of my research and of the
 previous version of the Codmon project. It also describes the structure of this thesis.
 
 \subsection{Background}
@@ -70,12 +70,12 @@ worried about setting up the test environment.
 \subsection{Problem indication}
 \label{subsec:Problemindication}
 Nowdays there are numerous test frameworks and test environments available. For example there is \emph{Junit}\cite{Junit} for Java-unit testing and \emph{NUnit}\cite{Nunit} for \CS{}-unit testing.
-There are also different environments like Hudson\cite{HudsonDoc}\cite{Hudson}, Jenkins\cite{JenkinsDoc} which can build a project and run a series of (unit) tests against this project. 
+There are also different environments like Hudson\cite{HudsonDoc,Hudson}, Jenkins\cite{JenkinsDoc} which can build a project and run a series of (unit) tests against this project. 
 These frameworks and environments have both their advantages and disadvantages. One of the advantages of unit testing is that a software developer can easily add new \emph{functional} unit tests.
 One of the disadvantages is that standard unit testing ignores non-functional tests like performance testing and the deployment of the software.\\
 
 \noindent Jenkins and Hudson, like Unit tests, also have their
-disadvantages. For instance, although they both run on several platforms, in their usage they are not really platform independent. Both Hudson and Jenkins have the possibility to execute shell-scripts or 
+disadvantages. For instance, although they both run on several platforms, in their usage they are not really platform independent. Both Hudson and Jenkins have the possibility to execute shell scripts or 
 batch scripts. So, if a user wants to start a test or program he must know in advance on which platform this script has to run. Only then he can decide if he needs a shell script or a batch script. So, although 
 this is a powerful feature it is not a 100\% platform independent environment.
  
@@ -104,7 +104,7 @@ in section \ref{sec:evaluation}. In Section \ref{sec:future} we discuss the resu
 \section{Codmon}
 \label{sec:codmon}
 In this section we describe the original Codmon framework and its shortcomings. The original Codmon framework was built in 2005 by François Lesuer\cite{Codmon}. Originally Codmon was built for 
-testing and performance monitoring Ibis projects\cite{Ibis} \cite{Satin}\cite{MPJ}\cite{IPL}\cite{GMI} on the DAS-2\cite{das2} computer. Codmon was able to perform both functional and performance tests.\footnote{At 
+testing and performance monitoring Ibis projects\cite{Ibis,Satin,MPJ,IPL,GMI} on the DAS-2\cite{das2} computer. Codmon was able to perform both functional and performance tests.\footnote{At 
 this moment both the DAS-2 and Codmon are not in use anymore.} If for some reason a particular test fails, Codmon raises an alarm and reports the failures. Codmon does so by 
 sending an email directly to the programmer who made the last changes in the software that was tested. Codmon also reports in the same way in case the measurements change significantly. 
 Next to sending an email in case of failing tests, Codmon also presents the results on a web page. It was also the intention that Codmon would be extensible. In this the Codmon programmers 
@@ -118,7 +118,7 @@ In this section we will describe the design of the Codmon framework. The Codmon 
 \label{control}
 \noindent We first describe the part that controls Codmon. With controlling we mean which test will run and in which order they will run. There are two different kinds of tests, functional and non-functional 
 tests. The source code of the projects that will be tested is stored in a \emph{CVS} repository. Both the functional and non-functional tests are described in so called \emph{sensor} files. A sensor file 
-describes a "test set" that can be executed by the Codmon program. Such a sensor file consists of two parts. First there is the \emph{onoff} part, which is used functional tests. This includes the compilation 
+describes a "test set" that can be executed by the Codmon program. Such a sensor file consists of two parts. First there is the \emph{onoff} part, which is used for functional tests. This includes the compilation 
 of the software, which is a special kind of functional test. These tests can either fail or succeed. Second there is the \emph{graph} part. This part is used for the performance tests. Each test of such a test 
 set is described by a \emph{sensor-element}. The core of each sensor-element in a sensor file is the CMD attribute. This CMD attribute consists of two basic parts: a wrapper and a shell-script command. 
 This shell-script command can be anything. For instance it can be a SVN command, or a ANT job or something else. Listing \ref{list:sensor} gives an example of such a sensor.\\
@@ -132,7 +132,7 @@ This shell-script command can be anything. For instance it can be a SVN command,
 \begin{code}[frame=shadowbox, language=XML,showstringspaces=false]
  <sensor id="update_ok" 
     name="CVS update" 
-    cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.plCODMON_HOME sh codmon/local/cvsup.sh" 
+    cmd="perl CODMON_HOME/codmon/wrappers/time_wrapper.pl CODMON_HOME sh codmon/local/cvsup.sh" 
     scope="ibis" 
     scheduled="false"
     enabled="true"
@@ -141,7 +141,7 @@ This shell-script command can be anything. For instance it can be a SVN command,
 \end{code}
 
 \noindent In this case the CMD attribute apparently consists of a wrapper called \emph{time\_wrapper.pl} and a shell-script command called \emph{cvsup.sh}. The wrapper indicates the kind of test
-that is executed. The shell-script command indicates which program is tested. In case of Listing \ref{list:sensor} the update time of the CVS repository is is measured. Table \ref{tab:codsensor} describes
+that is executed. The shell-script command indicates which program is tested. In the case of Listing \ref{list:sensor} the update time of the CVS repository is is measured. Table \ref{tab:codsensor} describes
 the attributes of a sensor\cite{Codmon}.\\
 
 \begin{table}[h]
@@ -182,8 +182,8 @@ about the Codmon implementation can be found in \cite{Codmon}.\\
 \label{coreprogram}
 \noindent When a user wants to test one of the applications mentioned above, the only thing he must do is to make sure that the Codmon framework is installed on the Das-2. He needs to know nothing of the 
 Codmon program, except for how it should be started. The \emph{core-part} of Codmon is responsible for a few things. First it creates a \emph{shot} of the actual state of the programs that are 
-tested. It does this by \emph{periodically} executing a set of \emph{sensors} and collecting the output of these executions. In case of a performance test, the sensor file will make the distinction between 
-functional test and a performance test, the test information is stored in a RRD database\cite{RRD}. From this data, averages are calculated and eventually the graphs are generated\cite{Codmon}. The results 
+tested. It does this by \emph{periodically} executing a set of \emph{sensors} and collecting the output of these executions. In case of a performance test (the sensor file will make the distinction between 
+functional test and a performance test) the test information is stored in a RRD database\cite{RRD}. From this data, averages are calculated and eventually the graphs are generated\cite{Codmon}. The results 
 of a performance test will be compared with the results of previous tests and if the performance result of a test changes significantly, an alarm is raised. When an alarm is raised, an email is sent 
 to the last contributor to the tested code. The same happens when one or more functional tests fail.\\
  
@@ -226,7 +226,7 @@ As we described in section \ref{subsec:Problemstatement} our goal is to develop 
 \begin{itemize}
 \item \project{} should be \emph{multiple-platform}, which means that the same source, without making any modifications, can compile and run on multiple platforms.
 \item \project{} should be \emph{modular}, which means that it must be possible for users to easily add new components to the environment. The same should apply to developers who maintain the environment.
-\item \project{} should be \emph{user-friendly}, which means that we don't want to bother the users of the \project{} environment with its internal mechanisms of it. Also, the sensors as described in 
+\item \project{} should be \emph{user-friendly}, which means that we don't want to bother the users of the \project{} environment with its internal mechanisms. Also, the sensors as described in 
 section \ref{subsec:CodmonDesign} should all have the same structure so a user can add tests always in the same way.
 \end{itemize}
 
@@ -238,8 +238,8 @@ modify it where needed. In section \ref{sec:Codmon2.0} we show where, how and wh
 
 \subsection{Multi-platform}
 \label{road:multi}
-Because the Codmon core program is written in Java already we've decided to write the all wrappers in Java as well. Using as few languages as possible will help in maintaining the environment. 
-We also saw that in the original Codmon framework the core of a sensor consists of two parts: a wrapper and a shell-script command. In most cases this shell script command will start some 
+Because the Codmon core program is written in Java already we decided to write the all wrappers in Java as well. Using as few languages as possible will help in maintaining the environment. 
+We also saw that in the original Codmon framework the core of a sensor consists of two parts: a wrapper and a shell-script command. In most cases this shell-script command will start some 
 program. This program should also be able to run on multiple platforms, so writing these programs in Java as well is an obvious choice. So now we have a Java wrapper and a Java program. We thus need a 
 multi-platform construction that, at least, is able to start a program. We have chosen to use \emph{Ant} for this. The main reason to choose Ant is that it provides us with a lot of flexibility. Lets take 
 a look at the following example. A user who wants to test a piece of Java software probably already has a build file for building the software. So there is nothing new here. The only thing the user has 
@@ -253,7 +253,7 @@ to add is a new ant-target, which starts the program. Listing \ref{list:sensorNe
 \begin{code}[frame=shadowbox, language=XML,showstringspaces=false]
  <sensor id="update_ok" 
     name="CVS update" 
-    cmd="java <wrapper> <relative (to the Ant.class) path to build file > <ant target>" 
+    cmd="java <wrapper> <relative path to build file> <ant target>" 
     scope="ibis" 
     scheduled="false" 
     graph="true" 
@@ -265,10 +265,15 @@ In section \ref{sec:Codmon2.0} we'll show how this all is implemented in the \pr
 \subsection{Modularity}
 \label{road:modular}
 Another problem we discussed in section \ref{subsec:CodmonDesign} is the modularity of the environment. The way Codmon was designed it could only handle CVS-checkouts and updates. The \project{} 
-environment must be able to deal with different version control systems. To achieve this we decided to design separate \emph{modules} outside of the \project{} core program to take care of the checkouts and updates of the 
-software that the users want to test. Each of these modules implement the \emph{versionControl} interface for a different version-control system. Adding support for a new version-control system implies that the codmon developers 
-(or the users of \project{}) have to write a new module that implements this interface for this new version-control system. This defines mechanisms for fetching and updating the software. Next to this it 
-also provides some basic mechanism to obtain the history log of the software. Listing \ref{list:interface} shows the versionControl interface. The user only has to indicate which version control system his 
+environment must be able to deal with different version control systems. To achieve this goal we decided to design separate \emph{modules} outside of the \project{} core program to take care of the checkouts and updates of the 
+software that the users want to test. Each of these modules implement the \emph{versionControl} interface for a different version-control system.
+This interface defines mechanisms for fetching and updating the software.
+Next to this it 
+also provides a basic mechanism to obtain the history log of the software.
+Listing \ref{list:interface} shows the versionControl interface.
+Adding support for a new version-control system implies that the codmon developers 
+(or the users of \project{}) have to write a new module that implements this interface for this new version-control system.
+The user only has to indicate which version control system his 
 software is using. We discuss the implementation in more depth in section \ref{sec:Codmon2.0}.\\
 
 \lstset{
@@ -323,7 +328,7 @@ has to do the following steps.
 \noindent Now the nasty configuration details are hidden for the users of the \project{} environment. Also when a a new version of an operating system arrives, the \project{} developers only have to 
 configure one new image, which is directly available for all the users. How this works exactly we'll see in section \ref{sec:Codmon2.0}. \\
 
-\noindent Another issue concerning user-friendliness is the one of adding new tests to the sensor file. As discussed in section \ref{road:multi} adding new tests also straightforward. All a \project{} user 
+\noindent Another issue concerning user-friendliness is the one of adding new tests to the sensor file. As discussed in section \ref{road:multi} adding new tests is also straightforward. All a \project{} user 
 has to do is add a new test to the Sensor file, and create an Ant target for this test. 
 
 \newpage
@@ -342,9 +347,9 @@ In the previous sections we mentioned that the tangle of shell-scripts and PERL-
 \label{imp:start}
 In a single-platform environment it is very easy to create a shell-script (or a batch-file in case of Windows) to start a program. In Java, this is a little more complex.\\
 
-\noindent In section \ref{imp:modular} we describe that everything outside the \project{} core program is a separated module, including the start-up module. The start-up module is called with one parameter namely: 
+\noindent In section \ref{imp:modular} we describe that everything outside the \project{} core program is a separated module, including the start-up module. The start-up module is called with one parameter: 
 the name of the sensor file that describes the tests that will be executed in this run. The start-up module is responsible for several tasks. First it initializes the \project{} environment. If it is the 
-first time \project{} is used, four result folders are created: Three history folders and a "current result" folder. Otherwise the results of the previous test-runs are copied to history folders in the 
+first time \project{} is used, four result folders are created: Three history folders and a "current result" folder. Otherwise the results of the previous test-runs are copied to history folders so the 
 current result folder, called \emph{dday}, has space for the new test results \footnote{For historic reasons the result folders are called dday,dday1,dday2 etc.}.\\
 
 \noindent When all the result files of the previous tests are copied to the history folders the \project{} core program can be started. To increase the modularity of \project{} this is done dynamically, so 
@@ -366,7 +371,7 @@ the \project{} core program.  When the \project{} core program evaluates a senso
 }
 \begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
 <sensor id="checkout_ok" name="TestApps: checkout projects" 
-  cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant run"  
+  cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications run"  
   scope="checkOut" 
   scheduled="false" 
   graph="true" 
@@ -427,18 +432,19 @@ The CheckoutApplications-module is responsible for this job. The CheckoutApplica
 Currently, the CheckoutApplications module supports two different version control systems, namely Subversion (\emph{SVN}) and Git.\\
 
 \noindent
-The main checkout module is responsible for couple of tasks. First it reads the initialization file, which contains information about the test projects. We'll come back to the initialization file later. This 
+The main checkout module is responsible for several tasks. First it reads the initialization file, which contains information about the test projects. We'll come back to the initialization file later. This 
 information contains, among others, the kind of version control system that is used for this software. With this information both the update and updateLog methods for this software can be invoked (See 
 Appendix \ref{AppendixD}). For implementing these methods for SVN repositories we've used the \emph{SVNKit} Api\cite{SVNKit}. For the Git repositories we've used the \emph{JGit} 
 Api\cite{JGit}.\\
 
-\noindent For a user, now it is easy to add a sub-module for a new kind of version control system. The only thing a developer has to do is implement the update and updateLog methods. And add the calls to
-this methods to the \emph{checkoutProject} method which you could see in Appendix \ref{AppendixD}. The \emph{update} method is responsible to check if the latest version of the software is locally available for 
-testing. If this is not the case it does a checkout or update on the software's repository. The \emph{updateLog} method is responsible to maintain the log file of the software. 
+\noindent For a user, now it is easy to add a sub-module for a new kind of version control system. The only thing a developer has to do is add a module that implements the update and updateLog methods
+for this version control system, and add an instantiation of this module
+to the \emph{checkoutProject} method shown in Appendix \ref{AppendixD}. The \emph{update} method is responsible to check if the latest version of the software is locally available for 
+testing. If this is not the case it does a checkout or update on the software's repository. The \emph{updateLog} method is responsible for maintaining the log file of the software. 
 
 \subsubsection{Tests}
 \label{imp:tests}
-Adding new tests is relatively straightforward. As long as the test is written in Java a user can just add a reference to this test to the CMD-attribute of a sensor. This works the same way for, both functional 
+Adding new tests is relatively straightforward. As long as the test is written in Java a user can just add a reference to this test to the CMD-attribute of a sensor. This works the same way for both functional 
 and non-functional tests.
 
 
@@ -450,7 +456,7 @@ its time consuming configuration. This section describes why \project{} is a ver
 \subsubsection{The initialization file}
 \label{imp:init}
 \noindent Before the \project{} environment is able to run one or more tests on a software, it has to know where it can find this software and extract it from its repository. This information and other information has to be added to 
-the \emph{initialization file}, which is an XML file. Listing \ref{list:init} shows the structure of the init file. The explanation of its elements is shown in table \ref{tab:init}. \\
+the \emph{initialization file}, which is an XML file. Listing \ref{list:init} shows the structure of this initialization file. The explanation of its elements is shown in table \ref{tab:init}. \\
 
 \lstset{
   captionpos=b,
@@ -548,23 +554,23 @@ Where one person might say it is user-friendly when the environment is quick and
 \project{} is immediately ready for usage. In section \ref{imp:modular} we also showed how easy it is to add new tests and (utility) modules like the checkoutApplications module. So when we only take this into 
 account we can conclude that the \project{} environment is user friendly.\\
 
-\noindent Now let's take a look at the second issue. Earlier we've described mechanisms for both adding new software that should be tested, as well ass adding tests to a sensor file. The only difficulty 
+\noindent Now let's take a look at the second issue. Earlier we've described mechanisms for both adding new software that should be tested, as well as adding tests to a sensor file. The only difficulty 
 some users could have with it is that they directly have to edit XML files. Doing this, using a nice and fancy user interface could improve the user-friendliness of \project{}. Also, adding both to be 
 tested software and new sensors via a graphical user interface will reduce the risk of errors in these files. Such a user interface could also be used to display the test results. Doing it this way, 
 \project{} would appear as one coherent environment to its users.\\
 
-\noindent So looking at the \emph{user-friendliness} of \project{} it depends of the person how he or she thinks about user-friendliness. Though one thing we can say about \project{} the possibility of 
+\noindent So looking at the \emph{user-friendliness} of \project{} it depends on the person how he or she thinks about user-friendliness. But one thing we can certainly say about \project{}: the possibility of 
 preconfigured virtual machines and the way of adding new to be tested software, sensors and utility modules definitely offers some user-friendliness!
 
 \newpage
 \section{Future work and Recommendations}
 \label{sec:future}
-Finally we describe what future work and research, regarding to \project{}, could be done to improve it. When we take a look at what we've described in sections \ref{dis:modular} and 
-\ref{dis:conclusion} we see that the \project{} core program is still one big monolithic program. To improve the maintainability of \project{} it would be useful to see if and how we can transform this monolithic 
+Finally we describe what future work and research, regarding to \project{}, could be done to improve it. When we take a look at what we've described in sections \ref{dis:modular}
+we see that the \project{} core program is still one big monolithic program. To improve the maintainability of \project{} it would be useful to see if and how we can transform this monolithic 
 program into a program with a more modular design.\\
 
-\noindent In sections \ref{dis:user} and \ref{dis:conclusion} we described different views on user friendliness. In our opinion the biggest improvement could be gained with a nice and fancy user interface. It would 
-really worth while to see if it is possible to combine \project{} with a tool like Jenkins \cite{JenkinsDoc}. Jenkins could probably provide a user interface to at least start tests that use 
+\noindent In section \ref{dis:user} we described different views on user friendliness. In our opinion the biggest improvement could be gained with a nice and fancy user interface. It would 
+really worthwhile to see if it is possible to combine \project{} with a tool like Jenkins \cite{JenkinsDoc}. Jenkins could probably provide a user interface to at least start tests that use 
 different sensor files. It probably also could generate nice and more fancy representations of the test results! It also could provide us with one and the same user interface that could control the whole \project{} 
 environment.\\
 
@@ -814,7 +820,6 @@ When a user wants to test his software in the \project{} environment he must exe
 
 \noindent First the projects to be tested should be added to the initialization file. This file is stored at "codmon/local/checkoutApplications/"
 
-
 \lstset{
   captionpos=b,
   caption = \emph{Initialization file},
@@ -836,8 +841,8 @@ When a user wants to test his software in the \project{} environment he must exe
 </projects>
 \end{lstlisting} 
 
-\noindent Second a sensor file, which describes the the test set, should be created. In this sensor file each sensor describes a test. The sensor file should be stored at "codmon/".  In listing \ref{app:sensor} 
-The Time wrapper test is used to test the building time of the checkoutApplications module.
+\noindent Second, a sensor file, which describes the test set, should be created. In this sensor file each sensor describes a test. The sensor file should be stored at "codmon/".  In listing \ref{app:sensor} 
+the Time wrapper test is used to test the building time of the checkoutApplications module.
 
 \lstset{
   captionpos=b,
@@ -851,7 +856,7 @@ The Time wrapper test is used to test the building time of the checkoutApplicati
 <sensors>
 	<onoff>
 		<!-- build checkout module-->
-		<sensor id="build_ok" name="TestApps: Build Checkout" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant" scope="checkOut" scheduled="false" graph="true" fatal="true" />
+		<sensor id="build_ok" name="TestApps: Build Checkout" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications run" scope="checkOut" scheduled="false" graph="true" fatal="true" />
 	</onoff>
 
 	<graph>
@@ -859,7 +864,7 @@ The Time wrapper test is used to test the building time of the checkoutApplicati
 </sensors>
 \end{lstlisting}
 
-\noindent The last thing the user has to do is adding a run-target to the build.xml of his software, which can be invoked by the Ant-connector.
+\noindent Finally the user has to add a run-target to the build.xml of his software, which can be invoked by the Ant-connector.
 
 \lstset{
   captionpos=b,
@@ -878,4 +883,4 @@ The Time wrapper test is used to test the building time of the checkoutApplicati
 		</java>
 	</target>
 \end{code}
-\end{document}    
+\end{document}
