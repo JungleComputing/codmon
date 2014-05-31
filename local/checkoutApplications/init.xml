@@ -9,10 +9,10 @@
                         <command>clone</command>
                 </versionControl>
                 <run>true</run>
-		<user/>
-		<pwd/>
+		<user />
+		<pwd />
         </project>
-	<project>
+	<!-- <project>
 		<name>returnValue</name>
 		<location>https://gforge.cs.vu.nl/svn/ibis/codmon/branches/berend/testApps/returnValue</location>
 		<versionControl>
@@ -110,5 +110,5 @@
                 <run>true</run>
                 <user>bvl300</user>
                 <pwd>maYl1nda</pwd>
-          </project>
+          </project>-->
 </projects>
