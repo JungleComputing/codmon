@@ -538,6 +538,49 @@ project both on a \emph{Windows 7}-environment and on a \emph{Ubuntu 11.10}-envi
 
 \subsection{Test execution}
 \label{test:exec}
+Before we could test the software, we first had to add the \emph{Marc4j} project to the init file (listing: \ref{list:test:init}) and to a sensor file (listing: \ref{list:test:sensor}). The test that we used in 
+the sensor file, messures both the checkout and build time of the \emph{Marc4j} project.
+
+\lstset{
+  captionpos=b,
+  caption = \emph{Initialization file for testing the Marc4j project},
+  label =list:test:init
+}
+\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
+ <projects>
+	<project>
+		<name>marc4j</name>
+		<location>https://github.com/marc4j/marc4j.git</location>
+		<versionControl>
+			<type>git</type>
+			<command>clone</command>
+		</versionControl>
+		<run>true</run>
+		<user />
+		<pwd />
+	</project>
+</projects>
+\end{lstlisting} 
+
+\lstset{
+  captionpos=b,
+  caption = \emph{Sensor file for testing the Marc4j project},
+  label =list:test:sensor
+}
+\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="libs/style.xml"?>
+
+<sensors>
+	<onoff>
+		<!-- build checkout module-->
+		<sensor id="build_ok" name="TestApps: Build Checkout" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications run" scope="checkOut" scheduled="false" graph="true" fatal="true" />
+	</onoff>
+
+	<graph>
+	</graph>
+</sensors>
+\end{lstlisting}
 
 \subsection{Test results}
 \label{test:results}
