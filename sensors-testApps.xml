@@ -24,7 +24,7 @@
 		
 
 		<!--Second build the returnvalue2 project-->
-		<!--<sensor id="build_ok" name="TestApps: build marc4j" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../marc4j ant test" scope="testApps" scheduled="false" graph="true" fatal="true"/>-->
+		<sensor id="build_ok" name="TestApps: build marc4j" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../marc4j ant test" scope="testApps" scheduled="false" graph="true" fatal="true"/>
 		<!--Now it's time to run the programm-->
 	</onoff>
 
