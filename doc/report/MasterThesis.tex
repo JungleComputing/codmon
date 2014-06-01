@@ -539,14 +539,15 @@ project both on a \emph{Windows 7}-environment and on a \emph{Ubuntu 11.10}-envi
 \subsection{Test execution}
 \label{test:exec}
 Before we could test the software, we first had to add the \emph{Marc4j} project to the init file (listing: \ref{list:test:init}) and to a sensor file (listing: \ref{list:test:sensor}). The test that we used in 
-the sensor file, messures both the checkout and build time of the \emph{Marc4j} project.
+the sensor file, messures the build time of the CheckoutApplications project and both the checkout and build time of the \emph{Marc4j} project. There are no credentials needed for checking out the
+ \emph{Marc4j} project so both the \emph{user} and \emph{pwd} fields in listing \ref{list:test:init} could be left empty.
 
 \lstset{
   captionpos=b,
   caption = \emph{Initialization file for testing the Marc4j project},
   label =list:test:init
 }
-\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
+\begin{code}[frame=shadowbox, language=XML,showstringspaces=false]
  <projects>
 	<project>
 		<name>marc4j</name>
@@ -560,27 +561,33 @@ the sensor file, messures both the checkout and build time of the \emph{Marc4j} 
 		<pwd />
 	</project>
 </projects>
-\end{lstlisting} 
+\end{code} 
 
 \lstset{
   captionpos=b,
   caption = \emph{Sensor file for testing the Marc4j project},
   label =list:test:sensor
 }
-\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
+\begin{code}[frame=shadowbox, language=XML,showstringspaces=false]
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <?xml-stylesheet type="text/xsl" href="libs/style.xml"?>
 
 <sensors>
 	<onoff>
 		<!-- build checkout module-->
-		<sensor id="build_ok" name="TestApps: Build Checkout" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications run" scope="checkOut" scheduled="false" graph="true" fatal="true" />
+		<sensor id="build_checkout_ok" name="TestApps: Build Checkout" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant" scope="checkOut" scheduled="false" graph="true" fatal="true" />
+		
+		<!-- check out the  projects-->
+		<sensor id="checkout_ok" name="TestApps: checkout projects" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant run"  scope="checkOut" scheduled="false" graph="true" fatal="true"/>
+	
+		<!--Build the Marc4j project-->
+		<sensor id="build_marc4j_ok" name="TestApps: build Marc4j" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../marc4j ant dist" scope="testApps" scheduled="false" graph="true" fatal="true"/>
 	</onoff>
 
 	<graph>
 	</graph>
 </sensors>
-\end{lstlisting}
+\end{code}
 
 \subsection{Test results}
 \label{test:results}
