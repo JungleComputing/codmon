@@ -97,8 +97,9 @@ the tests to a so called wrapper file. This will be discussed in more detail in 
 \label{subsec:Thesisoutline}
 Section \ref{sec:codmon} first describes the original Codmon framework and the motivation for its development. It also identifies its shortcomings. In section \ref{sec:road}, \emph{The road to \project{}}, 
 we explain how we got to the final \project{} design. Section \ref{sec:Codmon2.0} describes the implementation of the \project{} project. 
-It starts with a general description of the project followed by a detailed explanation of the different modules of \project{}. Next we will evaluate the choices and their consequences 
-in section \ref{sec:evaluation}. In Section \ref{sec:future} we discuss the results based on section \ref{sec:evaluation}. We end this section with a brief discussion of related work.
+It starts with a general description of the project followed by a detailed explanation of the different modules of \project{}. In section \ref{test} we discuss some tests we've executed on different platforms 
+with \project{}. Next we will evaluate the choices and their consequences in section \ref{sec:evaluation}. In Section \ref{sec:future} we discuss the results based on section \ref{sec:evaluation}. We end 
+this section with a brief discussion of related work.
 
 \newpage
 \section{Codmon}
@@ -402,7 +403,7 @@ final Process pr = new ProcessBuilder(argList)
   caption = \emph{The run-target},
   label =list:runTarget
 }
-\begin{lstlisting}[frame=shadowbox, language=XML,showstringspaces=false]
+\begin{code}[frame=shadowbox, language=XML,showstringspaces=false]
 	<!--Run the Checkout program-->
 	<target name="run">
 		<java  fork="true" classname="Checkout" classpath="${env.CLASSPATH}" output="out.txt">
@@ -413,7 +414,7 @@ final Process pr = new ProcessBuilder(argList)
 			<arg value="${arg1}" />
 		</java>
 	</target>
-\end{lstlisting} 
+\end{code} 
 
 \noindent By implementing it this way it doesn't matter which (Java-)software\footnote{Theoretically it is also possible to run non-Java applications, but they are out of scope for the \project{} project. 
 See also section \ref{sec:future}.} the wrapper wants to test, it will always be done in the same way as described above.
@@ -517,7 +518,7 @@ install and preconfigure \project{} in this image. When this is done successfull
 \newpage
 \section{Testing \project{}}
 \label{test}
-In this section we will describe how we tested \project{} with an independent java project.
+In this section we describe how we have tested \project{} with an independent Java project.
 
 \subsection{Test preparation}
 \label{test:prep}
@@ -529,18 +530,20 @@ For testing \project{} we choose to use the \emph{Marc4j}\cite{marc4j} project. 
 \item It should be a 3\textsuperscript{rd} party project.
 \end{itemize} 
 
-\noindent To find a project that met the requirements described above, we browsed the \emph{Github}\cite{Github} repository. Eventually we found the \emph{Marc4j} projectm which satisfied our criteria.\\
+\noindent To find a project that met the requirements described above, we browsed the \emph{Github}\cite{Github} repository. Eventually we found the \emph{Marc4j} project which satisfied our criteria.\\
 
-\noindent After choosing a suitable test project we had to decide on which platforms, we should test this software. To show that \project{} runs on multiple platforms whe choose to test the \emph{Marc4j} 
+\noindent After choosing a suitable test project we had to decide on which platforms, we should test this software. To show that \project{} runs on multiple platforms we choose to test the \emph{Marc4j} 
 project both on a \emph{Windows 7}-environment and on a \emph{Ubuntu 11.10}-environment.\\
 
 \noindent Finally we decided to execute the tests by someone who's not involved in the project\footnote{The tests are executed by H.J. van Veenendaal.}.
 
 \subsection{Test execution}
 \label{test:exec}
-Before we could test the software, we first had to add the \emph{Marc4j} project to the init file (listing: \ref{list:test:init}) and to a sensor file (listing: \ref{list:test:sensor}). The test that we used in 
-the sensor file, messures the build time of the CheckoutApplications project and both the checkout and build time of the \emph{Marc4j} project. There are no credentials needed for checking out the
- \emph{Marc4j} project so both the \emph{user} and \emph{pwd} fields in listing \ref{list:test:init} could be left empty.
+Before we could test the software, we first had to add the \emph{Marc4j} project to the init file (listing: \ref{list:test:init}) and to a sensor file (listing: \ref{list:test:sensor}). The tests that are 
+used in the sensor file, measures the build time of the CheckoutApplications project and both the checkout and build time of the \emph{Marc4j} project. There are no credentials needed for checking out the
+ \emph{Marc4j} project so both the \emph{user} and \emph{pwd} fields in listing \ref{list:test:init} could be left empty.\\
+
+\noindent Now that we have configured the tests, they are ready for execution. The results are shown in the next section.
 
 \lstset{
   captionpos=b,
@@ -550,7 +553,7 @@ the sensor file, messures the build time of the CheckoutApplications project and
 \begin{code}[frame=shadowbox, language=XML,showstringspaces=false]
  <projects>
 	<project>
-		<name>marc4j</name>
+		<name>Marc4j</name>
 		<location>https://github.com/marc4j/marc4j.git</location>
 		<versionControl>
 			<type>git</type>
@@ -589,9 +592,31 @@ the sensor file, messures the build time of the CheckoutApplications project and
 </sensors>
 \end{code}
 
+\newpage
 \subsection{Test results}
 \label{test:results}
+During the execution of the tests we ran into one small issue. The Ant-connector expects the default build target to be named \emph{"main"}, in case of the \emph{Marc4j} project this was not the case. This 
+issue was easy to fix by adding the expected target to the \emph{cmd}-attribute of the sensor, but it something to keep in mind. Because the test executions on both the \emph{Windows} and the \emph{Ubuntu} 
+environment gave about the same results, we decided to show only the results of the \emph{Windows} environment. The results of the three tests described in section \ref{test:exec} are shown in figure 2. 
+This figure is a screenshot from a page, which is generated by the \project{} environment.\\
 
+\begin{figure}[!ht]
+  \caption{\emph{Test results}}
+  \centering
+    \includegraphics[scale=0.5]{testResults}
+\end{figure}
+
+\newpage
+\noindent The page displays a few elements. On top of the page urls are shown which navigate you to the historical results. Also a list is shown, which gives an overview of the executed tests. In this 
+case the executed tests were:
+
+\begin{itemize}
+\item TestApps: Build Checkout.
+\item TestApps: checkout projects.
+\item TestApps: build marc4j.
+\end{itemize}
+
+\noindent Below this list the graphs are shown with the results of the \emph{timeWrapper} test.
 
 \newpage
 \section{Discussion and Conclusion}
