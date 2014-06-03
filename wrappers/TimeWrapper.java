@@ -27,6 +27,7 @@ public class TimeWrapper{
 			ant.run();
 		}catch(Exception e){
 			System.out.println(e+"\n<br/>\n");
+			System.exit(-1);
 		}finally{
                 	duration = (double)((System.nanoTime()-startTime)/1000000000.0);
 			DecimalFormat df = new DecimalFormat("#.##");

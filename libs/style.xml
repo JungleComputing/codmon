@@ -102,11 +102,11 @@
 			<xsl:otherwise><a name="{@id}"/><xsl:value-of select="@name"/>: <font color="red">Error !</font>
 			    <table cellspacing="5"><tr><td>Code</td><td><xsl:value-of select="@returnValue"/></td></tr>
 				<tr><td>Output</td><td><xsl:copy-of select="."/></td></tr>
-				<tr><td valign="top">Last Mods</td><td><table border="1">
+				<!--<tr><td valign="top">Last Mods</td><td><table border="1">
 					    <tr bgcolor="#E5E5E5"><td align="center">User</td><td align="center">File</td></tr>
 					    <xsl:for-each select="modif">
 						<tr><td><xsl:value-of select="@user"/></td><td><xsl:value-of select="@file"/></td></tr>
-				</xsl:for-each></table></td></tr>
+				</xsl:for-each></table></td></tr>-->
 			    </table>
 			</xsl:otherwise>
 		    </xsl:choose>
