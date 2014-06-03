@@ -25,6 +25,9 @@
 
 		<!--Second build the marc4j project-->
 		<sensor id="build_marc4j_ok" name="TestApps: build marc4j" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../marc4j ant dist" scope="marc4j" scheduled="false" graph="true" fatal="true"/>
+		
+		<!--Run Marc4J unit tests-->
+		<sensor id="build_marc4j_ok" name="TestApps: build marc4j" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../marc4j ant test" scope="marc4j" scheduled="false" graph="true" fatal="true"/>
 	</onoff>
 
 	<graph>
