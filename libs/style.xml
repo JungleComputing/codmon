@@ -14,7 +14,7 @@
 
 
 	<html>
-	    <title>Ibis Shot, <xsl:value-of select="sensors/@config"/></title>
+	    <title>TestApps Shot, <xsl:value-of select="sensors/@config"/></title>
 	    <body link="#000000" alink="#000000" vlink="#000000">
 
 		<h1>Ibis Shot, <font color="grey"><xsl:value-of select="sensors/@config"/></font>: <xsl:value-of select="sensors/@date"/></h1>
