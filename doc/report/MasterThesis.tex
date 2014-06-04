@@ -98,7 +98,7 @@ the tests to a so called wrapper file. This will be discussed in more detail in 
 Section \ref{sec:codmon} first describes the original Codmon framework and the motivation for its development. It also identifies its shortcomings. In section \ref{sec:road}, \emph{The road to \project{}}, 
 we explain how we got to the final \project{} design. Section \ref{sec:Codmon2.0} describes the implementation of the \project{} project. 
 It starts with a general description of the project followed by a detailed explanation of the different modules of \project{}. In section \ref{test} we discuss some tests we've executed on different platforms 
-with \project{}. Next we will evaluate the choices and their consequences in section \ref{sec:evaluation}. In Section \ref{sec:future} we discuss the results based on section \ref{sec:evaluation}. We end 
+with \project{}. Next we evaluate the choices and their consequences in section \ref{sec:evaluation}. In Section \ref{sec:future} we discuss the results based on section \ref{sec:evaluation}. We end 
 this section with a brief discussion of related work.
 
 \newpage
@@ -522,7 +522,7 @@ In this section we describe how we have tested \project{} with an independent Ja
 
 \subsection{Test preparation}
 \label{test:prep}
-For testing \project{} we choose to use the \emph{Marc4j}\cite{marc4j} project. There were a few criteria for choosing a test project.
+For testing \project{} we chose to use the \emph{Marc4j}\cite{marc4j} project. There were a few criteria for choosing a test project:
 
 \begin{itemize}
 \item It must be a \emph{Java} project.
@@ -532,18 +532,23 @@ For testing \project{} we choose to use the \emph{Marc4j}\cite{marc4j} project. 
 
 \noindent To find a project that met the requirements described above, we browsed the \emph{Github}\cite{Github} repository. Eventually we found the \emph{Marc4j} project which satisfied our criteria.\\
 
-\noindent After choosing a suitable test project we had to decide on which platforms, we should test this software. To show that \project{} runs on multiple platforms we choose to test the \emph{Marc4j} 
+\noindent After choosing a suitable test project we had to decide on which platforms, we should test this software. To show that \project{} runs on multiple platforms we decided to test the \emph{Marc4j} 
 project both on a \emph{Windows 7}-environment and on a \emph{Ubuntu 11.10}-environment.\\
 
-\noindent Finally we decided to execute the tests by someone who's not involved in the project\footnote{The tests are executed by H.J. van Veenendaal.}.
+\noindent Now that we have chosen a test project and two different platforms to execute the tests, we had to decide which tests we should execute. To cover both functional and non-functional tests we 
+decided to use the TimeWrapper for the non-functional tests. This TimeWrapper measures the execution time of a piece of software. For the functional tests we used the JUnit tests of the \emph{Marc4j}-project 
+itself. To test an error situation we added one test that always fails.\\
+
+\noindent Finally we decided to have the tests executed by someone who's not involved in the \project{} project\footnote{The tests are executed by H.J. van Veenendaal.}.
 
 \subsection{Test execution}
 \label{test:exec}
 Before we could test the software, we first had to add the \emph{Marc4j} project to the init file (listing: \ref{list:test:init}) and to a sensor file (listing: \ref{list:test:sensor}). The tests that are 
-used in the sensor file, measures the build time of the CheckoutApplications project and both the checkout and build time of the \emph{Marc4j} project. There are no credentials needed for checking out the
- \emph{Marc4j} project so both the \emph{user} and \emph{pwd} fields in listing \ref{list:test:init} could be left empty.\\
+used in the sensor file measure both the checkout and build time of the \emph{Marc4j} project. There are no credentials needed for checking out the \emph{Marc4j} project so both the \emph{user} and 
+\emph{pwd} fields in listing \ref{list:test:init} could be left empty. The last sensor runs the Marc4j JUnit-tests.\\
 
-\noindent Now that we have configured the tests, they are ready for execution. The results are shown in the next section.
+\noindent Now that we have configured the tests, they are ready for execution. We decided to run the whole set twice. The first time they run without errors. The second time we've added a ErrorTest to 
+project's JUnit-test set.The results are shown in the next section.
 
 \lstset{
   captionpos=b,
@@ -576,15 +581,15 @@ used in the sensor file, measures the build time of the CheckoutApplications pro
 <?xml-stylesheet type="text/xsl" href="libs/style.xml"?>
 
 <sensors>
-	<onoff>
-		<!-- build checkout module-->
-		<sensor id="build_checkout_ok" name="TestApps: Build Checkout" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant" scope="checkOut" scheduled="false" graph="true" fatal="true" />
-		
+	<onoff>	
 		<!-- check out the  projects-->
 		<sensor id="checkout_ok" name="TestApps: checkout projects" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../local/checkoutApplications ant run"  scope="checkOut" scheduled="false" graph="true" fatal="true"/>
 	
 		<!--Build the Marc4j project-->
 		<sensor id="build_marc4j_ok" name="TestApps: build Marc4j" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../marc4j ant dist" scope="testApps" scheduled="false" graph="true" fatal="true"/>
+	
+		<!--Run Marc4J unit tests-->
+		<sensor id="test_marc4j_ok" name="TestApps: test  marc4j" cmd="java CODMON_HOME/codmon/wrappers/classes/TimeWrapper ../../../marc4j ant test" scope="marc4j" scheduled="false" graph="true" fatal="true"/>
 	</onoff>
 
 	<graph>
@@ -596,24 +601,32 @@ used in the sensor file, measures the build time of the CheckoutApplications pro
 \subsection{Test results}
 \label{test:results}
 During the execution of the tests we ran into one small issue. The Ant-connector expects the default build target to be named \emph{"main"}, in case of the \emph{Marc4j} project this was not the case. This 
-issue was easy to fix by adding the expected target to the \emph{cmd}-attribute of the sensor, but it something to keep in mind. Because the test executions on both the \emph{Windows} and the \emph{Ubuntu} 
-environment gave about the same results, we decided to show only the results of the \emph{Windows} environment. The results of the three tests described in section \ref{test:exec} are shown in figure 2. 
-This figure is a screenshot from a page, which is generated by the \project{} environment.\\
+issue was easy to fix by adding the expected target to the \emph{cmd}-attribute of the sensor, but is something to keep in mind. Because the test executions on the \emph{Windows} and the \emph{Ubuntu} 
+environment gave similar results, we only show the results of the \emph{Windows} environment. The results of the three tests described in section \ref{test:exec} are shown in figure 2 and 3. 
+Figure 2 shows the results of the run without errors on a screenshot from a browser page, which is generated by the \project{} environment. Figure 3 shows the same page, but in this case the ErrorTest is 
+included in the test set\\
 
 \begin{figure}[!ht]
-  \caption{\emph{Test results}}
+  \caption{\emph{Test results without errors}}
   \centering
-    \includegraphics[scale=0.5]{testResults}
+    \includegraphics[scale=0.5]{testResultsGood}
+\end{figure}
+
+
+\begin{figure}[!ht]
+  \caption{\emph{Test results including an error}}
+  \centering
+    \includegraphics[scale=0.5]{testResultsError}
 \end{figure}
 
 \newpage
-\noindent The page displays a few elements. On top of the page urls are shown which navigate you to the historical results. Also a list is shown, which gives an overview of the executed tests. In this 
-case the executed tests were:
+\noindent The page displays several elements. On top of the page urls are shown which navigate you to the historical results. As you can see in figure 3, in case of an error also the error message is 
+displayed. Finally a list is shown, giving an overview of the executed tests. In this case the executed tests were:
 
 \begin{itemize}
-\item TestApps: Build Checkout.
 \item TestApps: checkout projects.
 \item TestApps: build marc4j.
+\item TestApps: test marc4j.
 \end{itemize}
 
 \noindent Below this list the graphs are shown with the results of the \emph{timeWrapper} test.
@@ -629,13 +642,13 @@ into what we have a achieved and discuss the pros and cons of \project{}. \\
 \subsection{Multi-platform}
 \label{dis:multi}
 Let's first take a look at the multi-platform requirement. A software program or environment is considered to be multi-platform \emph{when it is compatible with or involving more than one type of computer or 
-operating system}\cite{def:multi}. This will say that \project{} must be able to run on multiple platforms and that its runtime behavior is the same on these platforms. To achieve this we built the whole 
+operating system}\cite{def:multi}. This means that \project{} must be able to run on multiple platforms and that its runtime behavior is the same on these platforms. To achieve this we built the whole 
 \project{} environment, in contrast to the Codmon framework, in the Java programming language. To connect the different Java components we made use of Ant. By doing this, at least we are sure \project{} 
 runs on multiple platforms\cite{Java}.\\
 
-\noindent That \project{} runs on multiple platforms doesn't mean that the runtime behavior is also the same on these platforms. To see that the runtime behavior is the same on these platforms we created 
-different images of \project{}, both Windows and Linux. Running the same tests in these images showed us that the runtime behavior is also the same on these platforms. So we can conclude that \project is 
-a \emph{multi-platform} environment \ref{dis:multi}.\\
+\noindent That \project{} runs on multiple platforms doesn't mean that the runtime behavior is also the same on these platforms. To see that the runtime behavior must be the same on these platforms we created 
+different images of \project{}, both Windows and Linux. Running the same tests in these images showed us that the runtime behavior is also the same on these platforms (See Section \ref{test}). So we can 
+conclude that \project is a \emph{multi-platform} environment.\\
 
 
 \subsection{Modularity}
@@ -646,7 +659,7 @@ modules like the checkout Applications module? Or is \project{} environment only
 \project{} environment is. When we summarize all the requirements we can see that the environment should be especially easy to use and maintain. This brings us nothing further. What do we mean by 
 maintenance? Are we talking about the \project{} core program or about adding (and removing) functionality and tests?
 
-\noindent When we only take the modularity regarding to usage and maintenance of the environment into account and not that of the \project{} core program, \project{} is also \emph{modular}. 
+\noindent When we only take the modularity regarding to usage and maintenance of the environment into account and not that of the \project{} core program, \project{} is also \emph{modular} (See Section \ref{test}). 
 When we take the \project{} into account it's only partially modular.\\
 
 \subsection{User-friendliness}
@@ -655,7 +668,7 @@ Where in section \ref{dis:multi} the question was straightforward and in section
 Where one person might say it is user-friendly when the environment is quick and easy to use, another person might say that an environment is only user-friendly when is has a nice and fancy user interface.\\
 
 \noindent Let's first look at how easy the \project{} environment is in its usage. The user can easily download a \project{} environment image and install this in VM-ware or Virtual box. When this is done, 
-\project{} is immediately ready for usage. In section \ref{imp:modular} we also showed how easy it is to add new tests and (utility) modules like the checkoutApplications module. So when we only take this into 
+\project{} is immediately ready for usage. In sections \ref{imp:modular} and \ref{test} we also showed how easy it is to add new tests and (utility) modules like the checkoutApplications module. So when we only take this into 
 account we can conclude that the \project{} environment is user friendly.\\
 
 \noindent Now let's take a look at the second issue. Earlier we've described mechanisms for both adding new software that should be tested, as well as adding tests to a sensor file. The only difficulty 
@@ -801,6 +814,7 @@ public class TimeWrapper{
 			ant.run();
 		}catch(Exception e){
 			System.out.println(e+"\n<br/>\n");
+			System.exit(-1);
 		}finally{
                 	duration = (double)((System.nanoTime()-startTime)/1000000000.0);
 			DecimalFormat df = new DecimalFormat("#.##");
