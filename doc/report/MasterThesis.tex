@@ -518,17 +518,21 @@ install and preconfigure \project{} in this image. When this is done successfull
 \newpage
 \section{Testing \project{}}
 \label{test}
-In this section we describe how we have tested \project{} with an independent Java project.
+In this section we describe how we have tested \project{} with an independent Java project. With the testing of an independent project int the \project{} environment, we want show that \project{} is a 
+\emp{multi-platform modular} test environment. The tests should also show that it is a \emph{user-friendly} environment. 
 
 \subsection{Test preparation}
 \label{test:prep}
-For testing \project{} we chose to use the \emph{Marc4j}\cite{marc4j} project. There were a few criteria for choosing a test project:
+To see if \project{} is a \emph{multi-platform} , \emph{modular} and \emph{user-friendly} test environment we tested an existing software project in the \project{} environment. There were a few criteria 
+for choosing a test project that we could use for this:
 
 \begin{itemize}
 \item It must be a \emph{Java} project.
 \item The project must contain a build.xml.
 \item It should be a 3\textsuperscript{rd} party project.
 \end{itemize} 
+
+chose to use the \emph{Marc4j}\cite{marc4j} project.
 
 \noindent To find a project that met the requirements described above, we browsed the \emph{Github}\cite{Github} repository. Eventually we found the \emph{Marc4j} project which satisfied our criteria.\\
 
