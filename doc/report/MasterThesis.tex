@@ -518,8 +518,8 @@ install and preconfigure \project{} in this image. When this is done successfull
 \newpage
 \section{Testing \project{}}
 \label{test}
-In this section we describe how we have tested \project{} with an independent Java project. With the testing of an independent project int the \project{} environment, we want show that \project{} is a 
-\emp{multi-platform modular} test environment. The tests should also show that it is a \emph{user-friendly} environment. 
+In this section we describe how we the tested \project{} environment with an independent software project. With the testing of an independent project in the \project{} environment, we wanted to show that \project{} is a 
+\emph{multi-platform}, \emph{modular} and \emph{user-friendly} test environment.
 
 \subsection{Test preparation}
 \label{test:prep}
@@ -530,16 +530,18 @@ for choosing a test project that we could use for this:
 \item It must be a \emph{Java} project.
 \item The project must contain a build.xml.
 \item It should be a 3\textsuperscript{rd} party project.
+\item It should contain a set of Junit tests.
 \end{itemize} 
 
-chose to use the \emph{Marc4j}\cite{marc4j} project.
+\noindent To find a project that met these requirements, we browsed the \emph{Github}\cite{Github} repository. Eventually we found the \emph{Marc4j}\cite{marc4j} project which satisfied our criteria.\\
 
-\noindent To find a project that met the requirements described above, we browsed the \emph{Github}\cite{Github} repository. Eventually we found the \emph{Marc4j} project which satisfied our criteria.\\
-
-\noindent After choosing a suitable test project we had to decide on which platforms, we should test this software. To show that \project{} runs on multiple platforms we decided to test the \emph{Marc4j} 
+\noindent After choosing a suitable test project we had, to show that \project{} is \emph{multi-platform}, to decide on which platforms we should test this software. We decided to test the \emph{Marc4j} 
 project both on a \emph{Windows 7}-environment and on a \emph{Ubuntu 11.10}-environment.\\
 
-\noindent Now that we have chosen a test project and two different platforms to execute the tests, we had to decide which tests we should execute. To cover both functional and non-functional tests we 
+
+\noindent Now that we have chosen a test project and two different platforms to execute the tests, we had to decide which tests we should execute. 
+
+To cover both functional and non-functional tests we 
 decided to use the TimeWrapper for the non-functional tests. This TimeWrapper measures the execution time of a piece of software. For the functional tests we used the JUnit tests of the \emph{Marc4j}-project 
 itself. To test an error situation we added one test that always fails.\\
 
