@@ -539,13 +539,14 @@ for choosing a test project that we could use for this:
 project both on a \emph{Windows 7}-environment and on a \emph{Ubuntu 11.10}-environment.\\
 
 
-\noindent Now that we have chosen a test project and two different platforms to execute the tests, we had to decide which tests we should execute. 
-
-To cover both functional and non-functional tests we 
+\noindent Now that we have chosen a test project and two different platforms to execute the tests, we had to decide which tests we should execute. To cover both functional and non-functional tests we 
 decided to use the TimeWrapper for the non-functional tests. This TimeWrapper measures the execution time of a piece of software. For the functional tests we used the JUnit tests of the \emph{Marc4j}-project 
 itself. To test an error situation we added one test that always fails.\\
 
-\noindent Finally we decided to have the tests executed by someone who's not involved in the \project{} project\footnote{The tests are executed by H.J. van Veenendaal.}.
+\noindent Finally we decided to have the tests executed by someone who's not involved in the \project{} project\footnote{The tests are executed by H.J. van Veenendaal.}.\\
+
+\noindent In the next section we show, by configuring \project{} for the \emph{Marc4J} tests, that it is also \emph{modular} and 
+\emph{user-friendly}.\\
 
 \subsection{Test execution}
 \label{test:exec}
@@ -553,8 +554,8 @@ Before we could test the software, we first had to add the \emph{Marc4j} project
 used in the sensor file measure both the checkout and build time of the \emph{Marc4j} project. There are no credentials needed for checking out the \emph{Marc4j} project so both the \emph{user} and 
 \emph{pwd} fields in listing \ref{list:test:init} could be left empty. The last sensor runs the Marc4j JUnit-tests.\\
 
-\noindent Now that we have configured the tests, they are ready for execution. We decided to run the whole set twice. The first time they run without errors. The second time we've added a ErrorTest to 
-project's JUnit-test set.The results are shown in the next section.
+\noindent Now that we have configured the tests, they are ready for execution. We decided to run the whole set twice on both the \emph{Windows} and \emph{Ubuntu} environment. On both environments we used 
+the same init and sonsor file. The first time they ran without errors. The second time we've added a ErrorTest to project's JUnit-test set.The results are shown in the next section.\\
 
 \lstset{
   captionpos=b,
