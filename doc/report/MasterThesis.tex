@@ -519,14 +519,14 @@ install and preconfigure \project{} in this image. When this is done successfull
 \newpage
 \section{Testing \project{}}
 \label{test}
-In this section we describe how we the tested \project{} environment with an independent software project. With the testing of an independent project in the \project{} environment, we wanted to show that 
-\project{} is a \emph{multi-platform}, \emph{modular} and \emph{user-friendly} test environment.\\
+Our goal was to show that \project{} is a \emph{multi-platform}, \emph{modular} and \emph{user-friendly} test environment. This chapter described the tests that were performed to assess this. We did this 
+by testing an independent project in the \project{} environment.\\
 
-\noindent First to show that \project{} is \emph{multi-platform}, \project{} must be able to execute the same tests, with the same configuration files on different platforms. Also the results on these different 
+\noindent To show that \project{} is \emph{multi-platform}, \project{} must be able to execute the same tests, with the same configuration files on different platforms. Also the results on these different 
 platforms must be the same.\\
 
 
-\noindent Next to this we want to show that \project{} is modular. There are two different kinds of modules for the \project{} environment. First there are functional modules like the checkout module (See 
+\noindent Next to this we wanted to show that \project{} is modular. There are two different kinds of modules for the \project{} environment. First there are functional modules like the checkout module (See 
 section \ref{imp:checkout}). Next to this projects and its associated tests, that are tested on the \project{} environment, are also modules. To show that \project{} is \emph{modular} it must be able to 
 handle both kind of modules. To show this we tested an arbitrary project, from an external repository, and ran its associated tests in the \project{} environment. This project is fetched by using the 
 checkout module. By doing it this way, both the functional and non functional modules are tested.\\
@@ -536,8 +536,8 @@ tests to a sensor file. Another aspect of user-friendliness is that the results 
 
 \subsection{Test preparation}
 \label{test:prep}
-To show that \project{} is a \emph{multi-platform}, \emph{modular} and \emph{user-friendly} test environment we tested an existing software project in the \project{} environment. There were a few criteria 
-for choosing a test project that we could use for this:
+To show that \project{} is a \emph{multi-platform}, \emph{modular} and \emph{user-friendly} test environment we tested an existing software project in the \project{} environment. Tthere were a few 
+requirements for the test project:
 
 \begin{itemize}
 \item It must be a \emph{Java} project.
@@ -558,8 +558,7 @@ itself. To test an error situation we added one test that always fails.\\
 
 \noindent Finally we decided to have the tests executed by someone who's not involved in the \project{} project\footnote{The tests are executed by H.J. van Veenendaal.}.\\
 
-\noindent In the next section we show, by configuring \project{} for the \emph{Marc4J} tests, that it is also \emph{modular} and 
-\emph{user-friendly}.\\
+\noindent In the next section we show, by configuring \project{} for the \emph{Marc4J} tests, that it is \emph{modular} and \emph{user-friendly}.\\
 
 \subsection{Test execution}
 \label{test:exec}
@@ -568,11 +567,12 @@ used in the sensor file measure both the checkout and build time of the \emph{Ma
 \emph{pwd} fields in listing \ref{list:test:init} could be left empty. The last sensor runs the Marc4j JUnit-tests.\\
 
 \noindent Now that we have configured the tests, they are ready for execution. We decided to run the whole set twice on both the \emph{Windows} and \emph{Ubuntu} environment. On both environments we used 
-the same init and sensor file. The first time they ran without errors. The second time we've added a ErrorTest to project's JUnit-test set.The results are shown in the next section.\\
+the same initialization and sensor files. The first time we ran the tests with the original JUnit-test set. The second time we've added a ErrorTest to project's JUnit-test set. The results are shown in 
+the next section.\\
 
 \lstset{
   captionpos=b,
-  caption = \emph{Initialization file for testing the Marc4j project},
+  caption = \emph{Initialization file for testing the Marc4j project.},
   label =list:test:init
 }
 \begin{code}[frame=shadowbox, language=XML,showstringspaces=false]
@@ -593,7 +593,7 @@ the same init and sensor file. The first time they ran without errors. The secon
 
 \lstset{
   captionpos=b,
-  caption = \emph{Sensor file for testing the Marc4j project},
+  caption = \emph{Sensor file for testing the Marc4j project.},
   label =list:test:sensor
 }
 \begin{code}[frame=shadowbox, language=XML,showstringspaces=false]
@@ -628,16 +628,16 @@ tests described in section \ref{test:exec} are shown in figure 2 and 3. Both fig
 environment.  Figure 2 shows a test run without errors, while figure 3 show a test run with an error.
 
 \begin{figure}[!ht]
-  \caption{\emph{Test results without errors}}
   \centering
     \includegraphics[scale=0.5]{testResultsGood}
+\caption{\emph{Test results without errors: The graphs represent the duration times of the tests, measured by the TimeWrapper.}}
 \end{figure}
 
 
 \begin{figure}[!ht]
-  \caption{\emph{Test results including an error}}
   \centering
     \includegraphics[scale=0.5]{testResultsError}
+  \caption{\emph{Test results including an error for the Marc4J test.}}
 \end{figure}
 
 \newpage
@@ -650,7 +650,7 @@ tests were:
 \item TestApps: test marc4j.
 \end{itemize}
 
-\noindent In figure 2 all three tests ran without errors. This is indicated by the \emph{green Succes!}. Below this the graphs are shown with the results of the \emph{timeWrapper} test. These graphs show 
+\noindent In figure 2 all three tests ran without errors. This is indicated by the green Succes!. Below this the graphs are shown with the results of the \emph{timeWrapper} test. These graphs show 
 the execution time of the tests.\\
 
 \noindent Figure 3 shows the same page, but in this case the ErrorTest is included in the test set. We executed the same set of tests as shown in figure 2, only in this case we added an error test to the 
