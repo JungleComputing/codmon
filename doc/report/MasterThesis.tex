@@ -519,7 +519,7 @@ install and preconfigure \project{} in this image. When this is done successfull
 \newpage
 \section{Testing \project{}}
 \label{test}
-Our goal was to show that \project{} is a \emph{multi-platform}, \emph{modular} and \emph{user-friendly} test environment. This chapter described the tests that were performed to assess this. We did this 
+Our goal was to show that \project{} is a \emph{multi-platform}, \emph{modular} and \emph{user-friendly} test environment. This chapter describes the tests that were performed to assess this. We did this 
 by testing an independent project in the \project{} environment.\\
 
 \noindent To show that \project{} is \emph{multi-platform}, \project{} must be able to execute the same tests, with the same configuration files on different platforms. Also the results on these different 
@@ -527,8 +527,8 @@ platforms must be the same.\\
 
 
 \noindent Next to this we wanted to show that \project{} is modular. There are two different kinds of modules for the \project{} environment. First there are functional modules like the checkout module (See 
-section \ref{imp:checkout}). Next to this projects and its associated tests, that are tested on the \project{} environment, are also modules. To show that \project{} is \emph{modular} it must be able to 
-handle both kind of modules. To show this we tested an arbitrary project, from an external repository, and ran its associated tests in the \project{} environment. This project is fetched by using the 
+section \ref{imp:checkout}). Next to this, projects and its associated tests, that are tested on the \project{} environment, are also modules. To show that \project{} is \emph{modular} it must be able to 
+handle both kinds of modules. To show this we tested an arbitrary project, from an external repository, and ran its associated tests in the \project{} environment. This project is fetched by using the 
 checkout module. By doing it this way, both the functional and non functional modules are tested.\\
 
 \noindent Finally to show that \project{} is \emph{user-friendly} it must be able to test an arbitrary project on the \project{} environment, by only adding this project to the init file and add the desired 
@@ -536,7 +536,7 @@ tests to a sensor file. Another aspect of user-friendliness is that the results 
 
 \subsection{Test preparation}
 \label{test:prep}
-To show that \project{} is a \emph{multi-platform}, \emph{modular} and \emph{user-friendly} test environment we tested an existing software project in the \project{} environment. Tthere were a few 
+To show that \project{} is a \emph{multi-platform}, \emph{modular} and \emph{user-friendly} test environment we tested an existing software project in the \project{} environment. There were a few 
 requirements for the test project:
 
 \begin{itemize}
@@ -546,7 +546,7 @@ requirements for the test project:
 \item It should contain a set of Junit tests.
 \end{itemize} 
 
-\noindent To find a project that met these requirements, we browsed the \emph{Github}\cite{Github} repository. Eventually we found the \emph{Marc4j}\cite{marc4j} project which satisfied our criteria.\\
+\noindent To find a project that met these requirements, we browsed the \emph{Github}\cite{Github} repository. We chose the \emph{Marc4j}\cite{marc4j} project which satisfied our criteria.\\
 
 \noindent After choosing a suitable test project we had, to show that \project{} is \emph{multi-platform}, to decide on which platforms we should test this software. We decided to test the \emph{Marc4j} 
 project both on a \emph{Windows 7}-environment and on a \emph{Ubuntu 11.10}-environment.\\
@@ -620,7 +620,7 @@ the next section.\\
 \newpage
 \subsection{Test results}
 \label{test:results}
-During the execution of the tests we ran into one small issue. The Ant-connector expects the default build target to be named \emph{"main"}, in case of the \emph{Marc4j} project this was not the case. This 
+During the execution of the tests we ran into one small issue. The Ant-connector expects the default build target to be named \emph{"main"}, and in the \emph{Marc4j} project this was not the case. This 
 issue was easy to fix by adding the expected target to the \emph{cmd}-attribute of the sensor, but is something to keep in mind.\\
 
 \noindent Because the test executions on the \emph{Windows} and the \emph{Ubuntu} environment gave similar results, we only show the results of the \emph{Windows} environment. The results of the three 
@@ -664,8 +664,8 @@ arbitrary project on the \project{} environment.\\
 \noindent The tests were executed on two different platforms (see section \ref{test:exec}). Because the tests gave the same results on both platforms we can say that according to these tests \project{} is 
 a \emph{multi-platform} environment.\\
 
-\noindent In the tests we used two different modules, namely the functional checkout module and the non-functional,to be tested \emph{Marc4J} module. So according to this test we can say that \project{} is a 
-modular environment as well.\\
+\noindent In the tests we used two different modules, namely the functional checkout module and the non-functional, to be tested \emph{Marc4J} module. Both modules appeared to work well, so according to 
+this test we can say that \project{} is a modular environment as well.\\
 
 \noindent Finally we wanted to show that \project{} is \emph{user-friendly} as well. To test the \emph{Marc4J} project the user added the project to the initialization file and the tests to the sensor file. 
 It was not necessary for the user to know anything about \project{}'s internal mechanisms. Also the test results were nicely displayed on a browser page. According to this we can say that \project{} is a 
