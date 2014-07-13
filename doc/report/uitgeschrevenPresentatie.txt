@@ -67,3 +67,47 @@ Codmon consists of two parts.  First there is the part that controls codmon and 
 Codmon core program.
 
 ---------------------------------------Slide 12 --------------------------- 
+This figure gives an schematic view of Codmon. On the top you can see the Codmon core program
+and at the bottom the part that controls Codmon. The Controlling part is outside of codmon so it
+can changed without having to reinstall Codmon.
+
+---------------------------------------Slide 13 --------------------------- 
+Let's first take a look at the part that controld Codmon. As you could see codmon is controlled bij a 
+sensor, which is represented by a sensor file. This sensor file is a XML-file which consists out of
+multiple serors. These sensors describe the tests that will run and the order in which they will run.
+The tests itself are implemented by a wrapper. Which is a small PERL program.
+
+---------------------------------------Slide 14 --------------------------- 
+Here you can see an example of such a sensor. In this case the test is represented by a time wrapper which
+meassures the time that is costs to execute the csvup. shell script. Because graph is set true also a graph
+with the execution times will be generated.
+
+---------------------------------------Slide 15 ---------------------------
+Now that youve seen a little bit of the Controlling part of Codmon it's time to take a short look at
+the codmon core-program. The codmon coreprogram is responsible for  executing the different sensors,
+collecting and storing of the results and creating the grpahes (if necessary). It als raises an alarm
+in care of a failure or a drop in the performance of a test. 
+
+---------------------------------------Slide 16 ---------------------------
+So on first sight it codmon looks quite a nice and usefull testing framework, but when we take a look
+at our goal. namely designing a multi-platform, mudular and user-friendly test environment there are some
+serious flaws. Lets first take a look at the multi-platform requirement. Codmon consists of different
+platform dependent languages like perl scripts and shell scripts. So it is defenitely not multi-platform.
+
+---------------------------------------Slide 17 ---------------------------
+When we take a look at the modularity requirement. Codmon is built on lots of different scripts and languages
+so for a user it is difficult to add new modules or tests. He must be able to deal with all those languages.
+So although  it is possible to add new modules it is not working in a way that satisfies our requirements.
+
+---------------------------------------Slide 18 ---------------------------
+The last requirement was user-friendliness. As we saw on the slide before it is difficult to add new 
+modules or tests to the Codmon framework. Also it requires al lot of configuraten before one is
+able to run codmon. It also supports only 1 machine, namely the Das-2 and also it supports only
+Ibis projects. So it's difficult to call Codmon user-friendly.
+
+---------------------------------------Slide 19 ---------------------------
+So before talking about our new solution, called Codmon-VM. lets refresh our mind and take a look
+at our goal again. Our goal was to design a multi-platform, modular and user-friendly test environment.
+
+---------------------------------------Slide 20 ---------------------------
+
