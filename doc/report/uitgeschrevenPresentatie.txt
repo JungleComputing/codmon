@@ -9,4 +9,12 @@ for Virtual Machine.
 
 ---------------------------------------Slide 2------------------
 
- 
+I'll start this presentation with a short introduction. Then I'll start with the the
+original Codmon framework. I'll tell how Codmon works and why it is nog sufficient for
+our purposus. After this I'll explain how Codmon-VM is designed and build followed by
+How Codmon-VM works in practice. Next i'll tell someting about the testing of Codmon-VM
+and finally ill discuss Codmon-VM and give my conclussion about it. After this there is 
+some time left for questions, but if there are questions during the presentation feel
+free to ask them.
+
+---------------------------------------Slide 3 --------------------------- 
