@@ -110,4 +110,49 @@ So before talking about our new solution, called Codmon-VM. lets refresh our min
 at our goal again. Our goal was to design a multi-platform, modular and user-friendly test environment.
 
 ---------------------------------------Slide 20 ---------------------------
+Lets first take a look in more detail what we mean by this. Multi-platform will say that the same source,
+without making any modifications,can compile and run on multiple platforms. Also the program must show
+the same runtime behaviour on all the platforms.
 
+---------------------------------------Slide 21 ---------------------------
+To Achieve this we diceded to write all the modules in Java in stead of in different platform dependent 
+languages. To connect a Java wrapper with a Java program that is under test we used ant. doing it this way
+it is not necessary that a wrapper knows about a the program thats under test and vice versa.
+
+---------------------------------------Slide 22 ---------------------------
+Here you can see how a sensor will like if we do it this way. The cmd in a sensor will always look the same now
+Java follewed by the name of the wrapper that is used followed by a relative path to a build.xml followed by the ant
+target that codmon must execute. This ant target can also be a java program or a set of JUnit tests.
+
+---------------------------------------Slide 23 ---------------------------
+The second requirement was modularity. Modularity will say that it must be possible for users to easily add new
+components to the Codmon-VM environment.
+
+---------------------------------------Slide 24 ---------------------------
+There are different kinds of modularity. The most obvious modules are the functional modules. examples
+of these are the Start-up module, which is resposible for starting Codmon-VM and the Checkout-module, which
+is responsible for dealing with the different version control systems. The checkout module itself is also
+modular, which means that it it easy to built in support for other version control systems. The tests can also
+been seen as modules. A user can write a new wrappes and easily use it in the sensor file. The same true for
+the software that is under test.
+
+---------------------------------------Slide 25 ---------------------------
+The last requirement was User-friendliness. This means that we dont want to bother the users of the Codmon-VM 
+environment with its internal mechanisms or with the configuration of the environment.
+
+---------------------------------------Slide 26 ---------------------------
+To adress this requirement we provided a set of pre-configured Codmon-VM images. So the only things a user has
+to do before it can test its software are: Download one or more of these Codmon-VM images, install them in VM-ware
+or in virtual box. Add the details of the software thatis to be tested to the initialization file and create a
+sensor file.
+
+---------------------------------------Slide 27 ---------------------------
+Lets take a look at how this works in practice. Download and install a Codmon-VM image. Create an initialization file.
+This  file contains information about the software that a user wants to test. Most important are the repository location
+and the version control information.
+
+---------------------------------------Slide 28 ---------------------------
+When the initialization file is ready, it's time to create a sensor file. This sensor file describes a simplte test
+that meassures the checkout time of the projects describes in the initialization file.
+
+---------------------------------------Slide 29 ---------------------------
