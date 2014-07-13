@@ -153,6 +153,15 @@ and the version control information.
 
 ---------------------------------------Slide 28 ---------------------------
 When the initialization file is ready, it's time to create a sensor file. This sensor file describes a simplte test
-that meassures the checkout time of the projects describes in the initialization file.
+that meassures the checkout time of the projects describes in the initialization file. When this is done Codmon-VM
+is started by a call to the Startup-Module.
 
 ---------------------------------------Slide 29 ---------------------------
+Now that we have seen how Codmon-VM works it's time to talk about the tests we have done to see if the Codmon-VM really 
+is a multi-platform, modular and user-friendly test environment. Before te actual test could start we had to decide
+how we wanted to set-up the test. We decided to test Codmon-VM with an independent software project. We used the Marc4j 
+project for this. The only requirents for the test project were. Ie must be written in Java and it must contain Junit tests.
+The project must be tested ond different platforms. We choose to test it on a Linux environment and on a Windows environment.
+Also it must be tested by an independent tester. So we didnt execute the tests ourselves.
+
+---------------------------------------Slide 30 ---------------------------
