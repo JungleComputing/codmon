@@ -30,3 +30,21 @@ configuring the test environments.
  configuration of the test environment on these platforms”.
 
 ---------------------------------------Slide 5 --------------------------- 
+Offcourse there are already different existing test frameworks and environments available.
+To test different units of Java source code there is Junit and to build your software and 
+execute Unit tests there are Hudson and Jenkins available. 
+
+---------------------------------------Slide 6 --------------------------- 
+All of them have their advantages and disadvantages. With Junit it is very easy to test the
+functionlity of of the different units of source code. But a problem of JUnit is that it
+doesn't support out of the box performance tests. Neither can it checkout, build or deploy 
+the software.
+
+ ---------------------------------------Slide 7 --------------------------- 
+When we take a look at Hudson or Jenkins, which are almost the same, we see that they have
+a nice and user-friendly user interface. It can perform perfromance and deployment tests. But
+although it can deal with multiple platforms it is not platform independent althought. It makes
+extensivly use of shell scripts (or batch files) to execute its tasks, so it has to know in
+advance on which platform it is executing its jobs. 
+
+ ---------------------------------------Slide 8 --------------------------- 
