@@ -1,0 +1,12 @@
+----------------------------------------Slide 1----------------
+
+Hello my name is Berend van Veenendaal.
+
+Today I'll give my master Thesis' presentation. The subject of this presentation is: 
+Codmon-VM: A Multi-platform modular test environment. The name Codmon-VM consists of
+2 parts. Codmon which stands for Code Monitoring and the addition VM , which stands
+for Virtual Machine. 
+
+---------------------------------------Slide 2------------------
+
+ 
