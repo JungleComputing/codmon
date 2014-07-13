@@ -165,3 +165,38 @@ The project must be tested ond different platforms. We choose to test it on a Li
 Also it must be tested by an independent tester. So we didnt execute the tests ourselves.
 
 ---------------------------------------Slide 30 ---------------------------
+About the test execution itself isn't much to say. It's just executing one command. So lets take a look at the test results
+with in our mind the requirements. The tests showed the same behaviour on both platforms. So for this test we can say
+Codmon-VM is multi-platform. Different (new) modules are used like the Start-up module, The checkout module, The time wrapper
+and the Marc4j project including its own JUnit tests. So for this test we can also say that Codmon-VM is modular. Because
+Codmon-VM was easy to use for an external we can say for now that it is also user-friendly.
+
+---------------------------------------Slide 31 ---------------------------
+Now That we have discussed the test results it's time for a more general discussion followed by the conclusion. Lets
+first take a look at the multi-platform requirement. Codmon-VM is built in a platform independent language and had the
+same runtime behaviour on different platforms. So yes we can say that Codmon-VM is multi-platform.
+
+---------------------------------------Slide 32 ---------------------------
+The second requirement was Modularity. This is a less straight forward requirement than the multi-platform requirement.
+When we take a look at the functional modules, the wrappers or the softwareunder test we can say that Codmon-VM is
+modular. But what about the Codmon-VM core program. When we that that also into account it isn't modular.
+
+---------------------------------------Slide 33 ---------------------------
+So when we look at these 4 points we can conclude that Codmon-VM is only Partially modular.
+
+---------------------------------------Slide 34 ---------------------------
+The last requirement: User-friendliness is even worse to determine. This is because it is a very subjective
+qualification because it depends on a user's preferences. What does a user think about user-friendlyness.
+Must it be easy in use? Or is a nice and fancy user interface very important.
+
+---------------------------------------Slide 35 ---------------------------
+Lets take a look at what we have done to make Codmon-VM a user friendly test environment. Pre configured environments
+are provided. As we have seen with the Marc4J project Codmon-VM is als easy in use. On the orher side a user has to 
+edit manualy xml files. It would be much more user-friendly if this could be done with a nice user-interface.
+
+---------------------------------------Slide 36 ---------------------------
+Taken this into account we can say that Codmon-VM made a good start regarding user-friendliness.
+
+---------------------------------------Slide 37 ---------------------------
+Are there any questions?
+	
