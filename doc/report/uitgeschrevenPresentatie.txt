@@ -48,3 +48,22 @@ extensivly use of shell scripts (or batch files) to execute its tasks, so it has
 advance on which platform it is executing its jobs. 
 
  ---------------------------------------Slide 8 --------------------------- 
+ So the big question is: Is it possible to design a multi-platform, modular and user-friendly 
+ test environment?  Later in this presentation we will answer this question.
+ 
+---------------------------------------Slide 9 --------------------------- 
+ But first things first, lets start at the beginning. As a starting point we took the Codmon
+ framwork. Codon is a testframwork for testing and monitoring IBIS applications on the DAS-2
+ computer and was built by Francois Lesuer in 2005.
+ 
+---------------------------------------Slide 10 --------------------------- 
+ 
+Codmon is able to both perform functional as well as perfromance tests. It represents its results
+on a webpage and in case of an error or a drop in performance an alarm is raised. It does this by
+sending an email to the last contributer of the software.
+
+---------------------------------------Slide 11 --------------------------- 
+Codmon consists of two parts.  First there is the part that controls codmon and second there is the
+Codmon core program.
+
+---------------------------------------Slide 12 --------------------------- 
