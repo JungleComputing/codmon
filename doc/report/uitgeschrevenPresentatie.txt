@@ -18,3 +18,15 @@ some time left for questions, but if there are questions during the presentation
 free to ask them.
 
 ---------------------------------------Slide 3 --------------------------- 
+Ok letst start with some background information. Why was it necessary to design Codmon-VM?
+These days software becomes more and more complex, So the testing of the software becomes 
+more and more importand. Many of the problems of software are related to a lack of good 
+testing. Often it is only tested on a single platform. Als a lot of effort is put in 
+configuring the test environments. 
+
+---------------------------------------Slide 4 --------------------------- 
+ “So, one of the challenges of software testing is to make sure that the software behaves in 
+ the same way on different platforms, without spending too much time on the installation and 
+ configuration of the test environment on these platforms”.
+
+---------------------------------------Slide 5 --------------------------- 
